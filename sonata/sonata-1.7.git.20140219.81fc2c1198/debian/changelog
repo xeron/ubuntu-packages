@@ -1,3 +1,9 @@
+sonata (1.7.git.20140219.81fc2c1198-3) trusty; urgency=low
+
+  * Fix python selection
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Sat, 01 Mar 2014 20:55:17 +0400
+
 sonata (1.7.git.20140219.81fc2c1198-2) trusty; urgency=low
 
   * Fix cleanup dh rule.
