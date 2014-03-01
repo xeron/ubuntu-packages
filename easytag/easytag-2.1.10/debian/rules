@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+
+LDFLAGS += -Wl,--as-needed
+
+%:
+	dh $@ --with=autoreconf
+
+override_dh_autoreconf:
+	mkdir -p m4
+	dh_autoreconf
+
+override_dh_install:
+	dh_install
+	# The changelog is installed in /usr/share/doc/easytag/changelog.gz
+	[ ! -f debian/easytag/usr/share/easytag/ChangeLog ] || rm debian/easytag/usr/share/easytag/ChangeLog

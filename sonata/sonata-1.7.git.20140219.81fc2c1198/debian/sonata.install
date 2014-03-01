@@ -1,0 +1,5 @@
+usr/bin
+usr/share
+usr/lib/python*/*-packages/Sonata*
+usr/lib/python*/*-packages/sonata
+debian/sonata.xpm usr/share/pixmaps

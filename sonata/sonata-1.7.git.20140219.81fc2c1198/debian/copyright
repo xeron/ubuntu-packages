@@ -1,0 +1,35 @@
+This package was debianized by Michal Čihař <nijel@debian.org> on
+Fri, 20 Oct 2006 11:51:51 +0200.
+
+It was downloaded from <http://sonata.berlios.de/>
+
+Upstream Author: Scott Horowitz <stonecrest@gmail.com>
+
+Copyright: Copyright 2006 - 2008 Scott Horowitz <stonecrest@gmail.com>
+
+License:
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this package; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL-3'.
+
+The Debian packaging is Copyright © 2006 - 2009, Michal Čihař
+<nijel@debian.org> and is licensed under the GPL, see above.
+
+mmkeys extesions has different copyright holders (but is still under GPL):
+ * Copyright (C) 2004 Lee Willis <lee@leewillis.co.uk>
+ *    Borrowed heavily from code by Jan Arne Petersen <jpetersen@uni-bonn.de>
+ * Copyright 2004 Joe Wreschnig.

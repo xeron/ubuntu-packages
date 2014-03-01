@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+
+PY3REQUESTED := $(shell py3versions -r)
+PY3DEFAULT := $(shell py3versions -d)
+PYTHON3 := $(filter-out $(PY3DEFAULT),$(PY3REQUESTED)) python3
+
+%:
+	# Adding the required helpers
+	dh $@ --with python3
+
+override_dh_auto_clean:
+	set -ex; for python in $(PYTHON3); do \
+		$$python setup.py clean; \
+	done
+	rm -rf build/
+	rm -rf sonata/share/locale
+	rm -rf sonata/__pycache__
+
+override_dh_auto_build:
+	set -ex; for python in $(PYTHON3); do \
+		$$python setup.py build; \
+	done
+
+override_dh_auto_install:
+	set -ex; for python in $(PYTHON3); do \
+		$$python setup.py install --install-layout=deb --root=debian/tmp; \
+	done
+	rm -rf $(CURDIR)/debian/sonata/usr/share/sonata

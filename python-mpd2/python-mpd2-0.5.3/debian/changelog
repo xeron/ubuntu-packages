@@ -1,0 +1,45 @@
+python-mpd2 (0.5.3-1) trusty; urgency=low
+
+  * Update upstream.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Sat, 01 Mar 2014 15:29:45 +0400
+
+python-mpd2 (0.5.1-1) unstable; urgency=low
+
+  * Imported Upstream version 0.5.1
+
+ -- Geoffroy Youri Berret <efrim@azylum.org>  Wed, 10 Apr 2013 20:49:06 +0200
+
+python-mpd2 (0.5.0-1) unstable; urgency=low
+
+  * Imported Upstream version 0.5.0
+  * Fixed watch file URL and strings patterns
+
+ -- Geoffroy Youri Berret <efrim@azylum.org>  Sat, 02 Feb 2013 19:30:22 +0100
+
+python-mpd2 (0.4.3-1) unstable; urgency=low
+
+  * Imported Upstream version 0.4.3
+
+ -- Geoffroy Youri Berret <efrim@azylum.org>  Sat, 21 Jul 2012 17:02:00 +0200
+
+python-mpd2 (0.4.2-1) unstable; urgency=low
+
+  * Enhanced watch file with filenamemangle
+  * Imported Upstream version 0.4.2
+
+ -- Geoffroy Youri Berret <efrim@azylum.org>  Mon, 09 Apr 2012 21:13:54 +0200
+
+python-mpd2 (0.4.1-2) unstable; urgency=low
+
+  * Align licence package with upstream's LGPL-3+
+  * Some correction in control file.
+    Thanks to debian-python@ for help and advices
+
+ -- Geoffroy Youri Berret <efrim@azylum.org>  Wed, 21 Mar 2012 20:48:36 +0100
+
+python-mpd2 (0.4.1-1) unstable; urgency=low
+
+  * Initial release. (Closes: #664618)
+
+ -- Geoffroy Youri Berret <efrim@azylum.org>  Tue, 20 Mar 2012 12:49:59 +0100

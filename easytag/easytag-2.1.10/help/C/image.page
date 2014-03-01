@@ -1,0 +1,54 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="task"
+      id="image">
+
+  <info>
+    <link type="guide" xref="index#image"/>
+    <link type="guide" xref="tag"/>
+    <revision pkgversion="2.1.9" date="2013-05-20" status="review"/>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@googlemail.com</email>
+    </credit>
+
+    <desc>Add images, such as cover art to the tag</desc>
+
+  </info>
+
+  <title>Add an image to a file</title>
+
+  <p>Most audio file formats support an <sys>image</sys> tag field which can
+  be used to add cover art and other related images to the audio file.</p>
+
+  <p>To add an image to the file, select the file, open the
+  <gui style="tab">Images</gui> tab and press the <gui style="button">Add
+  images to the tag</gui> button. Select the image and confirm your
+  selection.</p>
+
+  <p>Once the image is uploaded, it will be automatically marked as a front
+  cover and the description will be the filename. To change the
+  <gui>type</gui> and <gui>description</gui>, press the
+  <gui style="button">Edit image properties</gui> button. Once you have made
+  the changes, press <gui style="button">OK</gui> to apply the changes.</p>
+
+  <note>
+    <p>Your changes will not be saved automatically.</p>
+  </note>
+
+  <p>You can tag multiple files with the same image by selecting them in the
+  list of files, then selecting the image and pressing the
+  <gui style="button">Tag selected files with these images</gui> button. You
+  will need to save these changes to write them to the files.</p>
+
+  <p>You can work with more than one image at a time by selecting those images
+  before you edit, apply, save to file or delete them.</p>
+
+  <note>
+    <p>Not all files support the image field. <sys>mp4</sys> files are one
+    example of files that do not support this field.</p>
+  </note>
+</page>

@@ -1,0 +1,39 @@
+Source: python-mpd2
+Section: python
+Priority: extra
+Maintainer: mpd maintainers <pkg-mpd-maintainers@lists.alioth.debian.org>
+Uploaders: Geoffroy Youri Berret <efrim@azylum.org>
+Build-Depends: debhelper (>= 9),
+               python3-setuptools,
+               python-setuptools,
+               python-all (>= 2.6.6-3~),
+               python3-all
+Standards-Version: 3.9.3
+X-Python-Version: >= 2.6
+X-Python3-Version: >= 3.0
+Vcs-Git: git://git.kaliko.me/python-mpd-debian-packaging.git
+Vcs-Browser: http://git.kaliko.me/?p=python-mpd-debian-packaging.git
+Homepage: https://github.com/Mic92/python-mpd2
+
+Package: python-mpd2
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Conflicts: python-mpd
+Description: Python MPD client library (Python 2)
+ Fast MPD (Music Player Daemon) client library written in pure Python.
+ It was written to be a replacement for python-mpdclient which is a bit
+ outdated and does not perform good in many situations.
+ .
+ python-mpd2 is acutally a fork of python-mpd.
+
+Package: python3-mpd2
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Python MPD client library (Python 3)
+ Fast MPD (Music Player Daemon) client library written in pure Python.
+ It was written to be a replacement for python-mpdclient which is a bit
+ outdated and does not perform good in many situations.
+ .
+ This is the python3 port of python-mpd2.
+ .
+ python-mpd2 is acutally a fork of python-mpd.

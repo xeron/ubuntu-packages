@@ -1,0 +1,29 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="guide" style="task"
+      id="tag">
+
+  <info>
+    <link type="guide" xref="index#tag" group="#first"/>
+    <revision pkgversion="2.1.9" date="2013-03-13" status="stub"/>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@googlemail.com</email>
+    </credit>
+
+    <desc>What is a tag and what are fields?</desc>
+
+  </info>
+
+  <title>Audio file tags</title>
+
+  <p>An audio file can contain <em>metadata</em> — information about itself —
+  inside a <em>tag</em>. Each tag can contain one or more <em>fields</em>, such
+  as <gui>Title</gui> or <gui>Artist</gui>. You can edit some of these fields
+  using <app>EasyTAG</app>. The editable fields depend on the format of the
+  file that you want to tag.</p>
+
+</page>
