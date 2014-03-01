@@ -1,0 +1,4 @@
+*.dsc
+*.debian.tar.gz
+
+*_source.*
