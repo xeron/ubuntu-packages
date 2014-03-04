@@ -1,3 +1,9 @@
+easytag (2.1.10-3ubuntu1) trusty; urgency=low
+
+  * Disable tests.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Tue, 04 Mar 2014 05:50:16 +0400
+
 easytag (2.1.10-3) trusty; urgency=low
 
   * Add appdata-tools dependency.
