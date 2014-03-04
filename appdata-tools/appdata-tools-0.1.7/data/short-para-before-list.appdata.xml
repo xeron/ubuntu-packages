@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 Richard Hughes <richard@hughsie.com> -->
+<application>
+  <id type="desktop">gnome-power-statistics.desktop</id>
+  <licence>GFDL</licence>
+  <description>
+    <p>
+      GNOME Power Statistics is awesome, but has a short description.
+    </p>
+    <ul>
+     <li>There is only one bullet point item here, but that's fine</li>
+    </ul>
+  </description>
+</application>

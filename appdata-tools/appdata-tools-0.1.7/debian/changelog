@@ -1,0 +1,12 @@
+appdata-tools (0.1.7-2) trusty; urgency=low
+
+  * Import package from debian sid.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Tue, 04 Mar 2014 04:04:02 +0400
+
+appdata-tools (0.1.7-1) unstable; urgency=low
+
+  * Initial release
+  * Disable self-tests for now, doesn't work in pbuilder.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Thu, 20 Feb 2014 20:13:04 +0100

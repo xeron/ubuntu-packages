@@ -1,3 +1,9 @@
+easytag (2.1.10-3) trusty; urgency=low
+
+  * Add appdata-tools dependency.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Tue, 04 Mar 2014 04:06:56 +0400
+
 easytag (2.1.10-2) trusty; urgency=low
 
   * Add yelp-tools dependency.

@@ -1,0 +1,1221 @@
+commit b364e3e40c6115853fa9d179b8f453710bb999da
+Author: Richard Hughes <richard@hughsie.com>
+Date:   2014-01-24
+
+    Release version 0.1.7
+
+M	NEWS
+M	RELEASE
+
+commit 90ab45ddc403faf5741059b5e1f3af77aa23f62a
+Merge: c017e61 2e70a91
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2014-01-03
+
+    Merge pull request #18 from mavit/dist_init.el
+
+    Don't include appdata-rng-init.el in the distribution tarball
+
+commit 2e70a913a136ea7b5e23277241e7891109444561
+Author: Peter Oliver <git@mavit.org.uk>
+Date:	2014-01-03
+
+    Don't include appdata-rng-init.el in the distribution tarball;
+    it needs to be generated from appdata-rng-init.el.in at build.
+
+M	data/Makefile.am
+
+commit c017e611a2d428b288372a935806b444c40606b4
+Merge: 67d77d2 ce879e9
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-12-17
+
+    Merge pull request #17 from hughsie/issue-15
+
+    Add configure conditional to control validation
+
+commit ce879e9ad8fb667549c1cd673387a5a54b5ef4ca
+Author: David King <amigadave@amigadave.com>
+Date:	2013-12-16
+
+    Add configure conditional to control validation
+
+    Allow disabling of AppData XML validation during the check phase by
+    passing --disable-appdata-validate to configure. Only force validation
+    if --enable-appdata-validate is passed to configure. The default is to
+    validate AppData XML only if appdata-validate is installed.
+
+    https://github.com/hughsie/appdata-tools/issues/15
+
+M	data/appdata-xml.m4
+
+commit 67d77d2672e3312984aba91b3bf033e82885d9c8
+Merge: 5f544bb 1c67486
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-12-16
+
+    Merge pull request #16 from hughsie/issue-15
+
+    Validate APPDATA_XML files during check phase
+
+commit 1c6748665a405fafaab00b399f5ecc7a1a8a97d8
+Author: David King <amigadave@amigadave.com>
+Date:	2013-12-16
+
+    Validate APPDATA_XML files during check phase
+
+    https://github.com/hughsie/appdata-tools/issues/15
+
+M	data/appdata-xml.m4
+
+commit 5f544bb3474bad2d95ec25befd1045fac8dcf896
+Author: David King <amigadave@amigadave.com>
+Date:	2013-11-19
+
+    Bump serial in appdata-xml.m4
+
+    Any changes to the M4 macro should have a corresponding update to the
+    serial, to ensure that the change is propagated to maintainers when
+    running "aclocal --install".
+
+M	data/appdata-xml.m4
+
+commit ea347b769ed96019cfdc1c131713eb4e1741e303
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-14
+
+    Correct a validation warning when using a translated list introduction
+
+M	data/translated.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 85611f2375b6e7a139547d1eedf704fd8c7f577b
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-14
+
+    Output the line and char number when printing problems
+
+M	src/appdata-common.c
+M	src/appdata-problem.c
+M	src/appdata-problem.h
+M	src/appdata-validate.c
+
+commit b2159cfda92a8c22e4b2c0e6b5cf3eb226029b3c
+Author: David King <amigadave@amigadave.com>
+Date:	2013-11-12
+
+    Pass --nonet to appdata-validate in appdata-xml.m4
+
+    This breaks gnome-continuous, Koji, and probably a variety of other
+    build systems.
+
+M	data/appdata-xml.m4
+
+commit 84b3c58a78874998dbabcba07441fa8e564a20fc
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-12
+
+    trivial: Add website section about full screen games
+
+M	docs/index.html
+
+commit 0760355ed7e7aa5bd13a5212cf25686e19622686
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    trivial: post release version bump
+
+M	RELEASE
+M	configure.ac
+
+commit d926bdcb63a48742d79458a4321efa23543633d0
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Release version 0.1.6
+
+M	NEWS
+
+commit a0fbcf9eec3bbcb0a0873fdb0728fbc5ff26fc92
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    trivial: Fix ChangeLog generation
+
+M	Makefile.am
+
+commit 1a5abcc338924099828fe2a27619564a22484a5f
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Ensure the tarball is always built with schemas enabled
+
+M	Makefile.am
+M	contrib/appdata-tools.spec.in
+M	data/Makefile.am
+
+commit db4e760d466d9e4c9a42ce24c6906513c373ecee
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Fix the schema install logic
+
+    We can't use a test on pythondir/lxml as the former will have a
+    non-expanded prefix in some cases.
+
+M	configure.ac
+A	m4/ax_python_module.m4
+
+commit 668f9e656190a64f0fd54d555b93b95e3efaf120
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Set several warning flags and fix up the trivial issues
+
+M	configure.ac
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 33d7150846f7633075eb319aec67f44b2c7f814b
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Fix up several warnings spotted when building the distro package
+
+    ...which uses '-Wformat' by default.
+
+M	src/appdata-validate.c
+
+commit abde38a5a97c2d8c20f7c0e58f5cc2b29528d0e1
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Do not use g_type_init() for newer versions of GLib
+
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 2abfe423e9947362f3eb1a9f472fb1604c4f5c7d
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    trivial: post release version bump
+
+M	RELEASE
+M	configure.ac
+
+commit 2f93353f7db54e10c0ca35d85c69f96f6654ca95
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Release version 0.1.5
+
+M	NEWS
+M	docs/validate.php
+
+commit c602fc326aea01e16c9487ff64991e62316cf564
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Add the trivial PHP file used to validate the file on my server
+
+A	docs/validate.php
+
+commit 50dff4b99ba3ee67ff699e45a1da0b73863f102d
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Add a style rule to require 300 chars of <p> content before <ul>
+
+    Otherwise the software center has to show the bullets in the
+    summary view.
+
+M	data/Makefile.am
+A	data/short-para-before-list.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 351ce7a02c9a8783c1fe1a1b2ab795decd6edbed
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    trivial: Fix up the example spec file
+
+M	contrib/appdata-tools.spec.in
+
+commit 3ad6f1d1c6c3ee9ee9a0e79dbd61b440e14bdbff
+Merge: efaaf71 7432eaf
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-08
+
+    Merge pull request #13 from amigadave/master
+
+    Add simple APPDATA_XML m4 macro
+
+commit 7432eaf5b64e7751cfa403359d00a507f53a480b
+Author: David King <dking@redhat.com>
+Date:	2013-11-08
+
+    Add simple APPDATA_XML m4 macro
+
+    Validate AppData XML files by calling APPDATA_XML in configure.ac, and
+    then adding the .appdata.xml files to appdata_XML in a Makefile.am.
+    Finally, add @APPDATA_XML_RULES@ to the Makefile.am.
+
+M	data/Makefile.am
+A	data/appdata-xml.m4
+
+commit efaaf7102349231364dfa818dbacda3397ca0882
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-03
+
+    Add an XML output format for rpmlint to use
+
+M	src/appdata-validate.c
+
+commit 827699979001ee7333cc0e1d1b86f7a35f29e2f2
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-02
+
+    Allow GFDL as an acceptable content licence
+
+M	docs/index.html
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 977d35833444a2a4ece10b20eb561dea23824118
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-02
+
+    Host an online version of the AppData validation tool on a server
+
+M	docs/index.html
+
+commit 8743dfe8b57fe21077ae5087235a9403717d51b0
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-02
+
+    Add an --output-format parameter that can optionally output HTML
+
+M	src/appdata-validate.c
+
+commit ea97a0d879bbfc6575b369bfe1c38e5fa6da21b1
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-11-02
+
+    Add --filename which allows us to use a temporary filename
+
+    This is required if we want to use the temporary file without copying
+    in PHP.
+
+M	src/appdata-common.c
+M	src/appdata-validate.c
+
+commit 9fa8139a38d986a24876d0fbd89a3e35d5553bb8
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-27
+
+    trivial: Fix make distcheck
+
+M	data/Makefile.am
+
+commit 895cafacf526b7f8e356a69a8dd748aade370b1e
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-27
+
+    Validate AppData files with metadata keys in
+
+    We use these internally for extra font metadata.
+
+A	data/metadata.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 89e7b61254edb064ff5d5690950b3031650a395d
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-27
+
+    trivial: Fix up the font extension when checking AppData files
+
+M	src/appdata-common.c
+
+commit 49c6dc0b8ef65c3dd822d6cd81560723eb5d3df2
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-15
+
+    trivial: Explain how to take 16:9 screenshots
+
+M	docs/index.html
+
+commit 79a041ad72a542434ffe9b9be19261f3c8718086
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-15
+
+    Support the 'codec' AppData kind
+
+M	src/appdata-common.c
+
+commit ff2e76ad5ea16323008d00e1215c7e2ffe660e34
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-15
+
+    Ignore the <compulsory_for_desktop> private key
+
+    This is only used in fedora-appstream to mark addons as core.
+
+M	src/appdata-common.c
+
+commit 62307333525e2bbccacf37551314cecf42a26d2b
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-10
+
+    trivial: Fix make distcheck and the RPM build
+
+M	contrib/appdata-tools.spec.in
+M	data/Makefile.am
+
+commit cc74300bfe5b374faf3d9796dc3df8a2beb115ed
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-10
+
+    trivial: Clarify the width requirement
+
+M	docs/index.html
+
+commit 66ac86ed0e920e5b32dddac95d56d80c74089746
+Author: Peter Oliver <git@mavit.org.uk>
+Date:	2013-09-24
+
+    Use embedded Schematron in RELAX NG schema to check for duplicate
+    name and summary elements.
+
+M	configure.ac
+M	contrib/appdata-tools.spec.in
+M	data/Makefile.am
+M	data/appdata.rnc
+
+commit 3ce15cc37eeaf5c4317ced65b4129f5ae0950075
+Author: Peter Oliver <git@mavit.org.uk>
+Date:	2013-09-24
+
+    Rename schemas.xml to schema-locating-rules.xml to make its purpose
+    more clear.
+
+M	contrib/appdata-tools.spec.in
+M	data/Makefile.am
+M	data/appdata-rng-init.el.in
+R088	data/schemas.xml	data/schema-locating-rules.xml
+
+commit 808fd5f04d6fed3a3eac7ea31c98191305139f87
+Author: Peter Oliver <git@mavit.org.uk>
+Date:	2013-09-24
+
+    Generate appdata.rng from appdata.rnc at build time.
+
+M	configure.ac
+M	contrib/appdata-tools.spec.in
+M	data/Makefile.am
+R100	docs/appdata.rnc	data/appdata.rnc
+D	docs/appdata.rng
+M	docs/index.html
+
+commit 04f829630d082a218074da2ad40baa07e922b6cc
+Author: Peter Oliver <git@mavit.org.uk>
+Date:	2013-09-24
+
+    Multiple name and summary elements should be allowed, since they
+    may have
+    different languages.
+
+M	docs/appdata.rnc
+
+commit b3406a31689e30054a37f982f6f905a9e62fb144
+Author: Peter Oliver <git@mavit.org.uk>
+Date:	2013-09-20
+
+    Add appdata-rng-init.el to .gitignore.
+
+M	data/Makefile.am
+
+commit d472da71dfa313b8cd4e34c669cb5c4d1714b3b1
+Author: Peter Oliver <git@mavit.org.uk>
+Date:	2013-09-20
+
+    Update spec file to install RELAX NG schema.
+
+M	contrib/appdata-tools.spec.in
+
+commit eba45ac48946c21ec835ee773ab8f9347dbd5465
+Author: Peter Oliver <git@mavit.org.uk>
+Date:	2013-09-20
+
+    Install included RELAX NG schema and make it automatically loadable
+    by Emacs.
+
+M	data/Makefile.am
+A	data/appdata-rng-init.el.in
+A	data/schemas.xml
+
+commit 61b2e05ff185d31a3bf5d12e44ef15e8d06f13e5
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-07
+
+    trivial: Add a file that managed to elude git for quite some time
+
+A	data/screenshots.appdata.xml
+
+commit fb15afd53aa3015e0ee9fa895eb108531e6bb0d4
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-07
+
+    trivial: post release version bump
+
+M	RELEASE
+M	configure.ac
+
+commit c445b3f5a85150e9c1beafee5edd98c3b359db35
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-07
+
+    Release version 0.1.4
+
+M	NEWS
+
+commit e583b8e31c29c435f3081c7b5cca0878c7eff373
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-07
+
+    trivial: Relax the screenshot requirement for --relax
+
+M	src/appdata-validate.c
+
+commit 2d5dd9451b63ebdb39fd57985a1b6b49f68b3b24
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-07
+
+    Add a list of 16:9 resolutions
+
+M	docs/common.css
+M	docs/index.html
+
+commit eaad76cab8df92fa93aa0900172783b9bd801bf8
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-07
+
+    trivial: Don't dist appdata.xml and appdata.xml.in
+
+M	docs/example-intltool.patch
+
+commit c637de29b8a7eaf7e0551898e4fa4a9789a32aa7
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-04
+
+    Check the screenshots conform to the new size requirements
+
+M	src/appdata-common.c
+M	src/appdata-problem.c
+M	src/appdata-problem.h
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 04be2652c0f3529e776254692b8c7e50ca0fbb15
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-03
+
+    Check for the XML Catalog at configure time
+
+    Resolves: https://github.com/hughsie/appdata-tools/issues/10
+
+M	configure.ac
+M	data/Makefile.am
+A	m4/gtkdoc_jh_check_xml_catalog.m4
+A	m4/gtkdoc_jh_path_xml_catalog.m4
+
+commit b510f02a69331fa0385eb089c46023c80e5da459
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-03
+
+    trivial: Do not show a warning when using --nonet
+
+M	src/appdata-common.c
+
+commit e34d34de0bc13c20589005972472d8b63b231cd6
+Author: Allan Day <allanpday@gmail.com>
+Date:	2013-10-03
+
+    Make some of the screenshot guidelines clearer
+
+    Signed-off-by: Richard Hughes <richard@hughsie.com>
+
+M	docs/index.html
+
+commit 4fcf34c2c238dcfe7587298215067d7b54f7d0d6
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-03
+
+    Add some more guidance about screenshot to the docs
+
+M	docs/index.html
+
+commit 974dce1a1fe2c7967a3adc48e1ad78f93fb553a5
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-03
+
+    Actually download the image and validate it
+
+    We've checking if the image can be loaded, if the height and width
+    attributes
+    match, and also optionally the aspect ratio.
+
+M	configure.ac
+M	contrib/appdata-tools.spec.in
+M	data/success.appdata.xml
+M	src/Makefile.am
+M	src/appdata-common.c
+M	src/appdata-problem.c
+M	src/appdata-problem.h
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit fec7f37adea4d2ec9f829dd1dc5df0cb0f7f4e04
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-03
+
+    trivial: Fix 'make distcheck'
+
+M	data/Makefile.am
+
+commit 656805001f212dc2ca98c955c6bb8a3ad5cf0de9
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-01
+
+    Detect AppData files with missing copyright comments
+
+    This is only enabled when you use --strict.
+
+M	data/broken.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 723ed723a75ef30219056eeea95f1a201b1842d7
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-01
+
+    Detect files with missing XML headers
+
+M	data/broken.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 8810ffd738493c1ef61055c97c346a0df6b08997
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-01
+
+    Add copyright information into the AppData spec
+
+M	data/broken.appdata.xml
+M	data/success.appdata.xml
+M	data/translated.appdata.xml
+M	docs/example-intltool.patch
+M	docs/example.patch
+M	docs/index.html
+
+commit 2b88b51889b7776df8e9668fac154b047776373a
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-01
+
+    Check if screenshots exist when validating AppData files
+
+M	contrib/appdata-tools.spec.in
+M	src/appdata-common.c
+M	src/appdata-problem.h
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit d1c7b9adc85c992b762af508f994babc99e65f5b
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-01
+
+    Correctly check CC-BY and CC-BY-SA
+
+    We want to use the Fedora licence codes for this.
+
+M	src/appdata-common.c
+
+commit 72375453cee1c6795329b58880bb564211edb8ee
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-10-01
+
+    Clarify what each licence code means
+
+M	docs/index.html
+
+commit 36727d88f4037aa2b74aed0e9537478ade2b76cc
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-30
+
+    trivial: Add a script that creates AppData files from a CSV file
+
+A	contrib/create-appdata.py
+
+commit aef98831879b755a484d0e8568e7f2bc99843bb5
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-30
+
+    Add some tests to validate <screenshots>
+
+M	src/appdata-common.c
+M	src/appdata-problem.c
+M	src/appdata-problem.h
+M	src/appdata-self-test.c
+
+commit 0bcf5807348ac9a655b59e3a79957976f36a4ae4
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-30
+
+    Allow 3 character project names
+
+    For example, 'K3b' is certainly valid.
+
+M	src/appdata-validate.c
+
+commit f0308ec50d6b7d36cf03716467aa981ad39e881a
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-30
+
+    docs: Put the generated file in CLEANFILES
+
+M	docs/example-intltool.patch
+
+commit d037252f467fcee4a5a00f508bfa37ea4d543427
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-26
+
+    Add a --strict mode where we check for translations
+
+M	src/appdata-common.c
+M	src/appdata-problem.c
+M	src/appdata-problem.h
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit f9058b97680d513334af2a0b92f0c931b26adeaf
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-26
+
+    Add the <project_group> tag to the official AppData specification
+
+M	data/appdata.xsd
+M	data/success.appdata.xml
+M	docs/index.html
+M	src/appdata-common.c
+
+commit f5b04c709f9db62dae05a2aadcc85506e6a20767
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-25
+
+    So we want INTLTOOL_XML_RULE to actually merge the translations
+
+M	docs/example-intltool.patch
+
+commit 203d6d7c9e660a3d64e62b85c264891c6385ab47
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-25
+
+    Don't show *two* warnings if the file could not be opened
+
+M	src/appdata-common.c
+
+commit 985723f7bbd20d80dc5f1ca878ebda7394d9fb34
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-24
+
+    trivial: Add example commit for intltoolized xml
+
+A	docs/example-intltool.patch
+M	docs/index.html
+
+commit 4edc5f7ed9671ba17bd934b9f0289320de446004
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-24
+
+    trivial: post release version bump
+
+M	RELEASE
+M	configure.ac
+
+commit b207ef5f7745a1403db76ed4c6e465d923bb116d
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-24
+
+    Release version 0.1.3
+
+M	NEWS
+
+commit fdbb7fabb082184b11ad5009faeb933f98fbaca2
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-24
+
+    Detect if <appication> is used more that once
+
+M	data/broken.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 837254da41b8d1fd57a34c99e2c7822af3745089
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-23
+
+    Add a rule that <li> tags should not end with a full stop
+
+M	data/broken.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 0fdc4b897f59916f6afd29e1f6791080df5807b1
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-23
+
+    Allow names and sumaries to end with '.' if there are multiple dots
+
+    This allows applications like '0 A.D.' and also summaries with '...'
+
+M	data/success.appdata.xml
+M	src/appdata-common.c
+
+commit 536b10b9650f9c1ee902ca39c557a8c7794f365d
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-23
+
+    Fix up a trivial compile warning
+
+M	src/appdata-validate.c
+
+commit eac146cc129d28a2928c978fdd36f66bfd131b50
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-23
+
+    Support AppData files of other kinds
+
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 23fdd2457d5d377ef1dc981ccfb99a2bd935bb6f
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-20
+
+    trivial: post release version bump
+
+M	RELEASE
+M	configure.ac
+
+commit d7bab775f03f91c0df2f76bd451209a4fa78030a
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-20
+
+    Release version 0.1.2
+
+M	NEWS
+M	RELEASE
+
+commit 9d9fa8733de6cfee8fc74715753da76a570b1aa7
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-20
+
+    Require punctuation in the right places
+
+M	data/broken.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 629bce51bac1ee0437931ffe7c4fcc3baa599b2a
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-20
+
+    trivial: Be consistent when referring to tags
+
+M	src/appdata-common.c
+
+commit fb29b92eaf25992237f5373acec125dd0a4a6fb7
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-20
+
+    Add some more restrictions, and have different values for --relax
+
+M	src/appdata-common.c
+M	src/appdata-common.h
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 3c58c2bb06b38caecccb6f194f9d340c7fe11f82
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-20
+
+    Add --version, --verbose and --relax command line switches
+
+M	src/appdata-validate.c
+
+commit bebdb035add122057b1de6dd561ad8e07fc28496
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-20
+
+    Allow short paragraphs when introducing a list
+
+M	data/success.appdata.xml
+M	src/appdata-common.c
+
+commit fe6b330d3e1f216ea41f69d101c3448df84f9cd9
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    Do not fail to validate when the translatable tags are duplicated
+
+M	data/broken.appdata.xml
+M	data/translated.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 823c01dc27faca456caba641b88abe4f2f08dbd7
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    Do not count translated paragraphs in the description check
+
+M	data/Makefile.am
+M	data/broken.appdata.xml
+A	data/translated.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit d936dda57f309b138adac2e9fda83b66d3903f3b
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    trivial: Update the sample spec file
+
+M	contrib/appdata-tools.spec.in
+
+commit eaa91362328b9398d903ab53530cdd380e367117
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    trivial: post release version bump
+
+M	RELEASE
+M	configure.ac
+
+commit 342f223096775776495894bd3a697bf0e67304e5
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    Release version 0.1.1
+
+M	NEWS
+M	RELEASE
+
+commit 022d6a0b9b26f67e1d3d7e3866dbc9f2b2a8045e
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    Assign each problem a kind
+
+M	po/POTFILES.in
+M	src/Makefile.am
+M	src/appdata-common.c
+A	src/appdata-problem.c
+A	src/appdata-problem.h
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 8d216513edca998b062d2961eafe0027d1eb30a6
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    trivial: post release version bump
+
+M	RELEASE
+M	configure.ac
+
+commit a535f169af563a945973367b98a5892090c4e4d8
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    Rewrite the main webpage to be more of a specification
+
+M	docs/common.css
+M	docs/index.html
+
+commit 71a0b2d7fbb8088addb6c99c7a199f2b4a1d8eee
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-18
+
+    Add an xsd file to validate the AppStream XML
+
+    You can use this command to validate the XML:
+
+    xmllint --valid --noout --nonet --sax --schema
+    /usr/share/appdata/schema/appdata.xsd ../data/success.appdata.xml
+
+M	contrib/appdata-tools.spec.in
+M	data/Makefile.am
+A	data/appdata.xsd
+M	docs/update.sh
+
+commit c2d20f9a3fa06786dd18e1a01991a94068104799
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Detect starting a description with 'This application'
+
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit a92b42ad4ea9e60f41b03598ec3c990a8207c249
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Remove leading spaces from XML text too
+
+M	src/appdata-common.c
+
+commit 68e1f8e6e6c6e548e2ecf76a7e356e603042dcd8
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Fail validation if tags are duplicated
+
+M	data/broken.appdata.xml
+M	src/appdata-common.c
+M	src/appdata-self-test.c
+
+commit 33141a698a5066a1bec6afe92d1f83c995d3e2ec
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Allow <name> and <summary> data in appdata files
+
+M	data/success.appdata.xml
+M	src/appdata-common.c
+
+commit 09e4919cfd2f57a5f9102c7745842602965652e6
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    trivial: Update the release script
+
+M	RELEASE
+
+commit 3aeab62d959ef41831b58f17066ac1b4a9f7726c
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Allow relaxing a few checks for internal use
+
+M	src/appdata-common.c
+M	src/appdata-common.h
+M	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit f9f3acba8689bca60620e3a12120dd5c204b159d
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Add en_GB translation
+
+A	po/en_GB.po
+
+commit 1ecd2cf60bbbb3ac9c7042adfe540624a4a7520a
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Add an example spec file for Fedora
+
+A	contrib/appdata-tools.spec.in
+
+commit 6af8a470304503456c0e5eb96e849cf77b4d5a6f
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Add a simple manpage
+
+M	configure.ac
+M	data/Makefile.am
+A	data/appdata-validate.xml
+
+commit d9976630567ae1a283cad24050381ce8d390a939
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Actually make the validator check each file
+
+M	Makefile.am
+M	data/Makefile.am
+A	data/broken.appdata.xml
+A	data/success.appdata.xml
+A	data/wrong-extension.xml
+M	src/Makefile.am
+A	src/appdata-common.c
+C089	src/appdata-validate.c	src/appdata-common.h
+A	src/appdata-self-test.c
+M	src/appdata-validate.c
+
+commit 2654c0d23bcf0969a529760f502106a45bccaa63
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Initial commit of the AppData validator
+
+A	AUTHORS
+A	COPYING
+A	MAINTAINERS
+A	Makefile.am
+A	NEWS
+A	RELEASE
+A	autogen.sh
+A	configure.ac
+A	data/Makefile.am
+A	git.mk
+A	m4/.gitignore
+A	m4/as-linguas.m4
+A	po/POTFILES.in
+A	src/Makefile.am
+A	src/appdata-validate.c
+
+commit cea0354f72bcd9a6e22137ef54c19ec4363441a9
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-17
+
+    Move the website to a new subdirectory
+
+R100	Makefile	docs/Makefile
+R100	appdata.its	docs/appdata.its
+R100	appdata.rnc	docs/appdata.rnc
+R100	appdata.rng	docs/appdata.rng
+R100	common.css	docs/common.css
+R100	example.patch	docs/example.patch
+R100	index.html	docs/index.html
+R100	long-description.png	docs/long-description.png
+R100	update.sh	docs/update.sh
+
+commit 68c8ebaf0fc053c4668265ba70d5cb572f8448ee
+Merge: 24cc796 fe93d6f
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-14
+
+    Merge pull request #5 from jmatsuzawa/support-xmllang
+
+    Allow xml:lang attribute for l10n
+
+commit fe93d6fa3cee3ffbf0a9abd258df253b3f6000c6
+Author: Jiro Matsuzawa <jmatsuzawa@gnome.org>
+Date:	2013-09-14
+
+    Allow xml:lang attribute for l10n
+
+M	appdata.rnc
+
+commit 24cc796c28218a1b4e1089c15926a2bf755255b2
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-11
+
+    Fix the example patch to actually install the AppData file
+
+A	example.patch
+M	index.html
+
+commit 715a09c5bf70a470db8f9906416daedf48e73993
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-09
+
+    Add a note about where to install the AppData
+
+    Based ona patch from Elad, thanks.
+
+M	index.html
+
+commit 346c8226160b5564e5a077c99f9566dc5168b7ec
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-09
+
+    It's not a proposal, it's a specification
+
+M	index.html
+
+commit b51106772d6b97bf03bbe1f86863af6764d4dbe6
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-06
+
+    Add section about translation
+
+M	index.html
+
+commit e47c62f625741bdbad878b049b8391f19406b252
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-06
+
+    Add name anchors
+
+M	index.html
+
+commit 5e19a23746d7f50dd30d6842c34873875478f279
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-06
+
+    Add more limitations to the description
+
+M	index.html
+
+commit d49204e7aa35b7ff6c255f36b5542238a460b49b
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-02
+
+    Add another section with a real world example
+
+M	index.html
+
+commit 37b262c0ff7f68926baa28133644b9c2889882e3
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-02
+
+    Actually make the page validate
+
+    Fixes: https://github.com/hughsie/appdata-website/issues/2
+
+M	index.html
+
+commit 3fd9827d63b13aff2c2a3ad4fe380508f20c56fd
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-08-29
+
+    Add links to AppStream
+
+M	index.html
+
+commit 59c2bfb57061bea5921d667f73f31db4dce3d804
+Merge: 075acbe dafab25
+Author: Richard Hughes <richard@hughsie.com>
+Date:	2013-09-02
+
+    Merge pull request #1 from skagedal/master
+
+    Add RELAX NG schema for validation.
+
+commit dafab254f4eca2ac34293279edb24313230d17bd
+Author: Simon Kågedal Reimer <skagedal@gmail.com>
+Date:	2013-09-01
+
+    Add RELAX NG schema for validation.
+
+    Checking in appdata.rng even though it is generated from
+    appdata.rnc using trang and the supplied Makefile, for
+    simplicity.
+
+A	Makefile
+A	appdata.rnc
+A	appdata.rng
+M	index.html

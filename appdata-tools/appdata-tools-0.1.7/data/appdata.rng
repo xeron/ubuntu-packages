@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  RELAX NG schema for http://people.freedesktop.org/~hughsient/appdata/
+  
+  Written by Simon Kågedal Reimer 2013 <skagedal@gmail.com>, Peter
+  Oliver <git@mavit.org.uk>.
+  Released as Public Domain (CC0 1.0)
+  
+  appdata.rnc is the source; appdata.rng is generated with trang.
+  Don't edit appdata.rng. 
+-->
+<grammar xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <ref name="application"/>
+  </start>
+  <define name="application">
+    <element name="application">
+      <interleave>
+        <ref name="id"/>
+        <ref name="licence"/>
+        <zeroOrMore>
+          <ref name="name"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="summary"/>
+        </zeroOrMore>
+        <ref name="description"/>
+        <optional>
+          <ref name="screenshots"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="url"/>
+        </zeroOrMore>
+        <optional>
+          <ref name="updatecontact"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="id">
+    <element name="id">
+      <!-- Other types? -->
+      <attribute name="type">
+        <value type="string" datatypeLibrary="">desktop</value>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  <!-- Other licences?  Worth restricting this at all, or use free content? -->
+  <define name="licence">
+    <element name="licence">
+      <choice>
+        <value type="string" datatypeLibrary="">CC0</value>
+        <value type="string" datatypeLibrary="">CC BY</value>
+        <value type="string" datatypeLibrary="">CC BY-SA</value>
+      </choice>
+    </element>
+  </define>
+  <define name="name">
+    <element name="name">
+      <optional>
+        <ref name="XmlLang"/>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <sch:pattern>
+    <sch:rule context="/application">
+      <sch:assert test="count(name[not(@xml:lang)]) &lt; 2">Excluding translations, at most one name element is permitted.</sch:assert>
+      <sch:assert test="count(name) = count(name[not(@xml:lang=preceding-sibling::name/@xml:lang)])">At most one name element is permitted per language.</sch:assert>
+    </sch:rule>
+  </sch:pattern>
+  <define name="summary">
+    <element name="summary">
+      <optional>
+        <ref name="XmlLang"/>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <sch:pattern>
+    <sch:rule context="/application">
+      <sch:assert test="count(summary[not(@xml:lang)]) &lt; 2">Excluding translations, at most one summary element is permitted.</sch:assert>
+      <sch:assert test="count(summary) = count(summary[not(@xml:lang=preceding-sibling::summary/@xml:lang)])">At most one summary element is permitted per language.</sch:assert>
+    </sch:rule>
+  </sch:pattern>
+  <define name="description">
+    <element name="description">
+      <zeroOrMore>
+        <choice>
+          <ref name="p"/>
+          <ref name="ul"/>
+          <ref name="ol"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="p">
+    <element name="p">
+      <optional>
+        <ref name="XmlLang"/>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <define name="ul">
+    <element name="ul">
+      <optional>
+        <ref name="XmlLang"/>
+      </optional>
+      <ref name="Entries"/>
+    </element>
+  </define>
+  <define name="ol">
+    <element name="ol">
+      <optional>
+        <ref name="XmlLang"/>
+      </optional>
+      <ref name="Entries"/>
+    </element>
+  </define>
+  <define name="Entries">
+    <oneOrMore>
+      <element name="li">
+        <optional>
+          <ref name="XmlLang"/>
+        </optional>
+        <text/>
+      </element>
+    </oneOrMore>
+  </define>
+  <define name="screenshots">
+    <element name="screenshots">
+      <oneOrMore>
+        <ref name="screenshot"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="screenshot">
+    <element name="screenshot">
+      <optional>
+        <attribute name="type">
+          <value type="string" datatypeLibrary="">default</value>
+        </attribute>
+      </optional>
+      <!-- Other types? -->
+      <attribute name="width">
+        <data type="integer"/>
+      </attribute>
+      <attribute name="height">
+        <data type="integer"/>
+      </attribute>
+      <optional>
+        <ref name="XmlLang"/>
+      </optional>
+      <data type="anyURI">
+        <except>
+          <value/>
+        </except>
+      </data>
+    </element>
+  </define>
+  <define name="url">
+    <element name="url">
+      <optional>
+        <attribute name="type">
+          <value type="string" datatypeLibrary="">homepage</value>
+        </attribute>
+      </optional>
+      <!-- Other types? -->
+      <group>
+        <data type="anyURI">
+          <except>
+            <value/>
+          </except>
+        </data>
+      </group>
+    </element>
+  </define>
+  <define name="updatecontact">
+    <element name="updatecontact">
+      <text/>
+    </element>
+  </define>
+  <define name="XmlLang">
+    <attribute name="xml:lang"/>
+  </define>
+</grammar>

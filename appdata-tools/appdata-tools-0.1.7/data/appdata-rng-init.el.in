@@ -1,0 +1,9 @@
+;; Tell nxml-mode where to find the AppData schema.
+
+(eval-after-load "rng-loc"
+  '(progn
+     (when (equal rng-schema-locating-files rng-schema-locating-files-default)
+       (add-to-list 'rng-schema-locating-files
+                    "@datadir@/appdata/schema/schema-locating-rules.xml" t))
+     (add-to-list 'rng-schema-locating-files-default
+                  "@datadir@/appdata/schema/schema-locating-rules.xml" t)))

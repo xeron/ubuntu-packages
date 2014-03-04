@@ -1,0 +1,104 @@
+Version 0.1.7
+~~~~~~~~~~~~~
+Released: 2014-01-24
+
+New Features:
+ - Add configure conditional to control validation (David King)
+
+Bugfixes:
+ - Bump serial in appdata-xml.m4 (David King)
+ - Correct a validation warning when using a translated list (Richard Hughes)
+ - Don't include appdata-rng-init.el in the distribution tarball (Peter Oliver)
+ - Output the line and char number when printing problems (Richard Hughes)
+ - Pass --nonet to appdata-validate in appdata-xml.m4 (David King)
+ - Validate APPDATA_XML files during check phase (David King)
+
+Version 0.1.6
+~~~~~~~~~~~~~
+Released: 2013-11-08
+
+Bugfixes:
+ - Do not use g_type_init() for newer versions of GLib (Richard Hughes)
+ - Fix up several warnings spotted when building with -Wformat (Richard Hughes)
+ - Fix the schema install logic (Richard Hughes)
+ - Ensure the tarball is always built with schemas enabled (Richard Hughes)
+
+Version 0.1.5
+~~~~~~~~~~~~~
+Released: 2013-11-08
+
+New Features:
+ - Add a style rule to require 300 chars of <p> content before <ul> (Richard Hughes)
+ - Add an --output-format parameter that can optionally output HTML or XML (Richard Hughes)
+ - Add simple APPDATA_XML m4 macro (David King)
+ - Generate appdata.rng from appdata.rnc at build time (Peter Oliver)
+ - Host an online version of the AppData validation tool (Richard Hughes)
+ - Install included RELAX NG schema and make it automatically loadable by Emacs (Peter Oliver)
+
+Bugfixes:
+ - Allow GFDL as an acceptable content licence (Richard Hughes)
+ - Ignore the <compulsory_for_desktop> private key (Richard Hughes)
+ - Support the 'codec' AppData kind (Richard Hughes)
+ - Validate AppData files with metadata keys (Richard Hughes)
+
+Version 0.1.4
+~~~~~~~~~~~~~
+Released: 2013-10-07
+
+New Features:
+ - Add a --strict mode where we check for translations (Richard Hughes)
+ - Add the <project_group> tag to the specification (Richard Hughes)
+ - Detect AppData files with missing copyright comments (Richard Hughes)
+ - Detect files with missing XML headers (Richard Hughes)
+
+Bugfixes:
+ - Actually download the image and validate it (Richard Hughes)
+ - Add some tests to validate <screenshots> (Richard Hughes)
+ - Allow 3 character project names (Richard Hughes)
+ - Check for the XML catalog at configure time (Richard Hughes)
+ - Check the screenshots conform to the new size requirements (Richard Hughes)
+ - Clarify what each licence code means (Richard Hughes)
+ - Make some of the screenshot guidelines clearer (Allan Day)
+
+Version 0.1.3
+~~~~~~~~~~~~~
+Released: 2013-09-24
+
+New Features:
+ - Add a rule that <li> tags should not end with a full stop (Richard Hughes)
+ - Detect if <application> is used more that once (Richard Hughes)
+
+Bugfixes:
+ - Support AppData files of other kinds (Richard Hughes)
+ - Allow names and sumaries to end with '.' if there are multiple dots (Richard Hughes)
+
+Version 0.1.2
+~~~~~~~~~~~~~
+Released: 2013-09-20
+
+New Features:
+ - Add some more restrictions, and have different values for --relax (Richard Hughes)
+ - Add --version, --verbose and --relax command line switches (Richard Hughes)
+ - Require punctuation in the right places (Richard Hughes)
+
+Bugfixes:
+ - Allow short paragraphs when introducing a list (Richard Hughes)
+ - Do not count translated paragraphs in the description check (Richard Hughes)
+ - Do not fail to validate when the translatable tags are duplicated (Richard Hughes)
+
+Version 0.1.1
+~~~~~~~~~~~~~
+Released: 2013-09-18
+
+New Features:
+ - Add an xsd file to validate the AppStream XML (Richard Hughes)
+ - Assign each problem a kind (Richard Hughes)
+
+Bugfixes:
+ - Allow <name> and <summary> data in appdata files (Richard Hughes)
+ - Detect starting a description with 'This application' (Richard Hughes)
+ - Fail validation if tags are duplicated (Richard Hughes)
+
+Version 0.1.0
+~~~~~~~~~~~~~
+ - This is where the release notes go

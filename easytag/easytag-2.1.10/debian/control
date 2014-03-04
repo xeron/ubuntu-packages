@@ -21,6 +21,7 @@ Build-Depends:
  libvorbis-dev,
  libwavpack-dev,
  yelp-tools,
+ appdata-tools,
  zlib1g-dev
 Standards-Version: 3.9.4
 Homepage: https://projects.gnome.org/easytag/

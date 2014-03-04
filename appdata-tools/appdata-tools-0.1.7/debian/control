@@ -1,0 +1,22 @@
+Source: appdata-tools
+Section: devel
+Priority: optional
+Maintainer: Andreas Henriksson <andreas@fatal.se>
+Build-Depends: autotools-dev,
+               debhelper (>= 9.0.0),
+               intltool,
+               libgdk-pixbuf2.0-dev,
+               libglib2.0-dev (>= 2.14.0),
+               libsoup2.4-dev
+Standards-Version: 3.9.5
+
+Package: appdata-tools
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: AppData validation tool
+ AppData is a subset of AppStream.
+ .
+ See http://people.freedesktop.org/~hughsient/appdata/ for more details.
+ .
+ This package contains a tool used to validate AppData files
+ to conform to specification.

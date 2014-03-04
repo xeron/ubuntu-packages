@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 Richard Hughes <richard@hughsie.com> -->
+<application>
+  <id type="desktop">org.gnome.Weather.Application.desktop</id>
+  <licence>CC0</licence>
+  <name>Weather</name>
+  <name xml:lang="de">Wetter</name>
+  <description>
+    <p>A small application that allows you to monitor the current weather conditions for your city, or anywhere in the world and to access updated forecasts, up to 7 days, provided by various internet services.</p>
+    <p xml:lang="de">Eine kleine Anwendung, welche es Ihnen erlaubt, das aktuelle Wetter für Ihre Stadt, oder für einen beliebigen Ort auf der Welt zu betrachten. Ebenfalls ermöglicht es Ihnen den Zugang zu der aktualisierten Wettervorhersage für bis zu sieben Tage mit Hilfe von verschiedenen Internetdiensten.</p>
+    <p>Some features include:</p>
+    <p xml:lang="de">Einem featurum includem:</p>
+    <ul>
+      <li>A map view of a city of your choice.</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot width="940" type="default" height="529">https://help.gnome.org/misc/release-notes/3.8/figures/weather-zurich.png</screenshot>
+  </screenshots>
+  <url type="homepage">https://wiki.gnome.org/Apps/Weather</url>
+  <updatecontact>gcampagna_at_src.gnome.org</updatecontact>
+</application>

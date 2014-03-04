@@ -1,0 +1,122 @@
+# RELAX NG schema for http://people.freedesktop.org/~hughsient/appdata/
+#
+# Written by Simon Kågedal Reimer 2013 <skagedal@gmail.com>, Peter
+# Oliver <git@mavit.org.uk>.
+# Released as Public Domain (CC0 1.0)
+#
+# appdata.rnc is the source; appdata.rng is generated with trang.
+# Don't edit appdata.rng. 
+
+namespace sch = "http://purl.oclc.org/dsdl/schematron"
+
+start = application
+
+application = 
+  element application { 
+    id 
+    & licence 
+    & name* 
+    & summary* 
+    & description 
+    & screenshots? 
+    & url* 
+    & updatecontact?
+  }
+
+id = 
+  element id {
+    # Other types?
+    attribute type { string "desktop" },
+    text 
+  }
+
+# Other licences?  Worth restricting this at all, or use free content?
+licence =  element licence { 
+  string "CC0" 
+  | string "CC BY" 
+  | string "CC BY-SA" 
+}
+
+name =  element name {
+  XmlLang?,
+  text
+}
+
+sch:pattern [
+   sch:rule [
+      context = "/application"
+      sch:assert [
+         test = "count(name[not(@xml:lang)]) < 2"
+         "Excluding translations, at most one name element is permitted."
+      ]
+      sch:assert [
+         test = "count(name) = count(name[not(@xml:lang=preceding-sibling::name/@xml:lang)])"
+         "At most one name element is permitted per language."
+      ]
+   ]
+]
+
+summary =  element summary {
+  XmlLang?,
+  text
+}
+
+sch:pattern [
+   sch:rule [
+      context = "/application"
+      sch:assert [
+         test = "count(summary[not(@xml:lang)]) < 2"
+         "Excluding translations, at most one summary element is permitted."
+      ]
+      sch:assert [
+         test = "count(summary) = count(summary[not(@xml:lang=preceding-sibling::summary/@xml:lang)])"
+         "At most one summary element is permitted per language."
+      ]
+   ]
+]
+
+description = 
+  element description {
+    (p | ul | ol)*
+  }
+
+p = element p {
+  XmlLang?,
+  text
+}
+
+ul = element ul {
+  XmlLang?,
+  Entries
+}
+
+ol = element ol {
+  XmlLang?,
+  Entries
+}
+
+Entries = element li {
+  XmlLang?,
+  text
+}+
+
+screenshots = element screenshots { screenshot+ }
+
+screenshot = element screenshot 
+  { 
+    attribute type { string "default" }?,    # Other types?
+    attribute width { xsd:integer },
+    attribute height { xsd:integer },
+    XmlLang?,
+    (xsd:anyURI - "")
+  }
+
+url = element url 
+  { 
+    attribute type { string "homepage" }?,     # Other types?
+    (xsd:anyURI - "")
+  }
+
+updatecontact =  element updatecontact { text }
+
+XmlLang = attribute xml:lang { text }

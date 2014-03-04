@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 Richard Hughes <richard@hughsie.com> -->
+<application>
+  <id type="unknown">gnome-power-statistics</id>
+  <screenshots>
+    <screenshot width="45" height="9999">http://people.freedesktop.org/~hughsient/temp/Edrip-Regular.png</screenshot>
+    <screenshot type="default">http://people.freedesktop.org/~hughsient/temp/Edrip-Regular.png</screenshot>
+    <screenshot type="default">http://dave.org/gpm-low-batt.png</screenshot>
+    <screenshot type="fubar"></screenshot>
+    <screenshot>http://people.freedesktop.org/~hughsient/appdata/index.html</screenshot>
+  </screenshots>
+</application>
