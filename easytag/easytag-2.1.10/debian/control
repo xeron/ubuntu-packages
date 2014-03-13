@@ -4,9 +4,11 @@ Priority: optional
 Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alioth.debian.org>
 Uploaders:
  Maia Kozheva <sikon@ubuntu.com>,
- Reinhard Tartler <siretart@tauware.de>
+ Reinhard Tartler <siretart@tauware.de>,
+ James Cowgill <james410@cowgill.org.uk>
 Build-Depends:
- debhelper (>= 7.0.50~),
+ debhelper (>= 9),
+ desktop-file-utils,
  dh-autoreconf,
  gettext,
  intltool (>= 0.50.0),
@@ -23,8 +25,8 @@ Build-Depends:
  yelp-tools,
  appdata-tools,
  zlib1g-dev
-Standards-Version: 3.9.4
-Homepage: https://projects.gnome.org/easytag/
+Standards-Version: 3.9.5
+Homepage: https://wiki.gnome.org/Apps/EasyTAG
 Vcs-Git: git://anonscm.debian.org/pkg-multimedia/easytag.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-multimedia/easytag.git
 
@@ -33,6 +35,10 @@ Architecture: any
 Depends:
  ${misc:Depends},
  ${shlibs:Depends}
+Recommends:
+ gnome-icon-theme,
+ gvfs,
+ yelp
 Description: viewing, editing and writing ID3 tags
  EasyTAG is an utility for viewing, editing and writing
  the ID3 tags of different audio files, using a GTK+ interface.
@@ -40,25 +46,23 @@ Description: viewing, editing and writing ID3 tags
  Currently EasyTAG supports the following:
   - View, edit, write tags of MP3, MP2 files (ID3 tag), FLAC files (FLAC Vorbis
     tag), Ogg Vorbis files (Ogg Vorbis tag), MP4/M4A/AAC files (MPEG-4 Part 10
-    tag), and MusePack, Monkey's Audio files (APE tag),
+    tag), and MusePack, Monkey's Audio files (APE tag);
   - Auto tagging: parse filename and directory to complete automatically the
-    fields (using masks),
+    fields (using masks);
   - Ability to rename files from the tag (using masks) or by loading
-    a text file,
-  - Process selected files of the selected directory,
-  - Ability to browse subdirectories,
-  - Recursion for tagging, removing, renaming, saving...,
-  - Can set a field (artist, title,...) to all other selected files,
-  - Read file header information (bitrate, time, ...) and display it,
-  - Undo and redo last changes,
+    a text file;
+  - Process selected files of the selected directory;
+  - Ability to browse subdirectories;
+  - Recursion for tagging, removing, renaming, saving, etc;
+  - Can set a field (artist, title,...) to all other selected files;
+  - Read file header information (bitrate, time, ...) and display it;
+  - Undo and redo last changes;
   - Ability to process fields of tag and file name (convert letters into
-    uppercase, downcase, ...),
-  - Ability to open a directory or a file with an external program,
-  - CDDB support (from http protocol),
-  - A tree based browser,
-  - A list to select files,
-  - A playlist generator window,
-  - A file searching window,
-  - Simple and explicit interface!,
-  - French, German, Russian, Dutch, Hungarian, Swedish, Italian, Japanese,
-    Ukrainian, Czech, Spanish, Polish and Romanian translation language,
+    uppercase, lowercase, etc);
+  - Ability to open a directory or a file with an external program;
+  - CDDB support (from http protocol);
+  - A tree based browser;
+  - A list to select files;
+  - A playlist generator window;
+  - A file searching window;
+  - Simple and explicit interface.

@@ -1,18 +1,7 @@
 #!/usr/bin/make -f
 
-LDFLAGS += -Wl,--as-needed
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
 %:
 	dh $@ --with=autoreconf
-
-override_dh_autoreconf:
-	mkdir -p m4
-	dh_autoreconf
-
-override_dh_auto_configure:
-	dh_auto_configure -- --disable-tests
-
-override_dh_install:
-	dh_install
-	# The changelog is installed in /usr/share/doc/easytag/changelog.gz
-	[ ! -f debian/easytag/usr/share/easytag/ChangeLog ] || rm debian/easytag/usr/share/easytag/ChangeLog

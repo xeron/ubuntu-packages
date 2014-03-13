@@ -1,28 +1,37 @@
-easytag (2.1.10-4) trusty; urgency=low
+easytag (2.1.10-5) trusty; urgency=low
 
-  * Disable tests.
+  * Import from debian.
+  * Remove patch was removing appdata from buildsystem.
 
- -- Ivan Larionov <xeron.oskom@gmail.com>  Tue, 04 Mar 2014 05:50:16 +0400
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Thu, 13 Mar 2014 11:12:10 +0400
 
-easytag (2.1.10-3) trusty; urgency=low
+easytag (2.1.10-1) unstable; urgency=medium
 
-  * Add appdata-tools dependency.
+  * Team upload.
 
- -- Ivan Larionov <xeron.oskom@gmail.com>  Tue, 04 Mar 2014 04:06:56 +0400
+  [ James Cowgill ]
+  * New upstream release (Closes: #560813, #500051, #518955, #727811).
+  * Add myself to the list of uploaders.
+  * Use debhelper v9.
+  * debian/control:
+    - Build depend on desktop-file-utils and yelp-tools.
+    - Recommend on gnome-icon-theme, gvfs and yelp (thanks David King)
+    - Update homepage location.
+    - Bump standards to 3.9.5 (no changes required).
+  * debian/copyright:
+    - Rewritten to use DEP-5
+  * debian/rules:
+    - Enable all hardening flags.
+    - Remove unnecessary dh overrides.
+  * debian/patches:
+    - Remove 1001-c90_style.patch, applied upstream.
+    - Add patch to remove appdata from buildsystem.
+      Can't use until appdata-tools is introduced into Debian.
 
-easytag (2.1.10-2) trusty; urgency=low
+  [ Alessio Treglia ]
+  * Improve package description (Closes: #691687)
 
-  * Add yelp-tools dependency.
-
- -- Ivan Larionov <xeron.oskom@gmail.com>  Sat, 01 Mar 2014 13:28:53 +0400
-
-easytag (2.1.10-1) trusty; urgency=low
-
-  * New upstream release.
-  * Drop patch is not required anymore:
-    - 1001-c90_style.patch
-
- -- Ivan Larionov <xeron.oskom@gmail.com>  Sat, 01 Mar 2014 04:39:30 +0400
+ -- James Cowgill <james410@cowgill.org.uk>  Fri, 28 Feb 2014 15:50:09 +0000
 
 easytag (2.1.8-1) unstable; urgency=low
 
