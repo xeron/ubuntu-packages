@@ -1,0 +1,10 @@
+--- a/sonata.desktop  2014-03-15 15:20:48.399701178 +0400
++++ b/sonata.desktop  2014-03-15 15:21:28.639703125 +0400
+@@ -5,6 +5,6 @@
+ Exec=sonata
+ Terminal=false
+ Type=Application
+-Icon=sonata
++Icon=/usr/share/pixmaps/sonata.png
+ Categories=GTK;AudioVideo;Player;
+ StartupNotify=true
