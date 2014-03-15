@@ -1,0 +1,32 @@
+.TH fstrim-all 8 "Dec 2013" "" "Debian Administrator's Manual"
+
+.SH NAME
+fstrim-all \- call fstrim on all mounted file systems which support it
+
+.SH DESCRIPTION
+
+SSD drives need to be TRIMed, i. e. they need to be told which blocks the OS
+considers as "unused" (i. e. from deleted files). Withouth this, the write
+speed on SSDs becomes slower over time.
+
+.B fstrim\-all
+detects which mounted partitions belong to drives that need/support trimming,
+and calls
+.BR fstrim (1)
+on them.
+
+It is meant to be called from cron. There is no output on success.
+
+This only runs on Intel and Samsung SSDs as some SSDs with faulty firmware may
+encounter data loss problems when running fstrim under high I/O load (see e. g. 
+https://launchpad.net/bugs/1259829). You can call
+.B fstrim\-all
+with the
+.B \-\-no\-model\-check
+option to disable the vendor check and run fstrim on all SSD drives.
+
+.SH AUTHOR
+Martin Pitt <martin.pitt@ubuntu.com>
+
+.SH SEE ALSO
+.BR fstrim (8)

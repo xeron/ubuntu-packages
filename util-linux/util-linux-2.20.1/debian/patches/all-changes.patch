@@ -1,0 +1,2944 @@
+--- util-linux-2.20.1.orig/AUTHORS
++++ util-linux-2.20.1/AUTHORS
+@@ -282,4 +282,5 @@
+       Yann Droneaud <yann@droneaud.fr>
+       Yoshihiro Takahashi <ytakahashi@miraclelinux.com>
+       Yu Zhiguo <yuzg@cn.fujitsu.com>
++      Zachary Catlin <z@zc.is>
+       Zdenek Behan <rain@matfyz.cz>
+--- util-linux-2.20.1.orig/ChangeLog
++++ util-linux-2.20.1/ChangeLog
+@@ -1,3 +1,3 @@
+ See version control history.
+ 
+-http://git.kernel.org/?p=utils/util-linux/util-linux.git;a=log;h=2.20.1
++http://git.kernel.org/?p=utils/util-linux/util-linux.git;a=log
+--- util-linux-2.20.1.orig/Makefile.in
++++ util-linux-2.20.1/Makefile.in
+@@ -259,7 +259,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/aclocal.m4
++++ util-linux-2.20.1/aclocal.m4
+@@ -47,7 +47,8 @@
+ # ----------------------------------
+ AC_DEFUN([PKG_PROG_PKG_CONFIG],
+ [m4_pattern_forbid([^_?PKG_[A-Z_]+$])
+-m4_pattern_allow([^PKG_CONFIG(_PATH)?$])
++m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
++m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
+ AC_ARG_VAR([PKG_CONFIG], [path to pkg-config utility])
+ AC_ARG_VAR([PKG_CONFIG_PATH], [directories to add to pkg-config's search path])
+ AC_ARG_VAR([PKG_CONFIG_LIBDIR], [path overriding pkg-config's built-in search path])
+@@ -93,7 +94,8 @@
+     pkg_cv_[]$1="$$1"
+  elif test -n "$PKG_CONFIG"; then
+     PKG_CHECK_EXISTS([$3],
+-                     [pkg_cv_[]$1=`$PKG_CONFIG --[]$2 "$3" 2>/dev/null`],
++                     [pkg_cv_[]$1=`$PKG_CONFIG --[]$2 "$3" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes ],
+ 		     [pkg_failed=yes])
+  else
+     pkg_failed=untried
+@@ -141,9 +143,9 @@
+    	AC_MSG_RESULT([no])
+         _PKG_SHORT_ERRORS_SUPPORTED
+         if test $_pkg_short_errors_supported = yes; then
+-	        $1[]_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "$2" 2>&1`
++	        $1[]_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "$2" 2>&1`
+         else 
+-	        $1[]_PKG_ERRORS=`$PKG_CONFIG --print-errors "$2" 2>&1`
++	        $1[]_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "$2" 2>&1`
+         fi
+ 	# Put the nasty error message in config.log where it belongs
+ 	echo "$$1[]_PKG_ERRORS" >&AS_MESSAGE_LOG_FD
+@@ -156,7 +158,7 @@
+ Consider adjusting the PKG_CONFIG_PATH environment variable if you
+ installed software in a non-standard prefix.
+ 
+-_PKG_TEXT])
++_PKG_TEXT])[]dnl
+         ])
+ elif test $pkg_failed = untried; then
+      	AC_MSG_RESULT([no])
+@@ -167,7 +169,7 @@
+ 
+ _PKG_TEXT
+ 
+-To get pkg-config, see <http://pkg-config.freedesktop.org/>.])
++To get pkg-config, see <http://pkg-config.freedesktop.org/>.])[]dnl
+         ])
+ else
+ 	$1[]_CFLAGS=$pkg_cv_[]$1[]_CFLAGS
+--- util-linux-2.20.1.orig/configure
++++ util-linux-2.20.1/configure
+@@ -840,7 +840,6 @@
+ usrlib_execdir
+ usrsbin_execdir
+ usrbin_execdir
+-libdirname
+ AM_BACKSLASH
+ AM_DEFAULT_VERBOSITY
+ am__untar
+@@ -3231,9 +3230,6 @@
+   esac ;;
+ esac
+ 
+-libdirname=`basename "$libdir"`
+-
+-
+ # The original default values of {bin,sbin,lib}dir
+ usrbin_execdir='${exec_prefix}/bin'
+ 
+@@ -3241,7 +3237,7 @@
+ usrsbin_execdir='${exec_prefix}/sbin'
+ 
+ 
+-usrlib_execdir='${exec_prefix}/'$libdirname
++usrlib_execdir='${libexecdir}'
+ 
+ 
+ DEPDIR="${am__leading_dot}deps"
+@@ -12576,6 +12572,7 @@
+ 
+ 
+ 
++
+ 
+ 
+ 
+--- util-linux-2.20.1.orig/configure.ac
++++ util-linux-2.20.1/configure.ac
+@@ -62,9 +62,6 @@
+   esac ;;
+ esac
+ 
+-libdirname=`basename "$libdir"`
+-AC_SUBST([libdirname])
+-
+ # The original default values of {bin,sbin,lib}dir
+ usrbin_execdir='${exec_prefix}/bin'
+ AC_SUBST([usrbin_execdir])
+@@ -72,7 +69,7 @@
+ usrsbin_execdir='${exec_prefix}/sbin'
+ AC_SUBST([usrsbin_execdir])
+ 
+-usrlib_execdir='${exec_prefix}/'$libdirname
++usrlib_execdir='${libexecdir}'
+ AC_SUBST([usrlib_execdir])
+ 
+ AM_PROG_CC_C_O
+@@ -733,7 +730,7 @@
+ dnl Helper macro to create the body for the above `case'.
+ dnl -------------------------------------
+ m4_define([_UTIL_CHECK_SYSCALL_FALLBACK],
+-[m4_ifval([$1],
++[m4_ifval([$2],
+   [#(
+   $1) syscall="$2" ;;dnl
+   _UTIL_CHECK_SYSCALL_FALLBACK(m4_shiftn(2, $@))])dnl
+--- util-linux-2.20.1.orig/disk-utils/Makefile.in
++++ util-linux-2.20.1/disk-utils/Makefile.in
+@@ -369,7 +369,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/fdisk/Makefile.in
++++ util-linux-2.20.1/fdisk/Makefile.in
+@@ -370,7 +370,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/fdisk/cfdisk.8
++++ util-linux-2.20.1/fdisk/cfdisk.8
+@@ -28,7 +28,7 @@
+ .RI [ device ]
+ .SH DESCRIPTION
+ .B cfdisk
+-is a curses-based program for partitioning any hard disk drive.
++is a curses/slang based program for partitioning any hard disk drive.
+ Typical values of the
+ .I device
+ argument are:
+--- util-linux-2.20.1.orig/fdisk/fdiskbsdlabel.h
++++ util-linux-2.20.1/fdisk/fdiskbsdlabel.h
+@@ -48,7 +48,8 @@
+ 
+ #if defined (i386) || defined (__sparc__) || defined (__arm__) || \
+     defined (__mips__) || defined (__s390__) || defined (__sh__) || \
+-    defined(__x86_64__) || defined (__avr32__) || defined(__cris__)
++    defined(__x86_64__) || defined (__avr32__) || defined(__cris__) || \
++    defined (__aarch64__)
+ #define BSD_LABELSECTOR   1
+ #define BSD_LABELOFFSET   0
+ #elif defined (__alpha__) || defined (__powerpc__) || defined (__ia64__) || defined (__hppa__)
+--- util-linux-2.20.1.orig/fdisk/sfdisk.c
++++ util-linux-2.20.1/fdisk/sfdisk.c
+@@ -1995,7 +1995,7 @@
+ compute_start_sect(struct part_desc *p, struct part_desc *ep) {
+     unsigned long long base;
+     int inc = (DOS && B.sectors) ? B.sectors : 1;
+-    int delta;
++    long long delta;
+ 
+     if (ep && p->start + p->size >= ep->start + 1)
+ 	delta = p->start - ep->start - inc;
+@@ -2010,7 +2010,7 @@
+ 	p->size += delta;
+ 	if (is_extended(p->p.sys_type) && boxes == ONESECTOR)
+ 	    p->size = inc;
+-	else if ((ssize_t) old_size <= (ssize_t) - delta) {
++	else if ((long long) old_size <= -delta) {
+ 	    my_warn(_("no room for partition descriptor\n"));
+ 	    return 0;
+ 	}
+--- util-linux-2.20.1.orig/fsck/Makefile.in
++++ util-linux-2.20.1/fsck/Makefile.in
+@@ -252,7 +252,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/getopt/Makefile.in
++++ util-linux-2.20.1/getopt/Makefile.in
+@@ -252,7 +252,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/getopt/getopt.1
++++ util-linux-2.20.1/getopt/getopt.1
+@@ -424,8 +424,8 @@
+ .SH EXAMPLES
+ Example scripts for (ba)sh and (t)csh are provided with the
+ .BR getopt (1)
+-distribution, and are optionally installed in
+-.BR /usr/share/getopt .
++distribution, and are optionally installed in 
++.BR /usr/share/doc/util-linux/examples .
+ 
+ .SH ENVIRONMENT
+ .IP POSIXLY_CORRECT
+--- util-linux-2.20.1.orig/hwclock/Makefile.in
++++ util-linux-2.20.1/hwclock/Makefile.in
+@@ -255,7 +255,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/hwclock/hwclock.8
++++ util-linux-2.20.1/hwclock/hwclock.8
+@@ -619,8 +619,6 @@
+ .SH FILES
+ .I /etc/adjtime
+ .I /usr/share/zoneinfo/
+-.RI ( /usr/lib/zoneinfo
+-on old systems)
+ .I /dev/rtc
+ .I /dev/rtc0
+ .I /dev/port
+@@ -634,6 +632,8 @@
+ .BR settimeofday (2),
+ .BR crontab (1),
+ .BR tzset (3)
++.BR /etc/init.d/hwclock.sh,
++.BR /usr/share/doc/util-linux/README.Debian.hwclock
+ 
+ .SH AUTHORS
+ Written by Bryan Henderson, September 1996 (bryanh@giraffe-data.com),
+--- util-linux-2.20.1.orig/hwclock/hwclock.c
++++ util-linux-2.20.1/hwclock/hwclock.c
+@@ -1126,8 +1126,18 @@
+ 	if (!ur)
+ 		ur = probe_for_kd_clock();
+ 
++	/*
++	 * This final clause is a really bad idea on x86/AT PCs. You run the
++	 * risk of a race condition with another copy of hwclock
++	 * that already has /dev/rtc open. The fallback case on
++	 * x86 is to then raise I/O priviledge level and access
++	 * the RTC CMOS directly using I/O instructions. Simultaneous
++	 * access like that can really hose the RTC.
++	 */
++#if !defined(__i386__)
+ 	if (!ur && !user_requests_ISA)
+ 		ur = probe_for_cmos_clock();
++#endif
+ 
+ 	if (debug) {
+ 		if (ur)
+--- util-linux-2.20.1.orig/include/Makefile.in
++++ util-linux-2.20.1/include/Makefile.in
+@@ -196,7 +196,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/lib/Makefile.in
++++ util-linux-2.20.1/lib/Makefile.in
+@@ -301,7 +301,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/lib/blkdev.c
++++ util-linux-2.20.1/lib/blkdev.c
+@@ -20,6 +20,10 @@
+ #include <sys/disk.h>
+ #endif
+ 
++#ifdef __FreeBSD_kernel__
++#include <sys/disk.h>
++#endif
++
+ #include "blkdev.h"
+ #include "linux_version.h"
+ #include "c.h"
+--- util-linux-2.20.1.orig/libblkid/Makefile.in
++++ util-linux-2.20.1/libblkid/Makefile.in
+@@ -258,7 +258,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libblkid/blkid.pc.in
++++ util-linux-2.20.1/libblkid/blkid.pc.in
+@@ -1,5 +1,6 @@
+ prefix=@prefix@
+ exec_prefix=@exec_prefix@
++libexecdir=@libexecdir@
+ libdir=@usrlib_execdir@
+ includedir=@includedir@
+ 
+--- util-linux-2.20.1.orig/libblkid/docs/Makefile.in
++++ util-linux-2.20.1/libblkid/docs/Makefile.in
+@@ -210,7 +210,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libblkid/samples/Makefile.in
++++ util-linux-2.20.1/libblkid/samples/Makefile.in
+@@ -232,7 +232,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libblkid/src/Makefile.in
++++ util-linux-2.20.1/libblkid/src/Makefile.in
+@@ -295,7 +295,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libblkid/src/partitions/Makefile.in
++++ util-linux-2.20.1/libblkid/src/partitions/Makefile.in
+@@ -223,7 +223,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libblkid/src/superblocks/Makefile.in
++++ util-linux-2.20.1/libblkid/src/superblocks/Makefile.in
+@@ -229,7 +229,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libblkid/src/superblocks/promise_raid.c
++++ util-linux-2.20.1/libblkid/src/superblocks/promise_raid.c
+@@ -29,7 +29,7 @@
+ {
+ 	unsigned int i;
+ 	static unsigned int sectors[] = {
+-		63, 255, 256, 16, 399, 0
++	  63, 255, 256, 16, 399, 591, 675, 735, 911, 974, 991, 951, 3087, 0
+ 	};
+ 
+ 	if (pr->size < 0x40000)
+--- util-linux-2.20.1.orig/libblkid/src/superblocks/udf.c
++++ util-linux-2.20.1/libblkid/src/superblocks/udf.c
+@@ -63,17 +63,25 @@
+ 	struct volume_descriptor *vd;
+ 	struct volume_structure_descriptor *vsd;
+ 	unsigned int bs;
++	unsigned int pbs[2];
+ 	unsigned int b;
+ 	unsigned int type;
+ 	unsigned int count;
+ 	unsigned int loc;
++	unsigned int i;
+ 
+-	/* search Volume Sequence Descriptor (VSD) to get the logical
+-	 * block size of the volume */
+-	for (bs = 0x800; bs < 0x8000; bs += 0x800) {
++	/* The block size of a UDF filesystem is that of the underlying
++	 * storage; we check later on for the special case of image files,
++	 * which may have the 2048-byte block size of optical media. */
++	pbs[0] = blkid_probe_get_sectorsize(pr);
++	pbs[1] = 0x800;
++
++	/* check for a Volume Structure Descriptor (VSD); each is
++	 * 2048 bytes long */
++	for (b = 0; b < 0x8000; b += 0x800) {
+ 		vsd = (struct volume_structure_descriptor *)
+ 			blkid_probe_get_buffer(pr,
+-					UDF_VSD_OFFSET + bs,
++					UDF_VSD_OFFSET + b,
+ 					sizeof(*vsd));
+ 		if (!vsd)
+ 			return 1;
+@@ -87,7 +95,7 @@
+ 	for (b = 0; b < 64; b++) {
+ 		vsd = (struct volume_structure_descriptor *)
+ 			blkid_probe_get_buffer(pr,
+-					UDF_VSD_OFFSET + ((blkid_loff_t) b * bs),
++					UDF_VSD_OFFSET + ((blkid_loff_t) b * 0x800),
+ 					sizeof(*vsd));
+ 		if (!vsd)
+ 			return -1;
+@@ -101,17 +109,24 @@
+ 	return -1;
+ 
+ anchor:
+-	/* read Anchor Volume Descriptor (AVDP) */
+-	vd = (struct volume_descriptor *)
+-		blkid_probe_get_buffer(pr, 256 * bs, sizeof(*vd));
+-	if (!vd)
+-		return -1;
+-
+-	type = le16_to_cpu(vd->tag.id);
+-	if (type != 2) /* TAG_ID_AVDP */
+-		return 0;
++	/* read Anchor Volume Descriptor (AVDP), checking block size */
++	for (i = 0; i < 2; i++) {
++		vd = (struct volume_descriptor *)
++			blkid_probe_get_buffer(pr, 256 * pbs[i], sizeof(*vd));
++		if (!vd)
++			return -1;
++
++		type = le16_to_cpu(vd->tag.id);
++		if (type == 2) /* TAG_ID_AVDP */
++			goto real_blksz;
++	}
++	return 0;
++
++real_blksz:
++	/* Use the actual block size from here on out */
++	bs = pbs[i];
+ 
+-	/* get desriptor list address and block count */
++	/* get descriptor list address and block count */
+ 	count = le32_to_cpu(vd->type.anchor.length) / bs;
+ 	loc = le32_to_cpu(vd->type.anchor.location);
+ 
+--- util-linux-2.20.1.orig/libblkid/src/topology/Makefile.in
++++ util-linux-2.20.1/libblkid/src/topology/Makefile.in
+@@ -232,7 +232,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libmount/Makefile.in
++++ util-linux-2.20.1/libmount/Makefile.in
+@@ -255,7 +255,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libmount/docs/Makefile.in
++++ util-linux-2.20.1/libmount/docs/Makefile.in
+@@ -210,7 +210,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libmount/mount.pc.in
++++ util-linux-2.20.1/libmount/mount.pc.in
+@@ -1,5 +1,6 @@
+ prefix=@prefix@
+ exec_prefix=@exec_prefix@
++libexecdir=@libexecdir@
+ libdir=@usrlib_execdir@
+ includedir=@includedir@
+ 
+--- util-linux-2.20.1.orig/libmount/samples/Makefile.in
++++ util-linux-2.20.1/libmount/samples/Makefile.in
+@@ -222,7 +222,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libmount/src/Makefile.am
++++ util-linux-2.20.1/libmount/src/Makefile.am
+@@ -29,7 +29,7 @@
+ 
+ libmount_la_LIBADD = $(ul_libblkid_la) $(SELINUX_LIBS)
+ 
+-libmount_la_DEPENDENCIES = $(libmount_la_LIBADD) libmount.sym libmount.h.in
++libmount_la_DEPENDENCIES = $(ul_libblkid_la) libmount.sym libmount.h.in
+ 
+ libmount_la_LDFLAGS = -Wl,--version-script=$(ul_libmount_srcdir)/libmount.sym \
+                       -version-info $(LIBMOUNT_VERSION_INFO)
+--- util-linux-2.20.1.orig/libmount/src/Makefile.in
++++ util-linux-2.20.1/libmount/src/Makefile.in
+@@ -258,7 +258,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libuuid/Makefile.in
++++ util-linux-2.20.1/libuuid/Makefile.in
+@@ -254,7 +254,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libuuid/man/Makefile.in
++++ util-linux-2.20.1/libuuid/man/Makefile.in
+@@ -217,7 +217,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libuuid/src/Makefile.in
++++ util-linux-2.20.1/libuuid/src/Makefile.in
+@@ -259,7 +259,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/libuuid/uuid.pc.in
++++ util-linux-2.20.1/libuuid/uuid.pc.in
+@@ -1,5 +1,6 @@
+ prefix=@prefix@
+ exec_prefix=@exec_prefix@
++libexecdir=@libexecdir@
+ libdir=@usrlib_execdir@
+ includedir=@includedir@
+ 
+--- util-linux-2.20.1.orig/login-utils/Makefile.in
++++ util-linux-2.20.1/login-utils/Makefile.in
+@@ -340,7 +340,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/man/ru/Makefile.in
++++ util-linux-2.20.1/man/ru/Makefile.in
+@@ -219,7 +219,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/misc-utils/Makefile.in
++++ util-linux-2.20.1/misc-utils/Makefile.in
+@@ -416,7 +416,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/misc-utils/blkid.c
++++ util-linux-2.20.1/misc-utils/blkid.c
+@@ -610,7 +610,7 @@
+ 	return mask;
+ err:
+ 	*flag = 0;
+-	fprintf(stderr, "unknown kerword in -u <list> argument: '%s'\n",
++	fprintf(stderr, "unknown keyword in -u <list> argument: '%s'\n",
+ 			word ? word : list);
+ 	exit(4);
+ }
+--- util-linux-2.20.1.orig/misc-utils/whereis.c
++++ util-linux-2.20.1/misc-utils/whereis.c
+@@ -99,7 +99,6 @@
+ 	"/usr/share",
+ 
+ 	"/opt/*/bin",
+-
+ 	0
+ };
+ 
+--- util-linux-2.20.1.orig/misc-utils/wipefs.c
++++ util-linux-2.20.1/misc-utils/wipefs.c
+@@ -377,15 +377,21 @@
+ 	if (optind != argc)
+ 		errx(EXIT_FAILURE, _("only one device as argument is currently supported."));
+ 
+-	wp = read_offsets(wp, fname, all);
++        /* we need to wipe several times for some file systems like VFAT, see
++         * https://launchpad.net/bugs/1046665 */
++        do {
++                wp = read_offsets(wp, fname, all);
+ 
+-	if (wp) {
+-		if (has_offset || all)
+-			do_wipe(wp, fname, noact);
+-		else
+-			print_all(wp, mode);
++                if (wp) {
++                        if (has_offset || all)
++                                do_wipe(wp, fname, noact);
++                        else
++                                print_all(wp, mode);
+ 
+-		free_wipe(wp);
+-	}
++                        free_wipe(wp);
++                        wp = NULL;
++                } else
++                        break;
++        } while (!noact && all);
+ 	return EXIT_SUCCESS;
+ }
+--- util-linux-2.20.1.orig/mount/Makefile.am
++++ util-linux-2.20.1/mount/Makefile.am
+@@ -7,7 +7,7 @@
+ dist_man_MANS = fstab.5 mount.8 swapoff.8 swapon.8 umount.8 losetup.8
+ 
+ # generic sources for all programs (mount, umount, losetup)
+-srcs_common = sundries.c xmalloc.c $(top_srcdir)/lib/canonicalize.c sundries.h xmalloc.h
++srcs_common = sundries.c xmalloc.c $(top_srcdir)/lib/canonicalize.c sundries.h xmalloc.h rmd160.c
+ 
+ # generic header for mount and umount
+ hdrs_mount = fstab.h mount_mntent.h mount_constants.h \
+--- util-linux-2.20.1.orig/mount/Makefile.in
++++ util-linux-2.20.1/mount/Makefile.in
+@@ -83,7 +83,7 @@
+ 	"$(DESTDIR)$(man5dir)" "$(DESTDIR)$(man8dir)"
+ PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS) $(sbin_PROGRAMS)
+ am__objects_1 = losetup-sundries.$(OBJEXT) losetup-xmalloc.$(OBJEXT) \
+-	losetup-canonicalize.$(OBJEXT)
++	losetup-canonicalize.$(OBJEXT) losetup-rmd160.$(OBJEXT)
+ am_losetup_OBJECTS = losetup-lomount.$(OBJEXT) $(am__objects_1) \
+ 	losetup-strutils.$(OBJEXT)
+ losetup_OBJECTS = $(am_losetup_OBJECTS)
+@@ -92,11 +92,12 @@
+ am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+ am__v_lt_0 = --silent
+ am__losetup_static_SOURCES_DIST = lomount.c sundries.c xmalloc.c \
+-	$(top_srcdir)/lib/canonicalize.c sundries.h xmalloc.h loop.h \
+-	lomount.h $(top_srcdir)/lib/strutils.c
++	$(top_srcdir)/lib/canonicalize.c sundries.h xmalloc.h rmd160.c \
++	loop.h lomount.h $(top_srcdir)/lib/strutils.c
+ am__objects_2 = losetup_static-sundries.$(OBJEXT) \
+ 	losetup_static-xmalloc.$(OBJEXT) \
+-	losetup_static-canonicalize.$(OBJEXT)
++	losetup_static-canonicalize.$(OBJEXT) \
++	losetup_static-rmd160.$(OBJEXT)
+ am__objects_3 = losetup_static-lomount.$(OBJEXT) $(am__objects_2) \
+ 	losetup_static-strutils.$(OBJEXT)
+ @HAVE_STATIC_LOSETUP_TRUE@am_losetup_static_OBJECTS =  \
+@@ -108,7 +109,7 @@
+ 	$(AM_CFLAGS) $(CFLAGS) $(losetup_static_LDFLAGS) $(LDFLAGS) -o \
+ 	$@
+ am__objects_4 = mount-sundries.$(OBJEXT) mount-xmalloc.$(OBJEXT) \
+-	mount-canonicalize.$(OBJEXT)
++	mount-canonicalize.$(OBJEXT) mount-rmd160.$(OBJEXT)
+ am__objects_5 =
+ am__objects_6 = mount-fstab.$(OBJEXT) mount-mount_mntent.$(OBJEXT) \
+ 	mount-getusername.$(OBJEXT) mount-lomount.$(OBJEXT) \
+@@ -129,14 +130,15 @@
+ am__mount_static_SOURCES_DIST = mount.c fstab.c mount_mntent.c \
+ 	getusername.c lomount.c devname.c devname.h sundries.c \
+ 	xmalloc.c $(top_srcdir)/lib/canonicalize.c sundries.h \
+-	xmalloc.h fstab.h mount_mntent.h mount_constants.h lomount.h \
+-	getusername.h loop.h $(top_srcdir)/lib/env.c \
++	xmalloc.h rmd160.c fstab.h mount_mntent.h mount_constants.h \
++	lomount.h getusername.h loop.h $(top_srcdir)/lib/env.c \
+ 	$(top_srcdir)/lib/linux_version.c $(top_srcdir)/lib/blkdev.c \
+ 	$(top_srcdir)/lib/fsprobe.c $(top_srcdir)/lib/mangle.c \
+ 	$(top_srcdir)/lib/setproctitle.c $(top_srcdir)/lib/strutils.c
+ am__objects_7 = mount_static-sundries.$(OBJEXT) \
+ 	mount_static-xmalloc.$(OBJEXT) \
+-	mount_static-canonicalize.$(OBJEXT)
++	mount_static-canonicalize.$(OBJEXT) \
++	mount_static-rmd160.$(OBJEXT)
+ am__objects_8 = mount_static-fstab.$(OBJEXT) \
+ 	mount_static-mount_mntent.$(OBJEXT) \
+ 	mount_static-getusername.$(OBJEXT) \
+@@ -156,12 +158,13 @@
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(mount_static_CFLAGS) \
+ 	$(CFLAGS) $(mount_static_LDFLAGS) $(LDFLAGS) -o $@
+ am__mtab_lock_test_SOURCES_DIST = fstab.c sundries.c xmalloc.c \
+-	$(top_srcdir)/lib/canonicalize.c sundries.h xmalloc.h fstab.h \
+-	mount_mntent.h mount_constants.h lomount.h getusername.h \
+-	loop.h
++	$(top_srcdir)/lib/canonicalize.c sundries.h xmalloc.h rmd160.c \
++	fstab.h mount_mntent.h mount_constants.h lomount.h \
++	getusername.h loop.h
+ am__objects_10 = mtab_lock_test-sundries.$(OBJEXT) \
+ 	mtab_lock_test-xmalloc.$(OBJEXT) \
+-	mtab_lock_test-canonicalize.$(OBJEXT)
++	mtab_lock_test-canonicalize.$(OBJEXT) \
++	mtab_lock_test-rmd160.$(OBJEXT)
+ @BUILD_LIBMOUNT_MOUNT_FALSE@am_mtab_lock_test_OBJECTS =  \
+ @BUILD_LIBMOUNT_MOUNT_FALSE@	mtab_lock_test-fstab.$(OBJEXT) \
+ @BUILD_LIBMOUNT_MOUNT_FALSE@	$(am__objects_10) $(am__objects_5)
+@@ -177,7 +180,7 @@
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(swapon_CFLAGS) $(CFLAGS) \
+ 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+ am__objects_11 = umount-sundries.$(OBJEXT) umount-xmalloc.$(OBJEXT) \
+-	umount-canonicalize.$(OBJEXT)
++	umount-canonicalize.$(OBJEXT) umount-rmd160.$(OBJEXT)
+ am__objects_12 = umount-fstab.$(OBJEXT) umount-mount_mntent.$(OBJEXT) \
+ 	umount-getusername.$(OBJEXT) umount-lomount.$(OBJEXT) \
+ 	umount-devname.$(OBJEXT) $(am__objects_11) $(am__objects_5) \
+@@ -194,14 +197,15 @@
+ am__umount_static_SOURCES_DIST = umount.c fstab.c mount_mntent.c \
+ 	getusername.c lomount.c devname.c devname.h sundries.c \
+ 	xmalloc.c $(top_srcdir)/lib/canonicalize.c sundries.h \
+-	xmalloc.h fstab.h mount_mntent.h mount_constants.h lomount.h \
+-	getusername.h loop.h $(top_srcdir)/lib/env.c \
++	xmalloc.h rmd160.c fstab.h mount_mntent.h mount_constants.h \
++	lomount.h getusername.h loop.h $(top_srcdir)/lib/env.c \
+ 	$(top_srcdir)/lib/linux_version.c $(top_srcdir)/lib/blkdev.c \
+ 	$(top_srcdir)/lib/fsprobe.c $(top_srcdir)/lib/mangle.c \
+ 	$(top_srcdir)/lib/strutils.c
+ am__objects_13 = umount_static-sundries.$(OBJEXT) \
+ 	umount_static-xmalloc.$(OBJEXT) \
+-	umount_static-canonicalize.$(OBJEXT)
++	umount_static-canonicalize.$(OBJEXT) \
++	umount_static-rmd160.$(OBJEXT)
+ am__objects_14 = umount_static-fstab.$(OBJEXT) \
+ 	umount_static-mount_mntent.$(OBJEXT) \
+ 	umount_static-getusername.$(OBJEXT) \
+@@ -411,7 +415,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+@@ -471,7 +474,7 @@
+ dist_man_MANS = fstab.5 mount.8 swapoff.8 swapon.8 umount.8 losetup.8
+ 
+ # generic sources for all programs (mount, umount, losetup)
+-srcs_common = sundries.c xmalloc.c $(top_srcdir)/lib/canonicalize.c sundries.h xmalloc.h
++srcs_common = sundries.c xmalloc.c $(top_srcdir)/lib/canonicalize.c sundries.h xmalloc.h rmd160.c
+ 
+ # generic header for mount and umount
+ hdrs_mount = fstab.h mount_mntent.h mount_constants.h \
+@@ -690,11 +693,13 @@
+ 
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup-canonicalize.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup-lomount.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup-rmd160.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup-strutils.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup-sundries.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup-xmalloc.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup_static-canonicalize.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup_static-lomount.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup_static-rmd160.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup_static-strutils.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup_static-sundries.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup_static-xmalloc.Po@am__quote@
+@@ -710,6 +715,7 @@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount-mangle.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount-mount.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount-mount_mntent.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount-rmd160.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount-setproctitle.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount-strutils.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount-sundries.Po@am__quote@
+@@ -726,12 +732,14 @@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount_static-mangle.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount_static-mount.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount_static-mount_mntent.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount_static-rmd160.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount_static-setproctitle.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount_static-strutils.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount_static-sundries.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount_static-xmalloc.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mtab_lock_test-canonicalize.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mtab_lock_test-fstab.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mtab_lock_test-rmd160.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mtab_lock_test-sundries.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mtab_lock_test-xmalloc.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/swapon-blkdev.Po@am__quote@
+@@ -751,6 +759,7 @@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount-lomount.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount-mangle.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount-mount_mntent.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount-rmd160.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount-strutils.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount-sundries.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount-umount.Po@am__quote@
+@@ -766,6 +775,7 @@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount_static-lomount.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount_static-mangle.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount_static-mount_mntent.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount_static-rmd160.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount_static-strutils.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount_static-sundries.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount_static-umount.Po@am__quote@
+@@ -859,6 +869,22 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o losetup-canonicalize.obj `if test -f '$(top_srcdir)/lib/canonicalize.c'; then $(CYGPATH_W) '$(top_srcdir)/lib/canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/lib/canonicalize.c'; fi`
+ 
++losetup-rmd160.o: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT losetup-rmd160.o -MD -MP -MF $(DEPDIR)/losetup-rmd160.Tpo -c -o losetup-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/losetup-rmd160.Tpo $(DEPDIR)/losetup-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='losetup-rmd160.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o losetup-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++
++losetup-rmd160.obj: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT losetup-rmd160.obj -MD -MP -MF $(DEPDIR)/losetup-rmd160.Tpo -c -o losetup-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/losetup-rmd160.Tpo $(DEPDIR)/losetup-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='losetup-rmd160.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o losetup-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++
+ losetup-strutils.o: $(top_srcdir)/lib/strutils.c
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT losetup-strutils.o -MD -MP -MF $(DEPDIR)/losetup-strutils.Tpo -c -o losetup-strutils.o `test -f '$(top_srcdir)/lib/strutils.c' || echo '$(srcdir)/'`$(top_srcdir)/lib/strutils.c
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/losetup-strutils.Tpo $(DEPDIR)/losetup-strutils.Po
+@@ -939,6 +965,22 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_static_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o losetup_static-canonicalize.obj `if test -f '$(top_srcdir)/lib/canonicalize.c'; then $(CYGPATH_W) '$(top_srcdir)/lib/canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/lib/canonicalize.c'; fi`
+ 
++losetup_static-rmd160.o: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_static_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT losetup_static-rmd160.o -MD -MP -MF $(DEPDIR)/losetup_static-rmd160.Tpo -c -o losetup_static-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/losetup_static-rmd160.Tpo $(DEPDIR)/losetup_static-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='losetup_static-rmd160.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_static_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o losetup_static-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++
++losetup_static-rmd160.obj: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_static_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT losetup_static-rmd160.obj -MD -MP -MF $(DEPDIR)/losetup_static-rmd160.Tpo -c -o losetup_static-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/losetup_static-rmd160.Tpo $(DEPDIR)/losetup_static-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='losetup_static-rmd160.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_static_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o losetup_static-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++
+ losetup_static-strutils.o: $(top_srcdir)/lib/strutils.c
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(losetup_static_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT losetup_static-strutils.o -MD -MP -MF $(DEPDIR)/losetup_static-strutils.Tpo -c -o losetup_static-strutils.o `test -f '$(top_srcdir)/lib/strutils.c' || echo '$(srcdir)/'`$(top_srcdir)/lib/strutils.c
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/losetup_static-strutils.Tpo $(DEPDIR)/losetup_static-strutils.Po
+@@ -1099,6 +1141,22 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_CFLAGS) $(CFLAGS) -c -o mount-canonicalize.obj `if test -f '$(top_srcdir)/lib/canonicalize.c'; then $(CYGPATH_W) '$(top_srcdir)/lib/canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/lib/canonicalize.c'; fi`
+ 
++mount-rmd160.o: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_CFLAGS) $(CFLAGS) -MT mount-rmd160.o -MD -MP -MF $(DEPDIR)/mount-rmd160.Tpo -c -o mount-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mount-rmd160.Tpo $(DEPDIR)/mount-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='mount-rmd160.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_CFLAGS) $(CFLAGS) -c -o mount-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++
++mount-rmd160.obj: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_CFLAGS) $(CFLAGS) -MT mount-rmd160.obj -MD -MP -MF $(DEPDIR)/mount-rmd160.Tpo -c -o mount-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mount-rmd160.Tpo $(DEPDIR)/mount-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='mount-rmd160.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_CFLAGS) $(CFLAGS) -c -o mount-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++
+ mount-env.o: $(top_srcdir)/lib/env.c
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_CFLAGS) $(CFLAGS) -MT mount-env.o -MD -MP -MF $(DEPDIR)/mount-env.Tpo -c -o mount-env.o `test -f '$(top_srcdir)/lib/env.c' || echo '$(srcdir)/'`$(top_srcdir)/lib/env.c
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mount-env.Tpo $(DEPDIR)/mount-env.Po
+@@ -1355,6 +1413,22 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_static_CFLAGS) $(CFLAGS) -c -o mount_static-canonicalize.obj `if test -f '$(top_srcdir)/lib/canonicalize.c'; then $(CYGPATH_W) '$(top_srcdir)/lib/canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/lib/canonicalize.c'; fi`
+ 
++mount_static-rmd160.o: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_static_CFLAGS) $(CFLAGS) -MT mount_static-rmd160.o -MD -MP -MF $(DEPDIR)/mount_static-rmd160.Tpo -c -o mount_static-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mount_static-rmd160.Tpo $(DEPDIR)/mount_static-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='mount_static-rmd160.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_static_CFLAGS) $(CFLAGS) -c -o mount_static-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++
++mount_static-rmd160.obj: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_static_CFLAGS) $(CFLAGS) -MT mount_static-rmd160.obj -MD -MP -MF $(DEPDIR)/mount_static-rmd160.Tpo -c -o mount_static-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mount_static-rmd160.Tpo $(DEPDIR)/mount_static-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='mount_static-rmd160.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_static_CFLAGS) $(CFLAGS) -c -o mount_static-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++
+ mount_static-env.o: $(top_srcdir)/lib/env.c
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mount_static_CFLAGS) $(CFLAGS) -MT mount_static-env.o -MD -MP -MF $(DEPDIR)/mount_static-env.Tpo -c -o mount_static-env.o `test -f '$(top_srcdir)/lib/env.c' || echo '$(srcdir)/'`$(top_srcdir)/lib/env.c
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mount_static-env.Tpo $(DEPDIR)/mount_static-env.Po
+@@ -1531,6 +1605,22 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mtab_lock_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mtab_lock_test-canonicalize.obj `if test -f '$(top_srcdir)/lib/canonicalize.c'; then $(CYGPATH_W) '$(top_srcdir)/lib/canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/lib/canonicalize.c'; fi`
+ 
++mtab_lock_test-rmd160.o: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mtab_lock_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mtab_lock_test-rmd160.o -MD -MP -MF $(DEPDIR)/mtab_lock_test-rmd160.Tpo -c -o mtab_lock_test-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mtab_lock_test-rmd160.Tpo $(DEPDIR)/mtab_lock_test-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='mtab_lock_test-rmd160.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mtab_lock_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mtab_lock_test-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++
++mtab_lock_test-rmd160.obj: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mtab_lock_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mtab_lock_test-rmd160.obj -MD -MP -MF $(DEPDIR)/mtab_lock_test-rmd160.Tpo -c -o mtab_lock_test-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mtab_lock_test-rmd160.Tpo $(DEPDIR)/mtab_lock_test-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='mtab_lock_test-rmd160.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mtab_lock_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mtab_lock_test-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++
+ swapon-swapon.o: swapon.c
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swapon_CFLAGS) $(CFLAGS) -MT swapon-swapon.o -MD -MP -MF $(DEPDIR)/swapon-swapon.Tpo -c -o swapon-swapon.o `test -f 'swapon.c' || echo '$(srcdir)/'`swapon.c
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/swapon-swapon.Tpo $(DEPDIR)/swapon-swapon.Po
+@@ -1771,6 +1861,22 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_CFLAGS) $(CFLAGS) -c -o umount-canonicalize.obj `if test -f '$(top_srcdir)/lib/canonicalize.c'; then $(CYGPATH_W) '$(top_srcdir)/lib/canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/lib/canonicalize.c'; fi`
+ 
++umount-rmd160.o: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_CFLAGS) $(CFLAGS) -MT umount-rmd160.o -MD -MP -MF $(DEPDIR)/umount-rmd160.Tpo -c -o umount-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/umount-rmd160.Tpo $(DEPDIR)/umount-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='umount-rmd160.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_CFLAGS) $(CFLAGS) -c -o umount-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++
++umount-rmd160.obj: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_CFLAGS) $(CFLAGS) -MT umount-rmd160.obj -MD -MP -MF $(DEPDIR)/umount-rmd160.Tpo -c -o umount-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/umount-rmd160.Tpo $(DEPDIR)/umount-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='umount-rmd160.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_CFLAGS) $(CFLAGS) -c -o umount-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++
+ umount-env.o: $(top_srcdir)/lib/env.c
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_CFLAGS) $(CFLAGS) -MT umount-env.o -MD -MP -MF $(DEPDIR)/umount-env.Tpo -c -o umount-env.o `test -f '$(top_srcdir)/lib/env.c' || echo '$(srcdir)/'`$(top_srcdir)/lib/env.c
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/umount-env.Tpo $(DEPDIR)/umount-env.Po
+@@ -2011,6 +2117,22 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_static_CFLAGS) $(CFLAGS) -c -o umount_static-canonicalize.obj `if test -f '$(top_srcdir)/lib/canonicalize.c'; then $(CYGPATH_W) '$(top_srcdir)/lib/canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/lib/canonicalize.c'; fi`
+ 
++umount_static-rmd160.o: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_static_CFLAGS) $(CFLAGS) -MT umount_static-rmd160.o -MD -MP -MF $(DEPDIR)/umount_static-rmd160.Tpo -c -o umount_static-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/umount_static-rmd160.Tpo $(DEPDIR)/umount_static-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='umount_static-rmd160.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_static_CFLAGS) $(CFLAGS) -c -o umount_static-rmd160.o `test -f 'rmd160.c' || echo '$(srcdir)/'`rmd160.c
++
++umount_static-rmd160.obj: rmd160.c
++@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_static_CFLAGS) $(CFLAGS) -MT umount_static-rmd160.obj -MD -MP -MF $(DEPDIR)/umount_static-rmd160.Tpo -c -o umount_static-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/umount_static-rmd160.Tpo $(DEPDIR)/umount_static-rmd160.Po
++@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='rmd160.c' object='umount_static-rmd160.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_static_CFLAGS) $(CFLAGS) -c -o umount_static-rmd160.obj `if test -f 'rmd160.c'; then $(CYGPATH_W) 'rmd160.c'; else $(CYGPATH_W) '$(srcdir)/rmd160.c'; fi`
++
+ umount_static-env.o: $(top_srcdir)/lib/env.c
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(umount_static_CFLAGS) $(CFLAGS) -MT umount_static-env.o -MD -MP -MF $(DEPDIR)/umount_static-env.Tpo -c -o umount_static-env.o `test -f '$(top_srcdir)/lib/env.c' || echo '$(srcdir)/'`$(top_srcdir)/lib/env.c
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/umount_static-env.Tpo $(DEPDIR)/umount_static-env.Po
+--- util-linux-2.20.1.orig/mount/fstab.5
++++ util-linux-2.20.1/mount/fstab.5
+@@ -63,7 +63,9 @@
+ .BR umount (8)
+ sequentially iterate through
+ .B fstab
+-doing their thing.
++doing their thing, though at boot time
++.BR mountall (8)
++may process the file out-of-order when it believes it is safe to do so.
+ 
+ .B The first field
+ .RI ( fs_spec ).
+@@ -203,6 +205,27 @@
+ do not report errors for this device if it does not exist.
+ .RE
+ 
++The
++.BR mountall (8)
++program that mounts filesystem during boot also recognises additional
++options that the ordinary
++.BR mount (8)
++tool does not.  These are: ``bootwait'' which can be applied to remote
++filesystems mounted outside of
++.I /usr
++or
++.IR /var ,
++without which
++.BR mountall (8)
++would not hold up the boot for these; ``nobootwait'' which can be
++applied to non-remote filesystems to explicitly instruct
++.BR mountall (8)
++not to hold up the boot for them; ``optional'' which causes the entry
++to be ignored if the filesystem type is not known at boot time; and
++``showthrough'' which permits a mountpoint to be mounted before its
++parent mountpoint (this latter should be used carefully, as it can
++cause boot hangs).
++
+ .B The fifth field
+ .RI ( fs_freq ).
+ .RS
+@@ -243,6 +266,7 @@
+ .I <fstab.h>
+ .SH "SEE ALSO"
+ .BR mount (8),
++.BR mountall (8),
+ .BR swapon (8),
+ .BR fs (5),
+ .BR nfs (5),
+--- util-linux-2.20.1.orig/mount/fstab.c
++++ util-linux-2.20.1/mount/fstab.c
+@@ -82,11 +82,12 @@
+ 
+ /* Contents of mtab and fstab ---------------------------------*/
+ 
+-struct mntentchn mounttable, fstab;
++struct mntentchn mounttable, fstab, mountall;
+ static int got_mtab = 0;
+ static int got_fstab = 0;
++static int got_mountall = 0;
+ 
+-static void read_mounttable(void), read_fstab(void);
++static void read_mounttable(void), read_fstab(void), read_mountall(void);
+ 
+ struct mntentchn *
+ mtab_head() {
+@@ -102,6 +103,14 @@
+ 	return &fstab;
+ }
+ 
++struct mntentchn *
++mountall_head() {
++	if (!got_mountall)
++		read_mountall();
++	return &mountall;
++}
++
++
+ static void
+ my_free_mc(struct mntentchn *mc) {
+ 	if (mc) {
+@@ -247,6 +256,27 @@
+ 	read_mntentchn(mfp, fnam, mc);
+ }
+ 
++static void
++read_mountall() {
++	mntFILE *mfp = NULL;
++	const char *fnam;
++	struct mntentchn *mc = &mountall;
++
++	got_mountall = 1;
++	mc->nxt = mc->prev = NULL;
++
++	fnam = "/lib/init/fstab";
++	mfp = my_setmntent (fnam, "r");
++	if (mfp == NULL || mfp->mntent_fp == NULL) {
++		int errsv = errno;
++		error(_("warning: can't open %s: %s"),
++		      fnam, strerror (errsv));
++		return;
++	}
++	read_mntentchn(mfp, fnam, mc);
++}
++
++
+ 
+ /* Given the name NAME, try to find it in mtab.  */
+ struct mntentchn *
+@@ -319,9 +349,11 @@
+ 			return mc;
+ 	}
+ 
+-	/* non-canonical names in mtab (this is BAD THING!) */
++	/* non-canonical names in mtab (this is BAD THING!) 
++	 * but it should be allowed only for spec fsname(s) 
++	 */
+ 	for (mc = mcprev->prev; mc && mc != mc0; mc = mc->prev) {
+-		char *cn = canonicalize(mc->m.mnt_fsname);
++		char *cn = canonicalize_spec(mc->m.mnt_fsname);
+ 		int res = cn ? streq(cn, name) : 0;
+ 
+ 		free(cn);
+@@ -332,6 +364,19 @@
+ 	return NULL;
+ }
+ 
++/* Given the directory name DIR, try to find it in mountall's fstab.  */
++struct mntentchn *
++getmountalldir (const char *dir) {
++	struct mntentchn *mc, *mc0;
++
++	mc0 = mountall_head();
++	for (mc = mc0->nxt; mc && mc != mc0; mc = mc->nxt)
++		if (streq(mc->m.mnt_dir, dir))
++			return mc;
++	return NULL;
++}
++
++
+ /*
+  * Given the name NAME, check that it occurs precisely once as dir or dev.
+  */
+--- util-linux-2.20.1.orig/mount/fstab.h
++++ util-linux-2.20.1/mount/fstab.h
+@@ -34,6 +34,9 @@
+ struct mntentchn *getfs_by_uuid (const char *uuid);
+ struct mntentchn *getfs_by_label (const char *label);
+ 
++struct mntentchn *mountall_head (void);
++struct mntentchn *getmountalldir (const char *dir);
++
+ void lock_mtab (void);
+ void unlock_mtab (void);
+ void update_mtab (const char *special, struct my_mntent *with);
+--- util-linux-2.20.1.orig/mount/lomount.c
++++ util-linux-2.20.1/mount/lomount.c
+@@ -19,6 +19,7 @@
+ #include "loop.h"
+ #include "lomount.h"
+ #include "strutils.h"
++#include "rmd160.h"
+ #include "nls.h"
+ #include "sundries.h"
+ #include "xmalloc.h"
+@@ -787,7 +788,8 @@
+  */
+ int
+ set_loop(const char *device, const char *file, unsigned long long offset,
+-	 unsigned long long sizelimit, const char *encryption, int pfd, int *options) {
++	 unsigned long long sizelimit, const char *encryption, int pfd, int *options,
++	 int keysz, int hash_pass) {
+ 	struct loop_info64 loopinfo64;
+ 	int fd, ffd, mode, i;
+ 	char *pass;
+@@ -855,20 +857,87 @@
+ 	}
+ #endif
+ 
++
++	if (keysz==0)
++		keysz=LO_KEY_SIZE*8;
+ 	switch (loopinfo64.lo_encrypt_type) {
+ 	case LO_CRYPT_NONE:
+ 		loopinfo64.lo_encrypt_key_size = 0;
+ 		break;
+ 	case LO_CRYPT_XOR:
+ 		pass = getpass(_("Password: "));
+-		goto gotpass;
+-	default:
+-		pass = xgetpass(pfd, _("Password: "));
+-	gotpass:
+ 		memset(loopinfo64.lo_encrypt_key, 0, LO_KEY_SIZE);
+ 		xstrncpy((char *)loopinfo64.lo_encrypt_key, pass, LO_KEY_SIZE);
+ 		memset(pass, 0, strlen(pass));
+ 		loopinfo64.lo_encrypt_key_size = LO_KEY_SIZE;
++		break;
++#define HASHLENGTH 20
++#if 0
++	case LO_CRYPT_FISH2:
++	case LO_CRYPT_BLOW:
++	case LO_CRYPT_IDEA:
++	case LO_CRYPT_CAST128:
++	case LO_CRYPT_SERPENT:
++	case LO_CRYPT_MARS:
++	case LO_CRYPT_RC6:
++	case LO_CRYPT_3DES:
++	case LO_CRYPT_DFC:
++	case LO_CRYPT_RIJNDAEL:
++	    {
++		char keybits[2*HASHLENGTH]; 
++		char *pass2;
++		int passwdlen;
++		int keylength;
++		int i;
++
++  		pass = xgetpass(pfd, _("Password: "));
++		passwdlen=strlen(pass);
++		pass2=malloc(passwdlen+2);
++		pass2[0]='A';
++		strcpy(pass2+1,pass);
++		rmd160_hash_buffer(keybits,pass,passwdlen);
++		rmd160_hash_buffer(keybits+HASHLENGTH,pass2,passwdlen+1);
++		memcpy((char*)loopinfo64.lo_encrypt_key,keybits,2*HASHLENGTH);
++		memset(pass, 0, passwdlen);
++		memset(pass2, 0, passwdlen+1);
++		free(pass2);
++		keylength=0;
++		for(i=0; crypt_type_tbl[i].id != -1; i++){
++		         if(loopinfo64.lo_encrypt_type == crypt_type_tbl[i].id){
++			         keylength = crypt_type_tbl[i].keylength;
++				 break;
++			 }
++		}
++		loopinfo64.lo_encrypt_key_size=keylength;
++		break;
++	    }
++#endif
++	default:
++		if (hash_pass) {
++		    char keybits[2*HASHLENGTH]; 
++		    char *pass2;
++		    int passwdlen;
++
++		    pass = xgetpass(pfd, _("Password: "));
++		    passwdlen=strlen(pass);
++		    pass2=malloc(passwdlen+2);
++		    pass2[0]='A';
++		    strcpy(pass2+1,pass);
++		    rmd160_hash_buffer(keybits,pass,passwdlen);
++		    rmd160_hash_buffer(keybits+HASHLENGTH,pass2,passwdlen+1);
++		    memset(pass, 0, passwdlen);
++		    memset(pass2, 0, passwdlen+1);
++		    free(pass2);
++
++		    memcpy((char*)loopinfo64.lo_encrypt_key,keybits,keysz/8);
++		    loopinfo64.lo_encrypt_key_size = keysz/8;
++		} else {
++		    pass = xgetpass(pfd, _("Password: "));
++		    memset(loopinfo64.lo_encrypt_key, 0, LO_KEY_SIZE);
++		    xstrncpy(loopinfo64.lo_encrypt_key, pass, LO_KEY_SIZE);
++		    memset(pass, 0, strlen(pass));
++		    loopinfo64.lo_encrypt_key_size = LO_KEY_SIZE;
++		}
+ 	}
+ 
+ 	if (ioctl(fd, LOOP_SET_FD, ffd) < 0) {
+@@ -975,8 +1044,8 @@
+ 
+ int
+ set_loop(const char *device, const char *file, unsigned long long offset,
+-         unsigned long long sizelimit, const char *encryption, int pfd, int *loopro,
+-         int keysz, int hash_pass) {
++	 unsigned long long sizelimit, const char *encryption, int pfd, int *options,
++	 int keysz, int hash_pass) {
+ 	mutter();
+ 	return 1;
+ }
+@@ -1031,6 +1100,12 @@
+ 	  " -p, --pass-fd <num>     read passphrase from file descriptor <num>\n"
+ 	  " -r, --read-only         setup read-only loop device\n"
+ 	  "     --show              print device name (with -f <file>)\n"
++	  " -N | --nohashpass       Do not hash the given password (Debian hashes)\n"
++	  " -k | --keybits <num>    specify number of bits in the hashed key given\n"
++	  "                         to the cipher.  Some ciphers support several key\n"
++	  "                         sizes and might be more efficient with a smaller\n"
++	  "                         key size.  Key sizes < 128 are generally not\n"
++	  "                         recommended\n"
+ 	  " -v, --verbose           verbose mode\n\n"), out);
+ 
+ 	exit(out == stderr ? EXIT_FAILURE : EXIT_SUCCESS);
+@@ -1039,12 +1114,15 @@
+ int
+ main(int argc, char **argv) {
+ 	char *p, *offset, *sizelimit, *encryption, *passfd, *device, *file, *assoc;
++	char *keysize;
+ 	int delete, find, c, all, capacity;
+ 	int res = 0;
+ 	int showdev = 0;
+ 	int ro = 0;
+ 	int pfd = -1;
+ 	uintmax_t off = 0, slimit = 0;
++	int keysz = 0;
++	int hash_pass = 1;
+ 
+ 	static const struct option longopts[] = {
+ 		{ "all", 0, 0, 'a' },
+@@ -1053,6 +1131,9 @@
+ 		{ "encryption", 1, 0, 'e' },
+ 		{ "find", 0, 0, 'f' },
+ 		{ "help", 0, 0, 'h' },
++		{ "keybits", 1, 0, 'k' },
++		{ "nopasshash", 0, 0, 'N' },
++		{ "nohashpass", 0, 0, 'N' },
+ 		{ "associated", 1, 0, 'j' },
+ 		{ "offset", 1, 0, 'o' },
+ 		{ "sizelimit", 1, 0, 128 },
+@@ -1069,12 +1150,13 @@
+ 
+ 	capacity = delete = find = all = 0;
+ 	assoc = offset = sizelimit = encryption = passfd = NULL;
++	keysize = NULL;
+ 
+ 	progname = argv[0];
+ 	if ((p = strrchr(progname, '/')) != NULL)
+ 		progname = p+1;
+ 
+-	while ((c = getopt_long(argc, argv, "acde:E:fhj:o:p:rsv",
++	while ((c = getopt_long(argc, argv, "acde:E:fhj:k:No:p:rsv",
+ 				longopts, NULL)) != -1) {
+ 		switch (c) {
+ 		case 'a':
+@@ -1101,6 +1183,11 @@
+ 			break;
+ 		case 'j':
+ 			assoc = optarg;
++		case 'k':
++			keysize = optarg;
++			break;
++		case 'N':
++			hash_pass = 0;
+ 			break;
+ 		case 'o':
+ 			offset = optarg;
+@@ -1125,7 +1212,7 @@
+ 	}
+ 
+ 	if (argc == 1) {
+-		usage(stderr);
++	    usage(stderr);
+ 	} else if (delete) {
+ 		if (argc < optind+1 || encryption || offset || sizelimit ||
+ 		    capacity || find || all || showdev || assoc || ro)
+@@ -1192,8 +1279,10 @@
+ 	else {
+ 		if (passfd && sscanf(passfd, "%d", &pfd) != 1)
+ 			usage(stderr);
++		if (keysize && sscanf(keysize,"%d",&keysz) != 1)
++			usage(stderr);
+ 		do {
+-			res = set_loop(device, file, off, slimit, encryption, pfd, &ro);
++			res = set_loop(device, file, off, slimit, encryption, pfd, &ro, keysz, hash_pass);
+ 			if (res == 2 && find) {
+ 				if (verbose)
+ 					printf(_("stolen loop=%s...trying again\n"),
+--- util-linux-2.20.1.orig/mount/lomount.h
++++ util-linux-2.20.1/mount/lomount.h
+@@ -2,7 +2,7 @@
+ #define UTIL_LINUX_LOMOUNT_H
+ 
+ extern int set_loop(const char *, const char *, unsigned long long, unsigned long long,
+-		    const char *, int, int *);
++		    const char *, int, int *, int, int);
+ extern int del_loop(const char *);
+ extern int is_loop_device(const char *);
+ extern int is_loop_autoclear(const char *device);
+--- util-linux-2.20.1.orig/mount/losetup.8
++++ util-linux-2.20.1/mount/losetup.8
+@@ -99,6 +99,11 @@
+ .IP "\fB\-j, \-\-associated \fIfile\fP"
+ show status of all loop devices associated with given
+ .I file
++.IP "\fB\-k, \-\-keybits \fInum\fP"
++set the number of bits to use in key to \fInum\fP.
++.IP "\fB\-N, \-\-nohashpass\fP"
++Do not hash the password.  By default, Debian systems run the password through a
++hash function, non-Debian systems tend not to.
+ .IP "\fB\-o, \-\-offset \fIoffset\fP"
+ the data start is moved \fIoffset\fP bytes into the specified file or
+ device
+@@ -169,6 +174,8 @@
+ .fi
+ .SH RESTRICTION
+ DES encryption is painfully slow. On the other hand, XOR is terribly weak.
++Both are insecure nowadays. Some ciphers may require a licence for you to be
++allowed to use them.
+ 
+ Cryptoloop is deprecated in favor of dm-crypt. For more details see
+ .BR cryptsetup (8).
+--- util-linux-2.20.1.orig/mount/mount.8
++++ util-linux-2.20.1/mount/mount.8
+@@ -150,7 +150,7 @@
+ more readable, robust and portable. The
+ .BR mount (8)
+ command internally uses udev
+-symlinks, so use the symlinks in /etc/fstab has no advantage over LABEL=/UUID=.
++symlinks, so the use symlinks in /etc/fstab has no advantage over LABEL=/UUID=.
+ For more details see
+ .BR libblkid (3).
+ 
+@@ -909,6 +909,15 @@
+ (unless overridden by subsequent options, as in the option line
+ .BR group,dev,suid ).
+ .TP
++.B encryption
++Specifies an encryption algorithm to use.  Used in conjunction with the
++.BR loop " option."
++.TP
++.B keybits
++Specifies the key size to use for an encryption algorithm. Used in conjunction
++with the 
++.BR loop " and " encryption " options."
++.TP
+ .B iversion
+ Every time the inode is modified, the i_version field will be incremented.
+ .TP
+@@ -1418,8 +1427,8 @@
+ .TP
+ .BR journal_async_commit
+ Commit block can be written to disk without waiting for descriptor blocks. If
+-enabled older kernels cannot mount the device.
+-This will enable 'journal_checksum' internally.
++enabled older kernels cannot mount the device. This will
++enable 'journal_checksum' internally.
+ .TP
+ .BR journal=update
+ Update the ext4 filesystem's journal to the current format.
+@@ -1943,7 +1952,7 @@
+ .SH "Mount options for nfs and nfs4"
+ See the options section of the
+ .BR nfs (5)
+-man page (nfs-utils package must be installed).
++man page (nfs-common package must be installed).
+ 
+ The
+ .IR nfs " and " nfs4
+@@ -2695,6 +2704,10 @@
+ .BR loop ", " offset ", " sizelimit " and " encryption ,
+ that are really options to
+ .BR \%losetup (8).
++If the mount requires a passphrase, you will be prompted for one unless
++you specify a file descriptor to read from instead with the
++.BR \-\-pass-fd
++option.
+ (These options can be used in addition to those specific
+ to the filesystem type.)
+ 
+--- util-linux-2.20.1.orig/mount/mount.c
++++ util-linux-2.20.1/mount/mount.c
+@@ -61,6 +61,12 @@
+ /* True for explicit readonly (-r).  */
+ static int readonly = 0;
+ 
++/* Nonzero for chatty (-v).  */
++int verbose = 0;
++
++/* Do we hash the password or not */
++int hash_pass = 1;
++
+ /* Nonzero for sloppy (-s).  */
+ static int sloppy = 0;
+ 
+@@ -96,6 +102,9 @@
+ 			const char *type, const char *opts, unsigned long flags);
+ #endif
+ 
++/* Contains the preferred keysize in bits we want to use */
++static int keysz = 0;
++
+ /* mount(2) options */
+ struct mountargs {
+        const char *spec;
+@@ -203,6 +212,10 @@
+   { "nostrictatime", 0, 1, MS_STRICTATIME }, /* kernel default atime */
+ #endif
+   { "nofail",	0, 0, MS_COMMENT},	/* Do not fail if ENOENT on dev */
++  { "bootwait",	0, 0, MS_COMMENT },
++  { "nobootwait", 0, 0, MS_COMMENT },
++  { "optional",	0, 0, MS_COMMENT },
++  { "showthrough", 0, 0, MS_COMMENT },
+   { NULL,	0, 0, 0		}
+ };
+ 
+@@ -210,6 +223,7 @@
+ 
+ static const char *opt_loopdev, *opt_vfstype, *opt_offset, *opt_sizelimit,
+         *opt_encryption, *opt_speed, *opt_comment, *opt_uhelper, *opt_helper;
++static const char *opt_keybits, *opt_nohashpass;
+ 
+ static int is_readonly(const char *node);
+ static int mounted (const char *spec0, const char *node0, struct mntentchn *fstab_mc);
+@@ -226,6 +240,8 @@
+   { "offset=",	0, &opt_offset },
+   { "sizelimit=",  0, &opt_sizelimit },
+   { "encryption=", 0, &opt_encryption },
++  { "keybits=", 0, &opt_keybits },
++  { "nohashpass", 0, &opt_nohashpass },
+   { "speed=", 0, &opt_speed },
+   { "comment=", 1, &opt_comment },
+   { "uhelper=", 0, &opt_uhelper },
+@@ -667,7 +683,7 @@
+ 		mnt.mnt_freq = mnt.mnt_passno = 0;
+ 		free(extra_opts);
+ 
+-		if (my_addmntent (mfp, &mnt) == 1) {
++		if (mnt.mnt_fsname && my_addmntent (mfp, &mnt) == 1) {
+ 			int errsv = errno;
+ 			die (EX_FILEIO, _("mount: error writing %s: %s"),
+ 			     _PATH_MOUNTED, strerror (errsv));
+@@ -1225,7 +1241,7 @@
+       *type = opt_vfstype;
+   }
+ 
+-  *loop = ((*flags & MS_LOOP) || *loopdev || opt_offset || opt_sizelimit || opt_encryption);
++  *loop = ((*flags & MS_LOOP) || *loopdev || opt_offset || opt_sizelimit || opt_encryption || opt_keybits);
+   *loopfile = *spec;
+ 
+   /* Automatically create a loop device from a regular file if a filesystem
+@@ -1288,9 +1304,12 @@
+ 	  return EX_SYSERR;	/* no more loop devices */
+ 	if (verbose)
+ 	  printf(_("mount: going to use the loop device %s\n"), *loopdev);
+-
++	if (!keysz && opt_keybits)
++	  keysz  = strtoul(opt_keybits, NULL, 0);
++	if (opt_nohashpass)
++	  hash_pass=0;
+ 	if ((res = set_loop(*loopdev, *loopfile, offset, sizelimit,
+-			    opt_encryption, pfd, &loop_opts))) {
++			    opt_encryption, pfd, &loop_opts, keysz, hash_pass))) {
+ 	  if (res == 2) {
+ 	     /* loop dev has been grabbed by some other process,
+ 	        try again, if not given explicitly */
+@@ -2270,6 +2289,7 @@
+ 	{ "options", 1, 0, 'o' },
+ 	{ "test-opts", 1, 0, 'O' },
+ 	{ "pass-fd", 1, 0, 'p' },
++	{ "keybits", 1, 0, 'k' },
+ 	{ "types", 1, 0, 't' },
+ 	{ "bind", 0, 0, 'B' },
+ 	{ "move", 0, 0, 'M' },
+@@ -2407,6 +2427,15 @@
+ 	if (!mc && (devname || spec))
+ 		mc = getmntfilebackward (devname ? devname : spec, NULL);
+ 
++	/*
++	 * E) try /lib/init/fstab
++	 *    These are things mounted by mountall, unless overridden by
++	 *    just about everything else -- it makes sense to use it here
++	 *    too so "mount /sys" just works.
++	 */
++	if (!mc && spec)
++		mc = getmountalldir (spec);
++
+ 	my_free(devname);
+ 	return mc;
+ }
+@@ -2433,6 +2462,7 @@
+ 	char *options = NULL, *test_opts = NULL, *node;
+ 	const char *spec = NULL;
+ 	char *label = NULL;
++	char *keysize = NULL;
+ 	char *uuid = NULL;
+ 	char *types = NULL;
+ 	char *p;
+@@ -2463,7 +2493,7 @@
+ 	initproctitle(argc, argv);
+ #endif
+ 
+-	while ((c = getopt_long (argc, argv, "aBfFhilL:Mno:O:p:rRsU:vVwt:",
++	while ((c = getopt_long (argc, argv, "aBfFhik:lL:Mno:O:p:rRsU:vVwt:",
+ 				 longopts, NULL)) != -1) {
+ 		switch (c) {
+ 		case 'a':	       /* mount everything in fstab */
+@@ -2484,6 +2514,9 @@
+ 		case 'i':
+ 			external_allowed = 0;
+ 			break;
++		case 'k':
++			keysize = optarg;
++			break;
+ 		case 'l':
+ 			list_with_volumelabel = 1;
+ 			break;
+@@ -2632,6 +2665,9 @@
+ 		}
+ 	}
+ 
++	if (keysize && sscanf(keysize,"%d",&keysz) != 1)
++		die (EX_USAGE, _("mount: argument to --keybits or -k must be a number"));
++
+ 	atexit(unlock_mtab);
+ 
+ 	switch (argc+specseen) {
+--- util-linux-2.20.1.orig/mount/rmd160.c
++++ util-linux-2.20.1/mount/rmd160.c
+@@ -0,0 +1,532 @@
++/* rmd160.c  -	RIPE-MD160
++ *	Copyright (C) 1998 Free Software Foundation, Inc.
++ */
++
++/* This file was part of GnuPG. Modified for use within the Linux
++ * mount utility by Marc Mutz <Marc@Mutz.com>. None of this code is
++ * by myself. I just removed everything that you don't need when all
++ * you want to do is to use rmd160_hash_buffer().
++ * My comments are marked with (mm).  */
++
++/* GnuPG is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * GnuPG is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA */
++
++#include <string.h> /* (mm) for memcpy */
++#include <endian.h> /* (mm) for BIG_ENDIAN and BYTE_ORDER */
++#include "rmd160.h"
++
++/* (mm) these are used by the original GnuPG file. In order to modify
++ * that file not too much, we keep the notations. maybe it would be
++ * better to include linux/types.h and typedef __u32 to u32 and __u8
++ * to byte?  */
++typedef unsigned int u32; /* taken from e.g. util-linux's minix.h */
++typedef unsigned char byte;
++
++typedef struct {
++    u32  h0,h1,h2,h3,h4;
++    u32  nblocks;
++    byte buf[64];
++    int  count;
++} RMD160_CONTEXT;
++
++/****************
++ * Rotate a 32 bit integer by n bytes
++ */
++#if defined(__GNUC__) && defined(__i386__)
++static inline u32
++rol( u32 x, int n)
++{
++	__asm__("roll %%cl,%0"
++		:"=r" (x)
++		:"0" (x),"c" (n));
++	return x;
++}
++#else
++  #define rol(x,n) ( ((x) << (n)) | ((x) >> (32-(n))) )
++#endif
++
++/*********************************
++ * RIPEMD-160 is not patented, see (as of 25.10.97)
++ *   http://www.esat.kuleuven.ac.be/~bosselae/ripemd160.html
++ * Note that the code uses Little Endian byteorder, which is good for
++ * 386 etc, but we must add some conversion when used on a big endian box.
++ *
++ *
++ * Pseudo-code for RIPEMD-160
++ *
++ * RIPEMD-160 is an iterative hash function that operates on 32-bit words.
++ * The round function takes as input a 5-word chaining variable and a 16-word
++ * message block and maps this to a new chaining variable. All operations are
++ * defined on 32-bit words. Padding is identical to that of MD4.
++ *
++ *
++ * RIPEMD-160: definitions
++ *
++ *
++ *   nonlinear functions at bit level: exor, mux, -, mux, -
++ *
++ *   f(j, x, y, z) = x XOR y XOR z		  (0 <= j <= 15)
++ *   f(j, x, y, z) = (x AND y) OR (NOT(x) AND z)  (16 <= j <= 31)
++ *   f(j, x, y, z) = (x OR NOT(y)) XOR z	  (32 <= j <= 47)
++ *   f(j, x, y, z) = (x AND z) OR (y AND NOT(z))  (48 <= j <= 63)
++ *   f(j, x, y, z) = x XOR (y OR NOT(z))	  (64 <= j <= 79)
++ *
++ *
++ *   added constants (hexadecimal)
++ *
++ *   K(j) = 0x00000000	    (0 <= j <= 15)
++ *   K(j) = 0x5A827999	   (16 <= j <= 31)	int(2**30 x sqrt(2))
++ *   K(j) = 0x6ED9EBA1	   (32 <= j <= 47)	int(2**30 x sqrt(3))
++ *   K(j) = 0x8F1BBCDC	   (48 <= j <= 63)	int(2**30 x sqrt(5))
++ *   K(j) = 0xA953FD4E	   (64 <= j <= 79)	int(2**30 x sqrt(7))
++ *   K'(j) = 0x50A28BE6     (0 <= j <= 15)      int(2**30 x cbrt(2))
++ *   K'(j) = 0x5C4DD124    (16 <= j <= 31)      int(2**30 x cbrt(3))
++ *   K'(j) = 0x6D703EF3    (32 <= j <= 47)      int(2**30 x cbrt(5))
++ *   K'(j) = 0x7A6D76E9    (48 <= j <= 63)      int(2**30 x cbrt(7))
++ *   K'(j) = 0x00000000    (64 <= j <= 79)
++ *
++ *
++ *   selection of message word
++ *
++ *   r(j)      = j		      (0 <= j <= 15)
++ *   r(16..31) = 7, 4, 13, 1, 10, 6, 15, 3, 12, 0, 9, 5, 2, 14, 11, 8
++ *   r(32..47) = 3, 10, 14, 4, 9, 15, 8, 1, 2, 7, 0, 6, 13, 11, 5, 12
++ *   r(48..63) = 1, 9, 11, 10, 0, 8, 12, 4, 13, 3, 7, 15, 14, 5, 6, 2
++ *   r(64..79) = 4, 0, 5, 9, 7, 12, 2, 10, 14, 1, 3, 8, 11, 6, 15, 13
++ *   r0(0..15) = 5, 14, 7, 0, 9, 2, 11, 4, 13, 6, 15, 8, 1, 10, 3, 12
++ *   r0(16..31)= 6, 11, 3, 7, 0, 13, 5, 10, 14, 15, 8, 12, 4, 9, 1, 2
++ *   r0(32..47)= 15, 5, 1, 3, 7, 14, 6, 9, 11, 8, 12, 2, 10, 0, 4, 13
++ *   r0(48..63)= 8, 6, 4, 1, 3, 11, 15, 0, 5, 12, 2, 13, 9, 7, 10, 14
++ *   r0(64..79)= 12, 15, 10, 4, 1, 5, 8, 7, 6, 2, 13, 14, 0, 3, 9, 11
++ *
++ *
++ *   amount for rotate left (rol)
++ *
++ *   s(0..15)  = 11, 14, 15, 12, 5, 8, 7, 9, 11, 13, 14, 15, 6, 7, 9, 8
++ *   s(16..31) = 7, 6, 8, 13, 11, 9, 7, 15, 7, 12, 15, 9, 11, 7, 13, 12
++ *   s(32..47) = 11, 13, 6, 7, 14, 9, 13, 15, 14, 8, 13, 6, 5, 12, 7, 5
++ *   s(48..63) = 11, 12, 14, 15, 14, 15, 9, 8, 9, 14, 5, 6, 8, 6, 5, 12
++ *   s(64..79) = 9, 15, 5, 11, 6, 8, 13, 12, 5, 12, 13, 14, 11, 8, 5, 6
++ *   s'(0..15) = 8, 9, 9, 11, 13, 15, 15, 5, 7, 7, 8, 11, 14, 14, 12, 6
++ *   s'(16..31)= 9, 13, 15, 7, 12, 8, 9, 11, 7, 7, 12, 7, 6, 15, 13, 11
++ *   s'(32..47)= 9, 7, 15, 11, 8, 6, 6, 14, 12, 13, 5, 14, 13, 13, 7, 5
++ *   s'(48..63)= 15, 5, 8, 11, 14, 14, 6, 14, 6, 9, 12, 9, 12, 5, 15, 8
++ *   s'(64..79)= 8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11
++ *
++ *
++ *   initial value (hexadecimal)
++ *
++ *   h0 = 0x67452301; h1 = 0xEFCDAB89; h2 = 0x98BADCFE; h3 = 0x10325476;
++ *							h4 = 0xC3D2E1F0;
++ *
++ *
++ * RIPEMD-160: pseudo-code
++ *
++ *   It is assumed that the message after padding consists of t 16-word blocks
++ *   that will be denoted with X[i][j], with 0 <= i <= t-1 and 0 <= j <= 15.
++ *   The symbol [+] denotes addition modulo 2**32 and rol_s denotes cyclic left
++ *   shift (rotate) over s positions.
++ *
++ *
++ *   for i := 0 to t-1 {
++ *	 A := h0; B := h1; C := h2; D = h3; E = h4;
++ *	 A' := h0; B' := h1; C' := h2; D' = h3; E' = h4;
++ *	 for j := 0 to 79 {
++ *	     T := rol_s(j)(A [+] f(j, B, C, D) [+] X[i][r(j)] [+] K(j)) [+] E;
++ *	     A := E; E := D; D := rol_10(C); C := B; B := T;
++ *	     T := rol_s'(j)(A' [+] f(79-j, B', C', D') [+] X[i][r'(j)]
++						       [+] K'(j)) [+] E';
++ *	     A' := E'; E' := D'; D' := rol_10(C'); C' := B'; B' := T;
++ *	 }
++ *	 T := h1 [+] C [+] D'; h1 := h2 [+] D [+] E'; h2 := h3 [+] E [+] A';
++ *	 h3 := h4 [+] A [+] B'; h4 := h0 [+] B [+] C'; h0 := T;
++ *   }
++ */
++
++/* Some examples:
++ * ""                    9c1185a5c5e9fc54612808977ee8f548b2258d31
++ * "a"                   0bdc9d2d256b3ee9daae347be6f4dc835a467ffe
++ * "abc"                 8eb208f7e05d987a9b044a8e98c6b087f15a0bfc
++ * "message digest"      5d0689ef49d2fae572b881b123a85ffa21595f36
++ * "a...z"               f71c27109c692c1b56bbdceb5b9d2865b3708dbc
++ * "abcdbcde...nopq"     12a053384a9c0c88e405a06c27dcf49ada62eb2b
++ * "A...Za...z0...9"     b0e20b6e3116640286ed3a87a5713079b21f5189
++ * 8 times "1234567890"  9b752e45573d4b39f4dbd3323cab82bf63326bfb
++ * 1 million times "a"   52783243c1697bdbe16d37f97f68f08325dc1528
++ */
++
++
++static void
++rmd160_init( RMD160_CONTEXT *hd )
++{
++    hd->h0 = 0x67452301;
++    hd->h1 = 0xEFCDAB89;
++    hd->h2 = 0x98BADCFE;
++    hd->h3 = 0x10325476;
++    hd->h4 = 0xC3D2E1F0;
++    hd->nblocks = 0;
++    hd->count = 0;
++}
++
++
++
++/****************
++ * Transform the message X which consists of 16 32-bit-words
++ */
++static void
++transform( RMD160_CONTEXT *hd, byte *data )
++{
++    u32 a,b,c,d,e,aa,bb,cc,dd,ee,t;
++  #if BYTE_ORDER == BIG_ENDIAN
++    u32 x[16];
++    { int i;
++      byte *p2, *p1;
++      for(i=0, p1=data, p2=(byte*)x; i < 16; i++, p2 += 4 ) {
++	p2[3] = *p1++;
++	p2[2] = *p1++;
++	p2[1] = *p1++;
++	p2[0] = *p1++;
++      }
++    }
++  #else
++   #if 0
++    u32 *x =(u32*)data;
++   #else
++    /* this version is better because it is always aligned;
++     * The performance penalty on a 586-100 is about 6% which
++     * is acceptable - because the data is more local it might
++     * also be possible that this is faster on some machines.
++     * This function (when compiled with -02 on gcc 2.7.2)
++     * executes on a 586-100 (39.73 bogomips) at about 1900kb/sec;
++     * [measured with a 4MB data and "gpgm --print-md rmd160"] */
++    u32 x[16];
++    memcpy( x, data, 64 );
++   #endif
++  #endif
++
++
++#define K0  0x00000000
++#define K1  0x5A827999
++#define K2  0x6ED9EBA1
++#define K3  0x8F1BBCDC
++#define K4  0xA953FD4E
++#define KK0 0x50A28BE6
++#define KK1 0x5C4DD124
++#define KK2 0x6D703EF3
++#define KK3 0x7A6D76E9
++#define KK4 0x00000000
++#define F0(x,y,z)   ( (x) ^ (y) ^ (z) )
++#define F1(x,y,z)   ( ((x) & (y)) | (~(x) & (z)) )
++#define F2(x,y,z)   ( ((x) | ~(y)) ^ (z) )
++#define F3(x,y,z)   ( ((x) & (z)) | ((y) & ~(z)) )
++#define F4(x,y,z)   ( (x) ^ ((y) | ~(z)) )
++#define R(a,b,c,d,e,f,k,r,s) do { t = a + f(b,c,d) + k + x[r]; \
++				  a = rol(t,s) + e;	       \
++				  c = rol(c,10);	       \
++				} while(0)
++
++    /* left lane */
++    a = hd->h0;
++    b = hd->h1;
++    c = hd->h2;
++    d = hd->h3;
++    e = hd->h4;
++    R( a, b, c, d, e, F0, K0,  0, 11 );
++    R( e, a, b, c, d, F0, K0,  1, 14 );
++    R( d, e, a, b, c, F0, K0,  2, 15 );
++    R( c, d, e, a, b, F0, K0,  3, 12 );
++    R( b, c, d, e, a, F0, K0,  4,  5 );
++    R( a, b, c, d, e, F0, K0,  5,  8 );
++    R( e, a, b, c, d, F0, K0,  6,  7 );
++    R( d, e, a, b, c, F0, K0,  7,  9 );
++    R( c, d, e, a, b, F0, K0,  8, 11 );
++    R( b, c, d, e, a, F0, K0,  9, 13 );
++    R( a, b, c, d, e, F0, K0, 10, 14 );
++    R( e, a, b, c, d, F0, K0, 11, 15 );
++    R( d, e, a, b, c, F0, K0, 12,  6 );
++    R( c, d, e, a, b, F0, K0, 13,  7 );
++    R( b, c, d, e, a, F0, K0, 14,  9 );
++    R( a, b, c, d, e, F0, K0, 15,  8 );
++    R( e, a, b, c, d, F1, K1,  7,  7 );
++    R( d, e, a, b, c, F1, K1,  4,  6 );
++    R( c, d, e, a, b, F1, K1, 13,  8 );
++    R( b, c, d, e, a, F1, K1,  1, 13 );
++    R( a, b, c, d, e, F1, K1, 10, 11 );
++    R( e, a, b, c, d, F1, K1,  6,  9 );
++    R( d, e, a, b, c, F1, K1, 15,  7 );
++    R( c, d, e, a, b, F1, K1,  3, 15 );
++    R( b, c, d, e, a, F1, K1, 12,  7 );
++    R( a, b, c, d, e, F1, K1,  0, 12 );
++    R( e, a, b, c, d, F1, K1,  9, 15 );
++    R( d, e, a, b, c, F1, K1,  5,  9 );
++    R( c, d, e, a, b, F1, K1,  2, 11 );
++    R( b, c, d, e, a, F1, K1, 14,  7 );
++    R( a, b, c, d, e, F1, K1, 11, 13 );
++    R( e, a, b, c, d, F1, K1,  8, 12 );
++    R( d, e, a, b, c, F2, K2,  3, 11 );
++    R( c, d, e, a, b, F2, K2, 10, 13 );
++    R( b, c, d, e, a, F2, K2, 14,  6 );
++    R( a, b, c, d, e, F2, K2,  4,  7 );
++    R( e, a, b, c, d, F2, K2,  9, 14 );
++    R( d, e, a, b, c, F2, K2, 15,  9 );
++    R( c, d, e, a, b, F2, K2,  8, 13 );
++    R( b, c, d, e, a, F2, K2,  1, 15 );
++    R( a, b, c, d, e, F2, K2,  2, 14 );
++    R( e, a, b, c, d, F2, K2,  7,  8 );
++    R( d, e, a, b, c, F2, K2,  0, 13 );
++    R( c, d, e, a, b, F2, K2,  6,  6 );
++    R( b, c, d, e, a, F2, K2, 13,  5 );
++    R( a, b, c, d, e, F2, K2, 11, 12 );
++    R( e, a, b, c, d, F2, K2,  5,  7 );
++    R( d, e, a, b, c, F2, K2, 12,  5 );
++    R( c, d, e, a, b, F3, K3,  1, 11 );
++    R( b, c, d, e, a, F3, K3,  9, 12 );
++    R( a, b, c, d, e, F3, K3, 11, 14 );
++    R( e, a, b, c, d, F3, K3, 10, 15 );
++    R( d, e, a, b, c, F3, K3,  0, 14 );
++    R( c, d, e, a, b, F3, K3,  8, 15 );
++    R( b, c, d, e, a, F3, K3, 12,  9 );
++    R( a, b, c, d, e, F3, K3,  4,  8 );
++    R( e, a, b, c, d, F3, K3, 13,  9 );
++    R( d, e, a, b, c, F3, K3,  3, 14 );
++    R( c, d, e, a, b, F3, K3,  7,  5 );
++    R( b, c, d, e, a, F3, K3, 15,  6 );
++    R( a, b, c, d, e, F3, K3, 14,  8 );
++    R( e, a, b, c, d, F3, K3,  5,  6 );
++    R( d, e, a, b, c, F3, K3,  6,  5 );
++    R( c, d, e, a, b, F3, K3,  2, 12 );
++    R( b, c, d, e, a, F4, K4,  4,  9 );
++    R( a, b, c, d, e, F4, K4,  0, 15 );
++    R( e, a, b, c, d, F4, K4,  5,  5 );
++    R( d, e, a, b, c, F4, K4,  9, 11 );
++    R( c, d, e, a, b, F4, K4,  7,  6 );
++    R( b, c, d, e, a, F4, K4, 12,  8 );
++    R( a, b, c, d, e, F4, K4,  2, 13 );
++    R( e, a, b, c, d, F4, K4, 10, 12 );
++    R( d, e, a, b, c, F4, K4, 14,  5 );
++    R( c, d, e, a, b, F4, K4,  1, 12 );
++    R( b, c, d, e, a, F4, K4,  3, 13 );
++    R( a, b, c, d, e, F4, K4,  8, 14 );
++    R( e, a, b, c, d, F4, K4, 11, 11 );
++    R( d, e, a, b, c, F4, K4,  6,  8 );
++    R( c, d, e, a, b, F4, K4, 15,  5 );
++    R( b, c, d, e, a, F4, K4, 13,  6 );
++
++    aa = a; bb = b; cc = c; dd = d; ee = e;
++
++    /* right lane */
++    a = hd->h0;
++    b = hd->h1;
++    c = hd->h2;
++    d = hd->h3;
++    e = hd->h4;
++    R( a, b, c, d, e, F4, KK0,	5,  8);
++    R( e, a, b, c, d, F4, KK0, 14,  9);
++    R( d, e, a, b, c, F4, KK0,	7,  9);
++    R( c, d, e, a, b, F4, KK0,	0, 11);
++    R( b, c, d, e, a, F4, KK0,	9, 13);
++    R( a, b, c, d, e, F4, KK0,	2, 15);
++    R( e, a, b, c, d, F4, KK0, 11, 15);
++    R( d, e, a, b, c, F4, KK0,	4,  5);
++    R( c, d, e, a, b, F4, KK0, 13,  7);
++    R( b, c, d, e, a, F4, KK0,	6,  7);
++    R( a, b, c, d, e, F4, KK0, 15,  8);
++    R( e, a, b, c, d, F4, KK0,	8, 11);
++    R( d, e, a, b, c, F4, KK0,	1, 14);
++    R( c, d, e, a, b, F4, KK0, 10, 14);
++    R( b, c, d, e, a, F4, KK0,	3, 12);
++    R( a, b, c, d, e, F4, KK0, 12,  6);
++    R( e, a, b, c, d, F3, KK1,	6,  9);
++    R( d, e, a, b, c, F3, KK1, 11, 13);
++    R( c, d, e, a, b, F3, KK1,	3, 15);
++    R( b, c, d, e, a, F3, KK1,	7,  7);
++    R( a, b, c, d, e, F3, KK1,	0, 12);
++    R( e, a, b, c, d, F3, KK1, 13,  8);
++    R( d, e, a, b, c, F3, KK1,	5,  9);
++    R( c, d, e, a, b, F3, KK1, 10, 11);
++    R( b, c, d, e, a, F3, KK1, 14,  7);
++    R( a, b, c, d, e, F3, KK1, 15,  7);
++    R( e, a, b, c, d, F3, KK1,	8, 12);
++    R( d, e, a, b, c, F3, KK1, 12,  7);
++    R( c, d, e, a, b, F3, KK1,	4,  6);
++    R( b, c, d, e, a, F3, KK1,	9, 15);
++    R( a, b, c, d, e, F3, KK1,	1, 13);
++    R( e, a, b, c, d, F3, KK1,	2, 11);
++    R( d, e, a, b, c, F2, KK2, 15,  9);
++    R( c, d, e, a, b, F2, KK2,	5,  7);
++    R( b, c, d, e, a, F2, KK2,	1, 15);
++    R( a, b, c, d, e, F2, KK2,	3, 11);
++    R( e, a, b, c, d, F2, KK2,	7,  8);
++    R( d, e, a, b, c, F2, KK2, 14,  6);
++    R( c, d, e, a, b, F2, KK2,	6,  6);
++    R( b, c, d, e, a, F2, KK2,	9, 14);
++    R( a, b, c, d, e, F2, KK2, 11, 12);
++    R( e, a, b, c, d, F2, KK2,	8, 13);
++    R( d, e, a, b, c, F2, KK2, 12,  5);
++    R( c, d, e, a, b, F2, KK2,	2, 14);
++    R( b, c, d, e, a, F2, KK2, 10, 13);
++    R( a, b, c, d, e, F2, KK2,	0, 13);
++    R( e, a, b, c, d, F2, KK2,	4,  7);
++    R( d, e, a, b, c, F2, KK2, 13,  5);
++    R( c, d, e, a, b, F1, KK3,	8, 15);
++    R( b, c, d, e, a, F1, KK3,	6,  5);
++    R( a, b, c, d, e, F1, KK3,	4,  8);
++    R( e, a, b, c, d, F1, KK3,	1, 11);
++    R( d, e, a, b, c, F1, KK3,	3, 14);
++    R( c, d, e, a, b, F1, KK3, 11, 14);
++    R( b, c, d, e, a, F1, KK3, 15,  6);
++    R( a, b, c, d, e, F1, KK3,	0, 14);
++    R( e, a, b, c, d, F1, KK3,	5,  6);
++    R( d, e, a, b, c, F1, KK3, 12,  9);
++    R( c, d, e, a, b, F1, KK3,	2, 12);
++    R( b, c, d, e, a, F1, KK3, 13,  9);
++    R( a, b, c, d, e, F1, KK3,	9, 12);
++    R( e, a, b, c, d, F1, KK3,	7,  5);
++    R( d, e, a, b, c, F1, KK3, 10, 15);
++    R( c, d, e, a, b, F1, KK3, 14,  8);
++    R( b, c, d, e, a, F0, KK4, 12,  8);
++    R( a, b, c, d, e, F0, KK4, 15,  5);
++    R( e, a, b, c, d, F0, KK4, 10, 12);
++    R( d, e, a, b, c, F0, KK4,	4,  9);
++    R( c, d, e, a, b, F0, KK4,	1, 12);
++    R( b, c, d, e, a, F0, KK4,	5,  5);
++    R( a, b, c, d, e, F0, KK4,	8, 14);
++    R( e, a, b, c, d, F0, KK4,	7,  6);
++    R( d, e, a, b, c, F0, KK4,	6,  8);
++    R( c, d, e, a, b, F0, KK4,	2, 13);
++    R( b, c, d, e, a, F0, KK4, 13,  6);
++    R( a, b, c, d, e, F0, KK4, 14,  5);
++    R( e, a, b, c, d, F0, KK4,	0, 15);
++    R( d, e, a, b, c, F0, KK4,	3, 13);
++    R( c, d, e, a, b, F0, KK4,	9, 11);
++    R( b, c, d, e, a, F0, KK4, 11, 11);
++
++
++    t	   = hd->h1 + d + cc;
++    hd->h1 = hd->h2 + e + dd;
++    hd->h2 = hd->h3 + a + ee;
++    hd->h3 = hd->h4 + b + aa;
++    hd->h4 = hd->h0 + c + bb;
++    hd->h0 = t;
++}
++
++
++/* Update the message digest with the contents
++ * of INBUF with length INLEN.
++ */
++static void
++rmd160_write( RMD160_CONTEXT *hd, byte *inbuf, size_t inlen)
++{
++    if( hd->count == 64 ) { /* flush the buffer */
++	transform( hd, hd->buf );
++	hd->count = 0;
++	hd->nblocks++;
++    }
++    if( !inbuf )
++	return;
++    if( hd->count ) {
++	for( ; inlen && hd->count < 64; inlen-- )
++	    hd->buf[hd->count++] = *inbuf++;
++	rmd160_write( hd, NULL, 0 );
++	if( !inlen )
++	    return;
++    }
++
++    while( inlen >= 64 ) {
++	transform( hd, inbuf );
++	hd->count = 0;
++	hd->nblocks++;
++	inlen -= 64;
++	inbuf += 64;
++    }
++    for( ; inlen && hd->count < 64; inlen-- )
++	hd->buf[hd->count++] = *inbuf++;
++}
++
++/* The routine terminates the computation
++ */
++
++static void
++rmd160_final( RMD160_CONTEXT *hd )
++{
++    u32 t, msb, lsb;
++    byte *p;
++
++    rmd160_write(hd, NULL, 0); /* flush */;
++
++    msb = 0;
++    t = hd->nblocks;
++    if( (lsb = t << 6) < t ) /* multiply by 64 to make a byte count */
++	msb++;
++    msb += t >> 26;
++    t = lsb;
++    if( (lsb = t + hd->count) < t ) /* add the count */
++	msb++;
++    t = lsb;
++    if( (lsb = t << 3) < t ) /* multiply by 8 to make a bit count */
++	msb++;
++    msb += t >> 29;
++
++    if( hd->count < 56 ) { /* enough room */
++	hd->buf[hd->count++] = 0x80; /* pad */
++	while( hd->count < 56 )
++	    hd->buf[hd->count++] = 0;  /* pad */
++    }
++    else { /* need one extra block */
++	hd->buf[hd->count++] = 0x80; /* pad character */
++	while( hd->count < 64 )
++	    hd->buf[hd->count++] = 0;
++	rmd160_write(hd, NULL, 0);  /* flush */;
++	memset(hd->buf, 0, 56 ); /* fill next block with zeroes */
++    }
++    /* append the 64 bit count */
++    hd->buf[56] = lsb	   ;
++    hd->buf[57] = lsb >>  8;
++    hd->buf[58] = lsb >> 16;
++    hd->buf[59] = lsb >> 24;
++    hd->buf[60] = msb	   ;
++    hd->buf[61] = msb >>  8;
++    hd->buf[62] = msb >> 16;
++    hd->buf[63] = msb >> 24;
++    transform( hd, hd->buf );
++
++    p = hd->buf;
++  #if BYTE_ORDER == BIG_ENDIAN
++    #define X(a) do { *p++ = hd->h##a	   ; *p++ = hd->h##a >> 8;	\
++		      *p++ = hd->h##a >> 16; *p++ = hd->h##a >> 24; } while(0)
++  #else /* little endian */
++    #define X(a) do { *(u32*)p = hd->h##a ; p += 4; } while(0)
++  #endif
++    X(0);
++    X(1);
++    X(2);
++    X(3);
++    X(4);
++  #undef X
++}
++
++/****************
++ * Shortcut functions which puts the hash value of the supplied buffer
++ * into outbuf which must have a size of 20 bytes.
++ */
++void
++rmd160_hash_buffer( char *outbuf, const char *buffer, size_t length )
++{
++    RMD160_CONTEXT hd;
++
++    rmd160_init( &hd );
++    rmd160_write( &hd, (byte*)buffer, length );
++    rmd160_final( &hd );
++    memcpy( outbuf, hd.buf, 20 );
++}
+--- util-linux-2.20.1.orig/mount/rmd160.h
++++ util-linux-2.20.1/mount/rmd160.h
+@@ -0,0 +1,9 @@
++#ifndef RMD160_H
++#define RMD160_H
++
++void
++rmd160_hash_buffer( char *outbuf, const char *buffer, size_t length );
++
++#endif /*RMD160_H*/
++
++
+--- util-linux-2.20.1.orig/partx/Makefile.am
++++ util-linux-2.20.1/partx/Makefile.am
+@@ -1,7 +1,7 @@
+ include $(top_srcdir)/config/include-Makefile.am
+ 
+-usrsbin_exec_PROGRAMS = addpart delpart
+-dist_man_MANS = addpart.8 delpart.8
++usrsbin_exec_PROGRAMS = addpart delpart resizepart
++dist_man_MANS = addpart.8 delpart.8 resizepart.8
+ 
+ usrsbin_exec_PROGRAMS += partx
+ partx_SOURCES = partx.c partx.h \
+@@ -16,4 +16,12 @@
+ partx_CFLAGS = -I$(ul_libblkid_incdir)
+ partx_LDADD = $(ul_libblkid_la)
+ dist_man_MANS += partx.8
++resizepart_SOURCES = resizepart.c \
++		$(top_srcdir)/lib/blkdev.c \
++		$(top_srcdir)/lib/sysfs.c \
++		$(top_srcdir)/lib/tt.c \
++		$(top_srcdir)/lib/at.c \
++		$(top_srcdir)/lib/mbsalign.c \
++		$(top_srcdir)/lib/strutils.c \
++		$(top_srcdir)/lib/linux_version.c
+ 
+--- util-linux-2.20.1.orig/partx/Makefile.in
++++ util-linux-2.20.1/partx/Makefile.in
+@@ -262,7 +262,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/partx/partx.8
++++ util-linux-2.20.1/partx/partx.8
+@@ -9,7 +9,7 @@
+ tell the Linux kernel about the presence and numbering of on-disk partitions
+ .SH SYNOPSIS
+ .B partx
+-.RB [ \-a | \-d | \-s ]
++.RB [ \-a | \-d | \-s | \-u ]
+ .RB [ \-t
+ .IR TYPE ]
+ .RB [ \-n
+@@ -18,7 +18,7 @@
+ .I disk
+ 
+ .B partx
+-.RB [ \-a | \-d | \-s ]
++.RB [ \-a | \-d | \-s | \-u ]
+ .RB [ \-t
+ .IR TYPE ]
+ .I partition
+@@ -54,6 +54,8 @@
+ Print the SIZE column in bytes rather than in human-readable format.
+ .IP "\fB\-d, \-\-delete\fP"
+ Delete the specified partitions or all partitions.
++.IP "\fB\-u\fR, \fB\-\-update\fP"
++Update the specified partitions.
+ .IP "\fB\-g, \-\-noheadings\fP"
+ Do not print a header line.
+ .IP "\fB\-l, \-\-list\fP"
+--- util-linux-2.20.1.orig/partx/partx.c
++++ util-linux-2.20.1/partx/partx.c
+@@ -55,6 +55,7 @@
+ 	ACT_LIST = 1,
+ 	ACT_SHOW,
+ 	ACT_ADD,
++	ACT_UPD,
+ 	ACT_DELETE
+ };
+ 
+@@ -341,6 +342,130 @@
+ 	return rc;
+ }
+ 
++static void upd_parts_warnx(const char *device, int first, int last)
++{
++	if (first == last)
++		warnx(_("%s: error updating partition %d"), device, first);
++	else
++		warnx(_("%s: error updating partitions %d-%d"),
++				device, first, last);
++}
++
++/**
++ * get_partition_by_partno:
++ * @ls: partitions list
++ * @n: the partition number (e.g. 'N' from sda'N')
++ *
++ * This does not assume any order of the input blkid_partlist.
++ * And correctly handles "out of order" partition tables.
++ * partition N is located after partition N+1 on the disk.
++ *
++ * Returns: partition object or NULL in case or error.
++ */
++blkid_partition get_partition_by_partno(blkid_partlist ls, int n)
++{
++	int i, nparts;
++	blkid_partition par;
++	if (!ls)
++		return NULL;
++
++	nparts = blkid_partlist_numof_partitions(ls);
++	if (nparts < 0)
++		return NULL;
++
++	for (i = 0; i < nparts; i++) {
++		par = blkid_partlist_get_partition(ls, i);
++		if (n == blkid_partition_get_partno(par)) {
++			return par;
++		}
++	}
++	return NULL;
++}
++
++static int upd_parts(int fd, const char *device, dev_t devno,
++		     blkid_partlist ls, int lower, int upper)
++{
++	int n, nparts, rc = 0, errfirst = 0, errlast = 0, err;
++	blkid_partition par;
++	uintmax_t start, size;
++
++	assert(fd >= 0);
++	assert(device);
++	assert(ls);
++
++	nparts = blkid_partlist_numof_partitions(ls);
++	if (!lower)
++		lower = 1;
++	if (!upper || lower < 0 || upper < 0) {
++		n = get_max_partno(device, devno);
++		if (!upper)
++			upper = n > nparts ? n : nparts;
++		else if (upper < 0)
++			upper = n + upper + 1;
++		if (lower < 0)
++			lower = n + lower + 1;
++	}
++	if (lower > upper) {
++		warnx(_("specified range <%d:%d> "
++			"does not make sense"), lower, upper);
++		return -1;
++	}
++
++	for (n = lower; n <= upper; n++) {
++		par = get_partition_by_partno(ls, n);
++		if (!par) {
++			if (verbose)
++				warn(_("%s: no partition #%d"), device, n);
++			continue;
++		}
++
++		start = blkid_partition_get_start(par);
++		size =  blkid_partition_get_size(par);
++		if (blkid_partition_is_extended(par))
++			/*
++			 * Let's follow the Linux kernel and reduce
++			 * DOS extended partition to 1 or 2 sectors.
++			 */
++			size = min(size, (uintmax_t) 2);
++
++		err = partx_del_partition(fd, n);
++		if (err == -1 && errno == ENXIO)
++			err = 0; /* good, it already doesn't exist */
++		if (err == -1 && errno == EBUSY)
++		{
++			/* try to resize */
++			err = partx_resize_partition(fd, n, start, size);
++			if (verbose)
++				printf(_("%s: partition #%d resized\n"), device, n);
++			if (err == 0)
++				continue;
++		}
++		if (err == 0 && partx_add_partition(fd, n, start, size) == 0) {
++			if (verbose)
++				printf(_("%s: partition #%d added\n"), device, n);
++			continue;
++		}
++
++		if (err == 0)
++			continue;
++		rc = -1;
++		if (verbose)
++			warn(_("%s: updating partition #%d failed"), device, n);
++		if (!errfirst)
++			errlast = errfirst = n;
++		else if (errlast + 1 == n)
++			errlast++;
++		else {
++			upd_parts_warnx(device, errfirst, errlast);
++			errlast = errfirst = n;
++		}
++	}
++
++	if (errfirst)
++		upd_parts_warnx(device, errfirst, errlast);
++	return rc;
++}
++
+ static int list_parts(blkid_partlist ls, int lower, int upper)
+ {
+ 	int i, nparts;
+@@ -580,7 +705,7 @@
+ 
+ 	fputs(_("\nUsage:\n"), out);
+ 	fprintf(out,
+-	      _(" %s [-a|-d|-s] [--nr <n:m> | <partition>] <disk>\n"),
++	      _(" %s [-a|-d|-s|-u] [--nr <n:m> | <partition>] <disk>\n"),
+ 		program_invocation_short_name);
+ 
+ 	fputs(_("\nOptions:\n"), out);
+@@ -588,7 +713,7 @@
+ 		" -d, --delete         delete specified partitions or all of them\n"
+ 		" -l, --list           list partitions (DEPRECATED)\n"
+ 		" -s, --show           list partitions\n\n"
+-
++		" -u, --update         update specified partitions or all of them\n"
+ 		" -b, --bytes          print SIZE in bytes rather than in human readable format\n"
+ 		" -g, --noheadings     don't print headings for --show\n"
+ 		" -P, --pairs          use key=\"value\" output format\n"
+@@ -631,6 +756,7 @@
+ 		{ "show",	no_argument,       NULL, 's' },
+ 		{ "add",	no_argument,       NULL, 'a' },
+ 		{ "delete",	no_argument,	   NULL, 'd' },
++		{ "update",     no_argument,       NULL, 'u' },
+ 		{ "type",	required_argument, NULL, 't' },
+ 		{ "nr",		required_argument, NULL, 'n' },
+ 		{ "output",	required_argument, NULL, 'o' },
+@@ -644,7 +770,7 @@
+ 	textdomain(PACKAGE);
+ 
+ 	while ((c = getopt_long(argc, argv,
+-				"abdglrsvn:t:o:Ph", long_opts, NULL)) != -1) {
++				"abdglrsuvn:t:o:Ph", long_opts, NULL)) != -1) {
+ 
+ 		switch(c) {
+ 		case 'a':
+@@ -699,6 +825,9 @@
+ 		case 't':
+ 			type = optarg;
+ 			break;
++		case 'u':
++			what = ACT_UPD;
++			break;
+ 		case 'v':
+ 			verbose = 1;
+ 			break;
+@@ -840,6 +969,9 @@
+ 			case ACT_ADD:
+ 				rc = add_parts(fd, wholedisk, ls, lower, upper);
+ 				break;
++			case ACT_UPD:
++				rc = upd_parts(fd, wholedisk, disk_devno, ls, lower, upper);
++
+ 			}
+ 		}
+ 		blkid_free_probe(pr);
+--- util-linux-2.20.1.orig/partx/partx.h
++++ util-linux-2.20.1/partx/partx.h
+@@ -4,6 +4,18 @@
+ #include <sys/ioctl.h>
+ #include <linux/blkpg.h>
+ 
++#ifndef BLKPG_ADD_PARTITION
++# define BLKPG_ADD_PARTITION	1
++#endif
++
++#ifndef BLKPG_DEL_PARTITION
++# define BLKPG_DEL_PARTITION	2
++#endif
++
++#ifndef BLKPG_RESIZE_PARTITION
++# define BLKPG_RESIZE_PARTITION	3		/* since Linux 3.6 */
++#endif
++
+ static inline int partx_del_partition(int fd, int partno)
+ {
+ 	struct blkpg_ioctl_arg a;
+@@ -37,6 +49,25 @@
+ 	a.flags = 0;
+ 	a.datalen = sizeof(p);
+ 	a.data = &p;
++
++	return ioctl(fd, BLKPG, &a);
++}
++
++static inline int partx_resize_partition(int fd, int partno,
++			unsigned long long start, unsigned long long size)
++{
++	struct blkpg_ioctl_arg a;
++	struct blkpg_partition p;
++
++	p.pno = partno;
++	p.start = start << 9;
++	p.length = size << 9;
++	p.devname[0] = 0;
++	p.volname[0] = 0;
++	a.op = BLKPG_RESIZE_PARTITION;
++	a.flags = 0;
++	a.datalen = sizeof(p);
++	a.data = &p;
+ 
+ 	return ioctl(fd, BLKPG, &a);
+ }
+--- util-linux-2.20.1.orig/partx/resizepart.8
++++ util-linux-2.20.1/partx/resizepart.8
+@@ -0,0 +1,38 @@
++.\" resizepart.8 --
++.\" Copyright 2012 Vivek Goyal <vgoyal@redhat.com>
++.\" Copyright 2012 Red Hat, Inc.
++.\" May be distributed under the GNU General Public License
++.TH RESIZEPART 8 "February 2012" "util-linux" "System Administration"
++.SH NAME
++resizepart \-
++simple wrapper around the "resize partition" ioctl
++.SH SYNOPSIS
++.B resizepart
++.I device partition length
++.SH DESCRIPTION
++.B resizepart
++is a program that informs the Linux kernel of new partition size.
++
++This command doesn't manipulate partitions on hard drive.
++
++.SH PARAMETERS
++.TP
++.I device
++Specify the disk device.
++.TP
++.I partition
++Specify the partition number.
++.TP
++.I length
++Specify the length of the partition (in 512-byte sectors).
++
++.SH SEE ALSO
++.BR addpart (8),
++.BR delpart (8),
++.BR fdisk (8),
++.BR parted (8),
++.BR partprobe (8),
++.BR partx (8)
++.SH AVAILABILITY
++The resizepart command is part of the util-linux package and is available from
++ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+--- util-linux-2.20.1.orig/partx/resizepart.c
++++ util-linux-2.20.1/partx/resizepart.c
+@@ -0,0 +1,193 @@
++#include <getopt.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <fcntl.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <unistd.h>
++#include <stdint.h>
++
++#include "c.h"
++#include "nls.h"
++#include "partx.h"
++#include "sysfs.h"
++#include "strutils.h"
++
++static void __attribute__ ((__noreturn__)) usage(FILE * out)
++{
++	fputs(_("\nUsage:\n"), out);
++	fprintf(out, _(" %s <disk device> <partition number> <length>\n"),
++		program_invocation_short_name);
++	fputs(_("\nOptions:\n"), out);
++	fputs(_(" -h, --help     display this help and exit\n"), out);
++	fputs(_(" -V, --version  output version information and exit\n"), out);
++	fprintf(out, _("\nFor more details see resizepart(8).\n"));
++	exit(out == stderr ? EXIT_FAILURE : EXIT_SUCCESS);
++}
++
++static struct dirent *xreaddir(DIR *dp)
++{
++	struct dirent *d;
++
++	while ((d = readdir(dp))) {
++		if (!strcmp(d->d_name, ".") ||
++		    !strcmp(d->d_name, ".."))
++			continue;
++
++		/* blacklist here? */
++		break;
++	}
++	return d;
++}
++
++/*
++ * Converts @partno (partition number) to devno of the partition.
++ * The @cxt handles wholedisk device.
++ *
++ * Note that this code does not expect any special format of the
++ * partitions devnames.
++ */
++dev_t sysfs_partno_to_devno(struct sysfs_cxt *cxt, int partno)
++{
++	DIR *dir;
++	struct dirent *d;
++	char path[256];
++	dev_t devno = 0;
++
++	dir = sysfs_opendir(cxt, NULL);
++	if (!dir)
++		return 0;
++
++	while ((d = xreaddir(dir))) {
++		int n, maj, min;
++
++		if (!sysfs_is_partition_dirent(dir, d, NULL))
++			continue;
++
++		snprintf(path, sizeof(path), "%s/partition", d->d_name);
++		if (sysfs_read_int(cxt, path, &n))
++			continue;
++
++		if (n == partno) {
++			snprintf(path, sizeof(path), "%s/dev", d->d_name);
++			if (sysfs_scanf(cxt, path, "%d:%d", &maj, &min) == 2)
++				devno = makedev(maj, min);
++			break;
++		}
++	}
++
++	closedir(dir);
++	return devno;
++}
++
++static int get_partition_start(int fd, int partno, uint64_t *start)
++{
++	struct stat st;
++	struct sysfs_cxt disk = { 0, -1, NULL, NULL },
++			 part = { 0, -1, NULL, NULL };
++	dev_t devno = 0;
++	int rc = -1;
++
++	/*
++	 * wholedisk
++	 */
++	if (fstat(fd, &st) || !S_ISBLK(st.st_mode))
++		goto done;
++	devno = st.st_rdev;
++	if (sysfs_init(&disk, devno, NULL))
++		goto done;
++	/*
++	 * partition
++	 */
++	devno = sysfs_partno_to_devno(&disk, partno);
++	if (!devno)
++		goto done;
++	if (sysfs_init(&part, devno, &disk))
++		goto done;
++	if (sysfs_read_u64(&part, "start", start))
++		goto done;
++
++	rc = 0;
++done:
++	sysfs_deinit(&part);
++	sysfs_deinit(&disk);
++	return rc;
++}
++
++uint64_t strtou64_or_err(const char *str, const char *errmesg)
++{
++	uintmax_t num;
++	char *end = NULL;
++
++	if (str == NULL || *str == '\0')
++		goto err;
++	errno = 0;
++	num = strtoumax(str, &end, 10);
++
++	if (errno || str == end || (end && *end))
++		goto err;
++
++	return num;
++err:
++	if (errno)
++		err(EXIT_FAILURE, "%s: '%s'", errmesg, str);
++
++	errx(EXIT_FAILURE, "%s: '%s'", errmesg, str);
++}
++
++uint32_t strtou32_or_err(const char *str, const char *errmesg)
++{
++	uint64_t num = strtou64_or_err(str, errmesg);
++
++	if (num > UINT32_MAX)
++		errx(EXIT_FAILURE, "%s: '%s'", errmesg, str);
++
++	return num;
++}
++
++int main(int argc, char **argv)
++{
++	int c, fd, partno;
++	const char *wholedisk;
++	uint64_t start;
++
++	static const struct option longopts[] = {
++		{"help", no_argument, 0, 'h'},
++		{"version", no_argument, 0, 'V'},
++		{NULL, no_argument, 0, '0'},
++	};
++
++	setlocale(LC_ALL, "");
++	bindtextdomain(PACKAGE, LOCALEDIR);
++	textdomain(PACKAGE);
++
++	while ((c = getopt_long(argc, argv, "Vh", longopts, NULL)) != -1)
++		switch (c) {
++		case 'V':
++			printf(_("%s from %s\n"), program_invocation_short_name, PACKAGE_STRING);
++			return EXIT_SUCCESS;
++		case 'h':
++			usage(stdout);
++		default:
++			usage(stderr);
++		}
++
++	if (argc != 4)
++		usage(stderr);
++
++	wholedisk = argv[1];
++	partno = strtou32_or_err(argv[2], _("invalid partition number argument"));
++
++	if ((fd = open(wholedisk, O_RDONLY)) < 0)
++		err(EXIT_FAILURE, _("cannot open %s"), wholedisk);
++
++	if (get_partition_start(fd, partno, &start))
++		err(EXIT_FAILURE, _("%s: failed to get start of the partition number %s"),
++				wholedisk, argv[2]);
++
++	if (partx_resize_partition(fd, partno, start,
++			strtou64_or_err(argv[3], _("invalid length argument"))))
++		err(EXIT_FAILURE, _("failed to resize partition"));
++
++	return 0;
++}
+--- util-linux-2.20.1.orig/schedutils/Makefile.in
++++ util-linux-2.20.1/schedutils/Makefile.in
+@@ -271,7 +271,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/shlibs/blkid/docs/version.xml
++++ util-linux-2.20.1/shlibs/blkid/docs/version.xml
+@@ -0,0 +1 @@
++2.19.1
+--- util-linux-2.20.1.orig/shlibs/mount/docs/version.xml
++++ util-linux-2.20.1/shlibs/mount/docs/version.xml
+@@ -0,0 +1 @@
++2.19.1
+--- util-linux-2.20.1.orig/sys-utils/Makefile.in
++++ util-linux-2.20.1/sys-utils/Makefile.in
+@@ -389,7 +389,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/sys-utils/ipcs.c
++++ util-linux-2.20.1/sys-utils/ipcs.c
+@@ -524,8 +524,10 @@
+ 
+ 	case STATUS:
+ 		printf (_("------ Messages Status --------\n"));
++#ifndef __FreeBSD_kernel__
+ 		printf (_("allocated queues = %d\n"), msginfo.msgpool);
+ 		printf (_("used headers = %d\n"), msginfo.msgmap);
++#endif
+ 		printf (_("used space = %d bytes\n"), msginfo.msgtql);
+ 		return;
+ 
+--- util-linux-2.20.1.orig/sys-utils/setarch.c
++++ util-linux-2.20.1/sys-utils/setarch.c
+@@ -265,6 +265,10 @@
+     argv[0] = argv[-1];      /* for getopt_long() to get the program name */
+     if (!strcmp(p, "-h") || !strcmp(p, "--help"))
+       show_help();
++  #if defined(__sparc64__) || defined(__sparc__)
++  } else if (!strcmp(p,"sparc64")) {
++      options |= ADDR_LIMIT_32BIT;
++  #endif
+   }
+   #if defined(__sparc64__) || defined(__sparc__)
+    if (!strcmp(p, "sparc32bash")) {
+--- util-linux-2.20.1.orig/sys-utils/unshare.1
++++ util-linux-2.20.1/sys-utils/unshare.1
+@@ -40,7 +40,7 @@
+ Unshare the mount namespace,
+ .TP
+ .BR \-u , " \-\-uts"
+-Unshare the UTC namespace,
++Unshare the UTS namespace,
+ .TP
+ .BR \-i , " \-\-ipc"
+ Unshare the IPC namespace,
+--- util-linux-2.20.1.orig/term-utils/Makefile.am
++++ util-linux-2.20.1/term-utils/Makefile.am
+@@ -23,6 +23,7 @@
+ sbin_PROGRAMS += agetty
+ dist_man_MANS += agetty.8
+ agetty_SOURCES = agetty.c
++agetty_LDADD = -lutil
+ if !HAVE_LANGINFO
+ agetty_SOURCES += $(top_srcdir)/lib/langinfo.c
+ endif
+--- util-linux-2.20.1.orig/term-utils/Makefile.in
++++ util-linux-2.20.1/term-utils/Makefile.in
+@@ -317,7 +317,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/term-utils/agetty.c
++++ util-linux-2.20.1/term-utils/agetty.c
+@@ -10,6 +10,7 @@
+  *
+  * This program is freely distributable.
+  */
++
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <stdlib.h>
+@@ -39,6 +40,12 @@
+ #include "c.h"
+ #include "widechar.h"
+ 
++#if defined(__FreeBSD_kernel__)
++#include <pty.h>
++#include <sys/param.h>
++#endif
++
++
+ #ifdef __linux__
+ #  include <sys/kd.h>
+ #  include <sys/param.h>
+@@ -66,6 +73,10 @@
+ #  endif
+ #endif
+ 
++#ifdef __FreeBSD_kernel__
++#define USE_SYSLOG
++#endif
++
+ /* If USE_SYSLOG is undefined all diagnostics go to /dev/console. */
+ #ifdef	USE_SYSLOG
+ #  include <syslog.h>
+@@ -908,7 +919,7 @@
+ 
+ 		if (((tid = tcgetsid(fd)) < 0) || (pid != tid)) {
+ 			if (ioctl(fd, TIOCSCTTY, 1) == -1)
+-				log_err("/dev/%s: cannot get controlling tty: %m", tty);
++				log_warn("/dev/%s: cannot get controlling tty: %m", tty);
+ 		}
+ 
+ 		if (op->flags & F_HANGUP) {
+@@ -933,7 +944,7 @@
+ 			log_err(_("/dev/%s: cannot open as standard input: %m"), tty);
+ 		if (((tid = tcgetsid(STDIN_FILENO)) < 0) || (pid != tid)) {
+ 			if (ioctl(STDIN_FILENO, TIOCSCTTY, 1) == -1)
+-				log_err("/dev/%s: cannot get controlling tty: %m", tty);
++				log_warn("/dev/%s: cannot get controlling tty: %m", tty);
+ 		}
+ 
+ 	} else {
+@@ -949,7 +960,7 @@
+ 	}
+ 
+ 	if (tcsetpgrp(STDIN_FILENO, pid))
+-		log_err("/dev/%s: cannot set process group: %m", tty);
++		log_warn("/dev/%s: cannot set process group: %m", tty);
+ 
+ 	/* Get rid of the present outputs. */
+ 	close(STDOUT_FILENO);
+@@ -980,6 +991,10 @@
+ 	if (tcgetattr(STDIN_FILENO, tp) < 0)
+ 		log_err("%s: tcgetattr: %m", tty);
+ 
++#if defined(__FreeBSD_kernel__)
++    login_tty (0);
++#endif
++
+ 	/*
+ 	 * Detect if this is a virtual console or serial/modem line.
+ 	 * In case of a virtual console the ioctl TIOCMGET fails and
+@@ -1141,6 +1156,46 @@
+ 	/* Sane setting, allow eight bit characters, no carriage return delay
+ 	 * the same result as `stty sane cr0 pass8'
+ 	 */
++#ifndef IUCLC
++# define IUCLC 0
++#endif
++#ifndef NL0
++# define NL0 0
++#endif
++#ifndef CR0
++# define CR0 0
++#endif
++#ifndef BS0
++# define BS0 0
++#endif
++#ifndef VT0
++# define VT0 0
++#endif
++#ifndef FF0
++# define FF0 0
++#endif
++#ifndef OLCUC
++# define OLCUC 0
++#endif
++#ifndef OFILL
++# define OFILL 0
++#endif
++#ifndef NLDLY
++# define NLDLY 0
++#endif
++#ifndef CRDLY
++# define CRDLY 0
++#endif
++#ifndef BSDLY
++# define BSDLY 0
++#endif
++#ifndef VTDLY
++# define VTDLY 0
++#endif
++#ifndef FFDLY
++# define FFDLY 0
++#endif
++
+ 	tp->c_iflag |=  (BRKINT | ICRNL | IMAXBEL);
+ 	tp->c_iflag &= ~(IGNBRK | INLCR | IGNCR | IXOFF | IUCLC | IXANY | ISTRIP);
+ 	tp->c_oflag |=  (OPOST | ONLCR | NL0 | CR0 | TAB0 | BS0 | VT0 | FF0);
+--- util-linux-2.20.1.orig/tests/Makefile.in
++++ util-linux-2.20.1/tests/Makefile.in
+@@ -232,7 +232,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/tests/helpers/Makefile.in
++++ util-linux-2.20.1/tests/helpers/Makefile.in
+@@ -234,7 +234,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
+--- util-linux-2.20.1.orig/text-utils/Makefile.in
++++ util-linux-2.20.1/text-utils/Makefile.in
+@@ -298,7 +298,6 @@
+ infodir = @infodir@
+ install_sh = @install_sh@
+ libdir = @libdir@
+-libdirname = @libdirname@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
