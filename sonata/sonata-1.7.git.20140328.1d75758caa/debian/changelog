@@ -1,3 +1,9 @@
+sonata (1.7.git.20140328.1d75758caa-1) trusty; urgency=low
+
+  * Update upstream.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Fri, 20 Jun 2014 02:19:31 +0400
+
 sonata (1.7.git.20140219.81fc2c1198-4) trusty; urgency=low
 
   * Use png icon for menu and desktop. XPM somehow doesn't work.
