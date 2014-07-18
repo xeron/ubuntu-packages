@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="task" style="task" id="image-delete" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index#image"/>
+    <revision pkgversion="2.1.9" date="2013-06-02" status="candidate"/>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@googlemail.com</email>
+    </credit>
+
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Διαγραφή εικόνας</title>
+
+  <p>Για να διαγράψετε μια εικόνα από μια ετικέτα, επιλέξτε την και πατήστε το πλήκτρο <gui style="button">Αφαίρεση επιλεγμένων εικόνων από την ετικέτα</gui>.</p>
+
+  <p>Για να διαγράψετε περισσότερες από μία εικόνες, επιλέξτε αυτές τις εικόνες πριν τις διαγράψετε.</p>
+
+  <p>Μπορείτε επίσης να διαγράψετε όλες τις εικόνες από περισσότερα από ένα αρχείο. Για να το κάνετε αυτό, επιλέξτε τα αρχεία από τα οποία θέλετε να διαγράψετε τις εικόνες, διαγράψτε όλες τις εικόνες από την καρτέλα <gui style="tab">Εικόνα</gui>, έπειτα πατήστε το πλήκτρο <gui style="button">Ετικέτα επιλεγμένων αρχείων με αυτές τις εικόνες</gui>.</p>
+
+</page>

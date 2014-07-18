@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="guide" style="task" id="tag" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index#tag" group="#first"/>
+    <revision pkgversion="2.1.9" date="2013-03-13" status="stub"/>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@googlemail.com</email>
+    </credit>
+
+    <desc>Τι είναι ετικέτες και τι πεδία;</desc>
+
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Ετικέτες αρχείων ήχου</title>
+
+  <p>Ένα αρχείο ήχου μπορεί να περιέχει <em>μεταδεδομένα</em> — πληροφορίες για το ίδιο το αρχείο — μέσα σε μια <em>ετικέτα</em>. Κάθε ετικέτα μπορεί να περιέχει ένα ή περισσότερα <em>πεδία</em>, όπως <gui>Τίτλος</gui> ή <gui>Καλλιτέχνης</gui>. Μπορείτε να επεξεργαστείτε μερικά από αυτά τα πεδία χρησιμοποιώντας <app>EasyTAG</app>. Τα επεξεργάσιμα πεδία εξαρτώνται από τη μορφή του αρχείου στο οποίο θέλετε να βάλετε ετικέτα.</p>
+
+</page>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="task" style="task" id="image-export" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index#image"/>
+    <revision pkgversion="2.1.9" date="2013-06-02" status="candidate"/>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@googlemail.com</email>
+    </credit>
+
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Αποθήκευση μιας εικόνας</title>
+
+  <p>Αν το αρχείο έχει ήδη ετικέτα με μια εικόνα, μπορείτε να εξάγετε την εικόνα από την ετικέτα επιλέγοντας την και πατώντας το πλήκτρο <gui style="button">Αποθήκευση των επιλεγμένων εικόνων σε αρχεία</gui>. Το προεπιλεγμένο όνομα αρχείου θα είναι η περιγραφή της εικόνας.</p>
+
+  <p>Για να εξάγετε έναν αριθμό από εικόνες, επιλέξτε αυτές τις εικόνες, έπειτα πατήστε το πλήκτρο <gui style="button">Αποθήκευση των επιλεγμένων εικόνων σε αρχεία</gui>.</p>
+
+</page>

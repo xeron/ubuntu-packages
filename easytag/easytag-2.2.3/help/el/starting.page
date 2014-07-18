@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" type="topic" style="guide" id="starting" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index"/>
+    <revision pkgversion="2.1.9" date="2013-06-25" status="candidate"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email>kittykat3756@gmail.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc>Χρήση του <app>EasyTAG</app> για πρώτη φορά</desc>
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Έναρξη χρήσης του <app>EasyTAG</app></title>
+
+  <p>Όταν ξεκινάτε το <app>EasyTAG</app> για πρώτη φορά, θα ψάξει τον κατάλογο σας <file>Μουσική</file> ή τον προσωπικό σας κατάλογο για αρχεία ήχου. Αν θέλετε να παραλείψετε την αναζήτηση, πατήστε το πλήκτρο <gui style="button">Διακοπή</gui>.</p>
+
+  <p>Το <app>EasyTAG</app> μπορεί να εφαρμόσει μερικές αυτόματες διορθώσεις σε κάποια από τα αρχεία μουσικής σας. Αυτά τα αρχεία θα επισημανθούν έντονα. Αυτά είναι κανονικά ενημερώσεις στους περιέκτες μεταδεδομένων ετικέτας και δεν θα εφαρμοστούν μέχρι να αποθηκεύσετε τις αλλαγές.</p>
+
+  <p>Για να αποθηκεύσετε αυτές τις αλλαγές, επιλέξτε όλα τα αρχεία που έχουν επηρεαστεί και πατήστε <keyseq><key>Ctrl</key><key>S</key></keyseq>. Δεν μπορείτε να αναιρέσετε τις αυτόματες αλλαγές, αλλά δεν θα αποθηκευτούν εκτός και επιλέξετε το αρχείο και το αποθηκεύσετε. Μπορείτε να απενεργοποιήσετε κάποιες από τις αυτόματες ενημερώσεις στην καρτέλα <gui style="tab">Ρυθμίσεις ετικέτας ID3</gui> στον διάλογο <gui style="dialog">Προτιμήσεις</gui>.</p>
+
+</page>

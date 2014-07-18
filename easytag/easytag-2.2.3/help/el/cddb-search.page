@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="guide" id="cddb-search" xml:lang="el">
+
+  <info>
+    <link type="guide" style="2column" xref="index#main"/>
+    <revision pkgversion="2.1.9" date="2013-10-07" status="review"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@gmail.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc>Συμπλήρωση ετικετών χρησιμοποιώντας πληροφορίες από μια βάση δεδομένων CD</desc>
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Αναζήτηση CDDB</title>
+
+  <p>Αν η μουσική σας είναι οργανωμένη κατά δίσκο, το <app>EasyTAG</app> μπορεί να αναζητήσει δικτυακές βάσεις δεδομένων χρησιμοποιώντας το πρωτόκολλο <sys>CDDB</sys> και να συμπληρώσει αυτόματα αρκετά πεδία ετικετών.</p>
+
+  <steps>
+    <item>
+      <p><link xref="file-select">Επιλογή όλων των αρχείων</link> στον δίσκο που θέλετε να αναζητήσετε. Η διάταξη των αρχείων πρέπει να ταιριάζει τη σειρά των κομματιών στον δίσκο.</p>
+    </item>
+    <item>
+      <p>Επιλέξτε <guiseq><gui style="menu">Διάφορα</gui> <gui style="menuitem">Αναζήτηση CDDB…</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>Πατήστε <gui style="button">Εύρεση</gui> και περιμένετε να ολοκληρωθεί η αναζήτηση.</p>
+    </item>
+    <item>
+      <!-- TODO Split Manual search into a tip? -->
+      <!-- TODO Search within the results. -->
+      <p>Επιλέξτε έναν δίσκο από τον κατάλογο των αποτελεσμάτων και οι πληροφορίες κομματιού θα εμφανιστούν στα δεξιά. Αν ο δίσκος δεν είναι αυτός που θέλατε, δοκιμάστε να επιλέξτε ένα άλλο αποτέλεσμα στον κατάλογο.</p>
+      <p>Αν δεν υπάρχουν αποτελέσματα που να ταιριάζουν με τα κομμάτια που επιλέξατε, επιλέξτε <gui style="tab">Χειροκίνητη αναζήτηση</gui> και εισάγετε το όνομα του δίσκου στο πεδίο αναζήτησης. Πατήστε <gui style="button">Εύρεση</gui> και περιμένετε να τελειώσει η αναζήτηση, ξαναελέγξτε τα αποτελέσματα για να δείτε αν μπορείτε να βρείτε έναν δίσκο που ταιριάζει με τα κομμάτια που επιλέξατε.</p>
+    </item>
+    <item>
+      <p>Επιλέξτε τα πεδία ετικετών για να τα συμπληρώσετε επιλέγοντας είτε <gui style="checkbox">Όλα</gui> ή έναν συνδυασμό των <gui style="checkbox">Όνομα αρχείου</gui>, <gui style="checkbox">Τίτλος</gui>, <gui style="checkbox">Καλλιτέχνης</gui>, <gui style="checkbox">Δίσκος</gui>, <gui style="checkbox">Έτος</gui>, <gui style="checkbox">Κομμάτι #</gui>, <gui style="checkbox"># Κομμάτια</gui> <gui style="checkbox">Είδος</gui>.</p>
+    </item>
+    <!-- TODO Run the scanner for each file -->
+    <!-- TODO Levenshtein matching -->
+    <item>
+      <p>Για να συμπληρώσετε τις ετικέτες των επιλεγμένων αρχείων χρησιμοποιώντας τις λεπτομέρειες στο αποτέλεσμα αναζήτησης, πατήστε <gui style="button">Εφαρμογή</gui>.</p>
+    </item>
+  </steps>
+
+  <p>Αν θέλετε να ονομάσετε μόνο συγκεκριμένα αρχεία, μπορείτε να αλλάξετε την επιλογή σας αφού ολοκληρωθεί η αναζήτηση.</p>
+
+</page>

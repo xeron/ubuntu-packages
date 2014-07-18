@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="tag-field" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index#tag"/>
+    <link type="guide" xref="tag" group="#first"/>
+    <revision pkgversion="2.1.9" date="2013-05-20"/>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email>kittykat3756@googlemail.com</email>
+    </credit>
+
+    <desc>Προσθήκη ετικετών κειμένου σε ένα αρχείο</desc>
+
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Ετικέτα σε αρχείο</title>
+
+  <p>Τα αρχεία ήχου μπορούν να υποστηρίξουν έναν αριθμό από διαφορετικά <em>πεδία</em> ετικετών πράγμα που εξαρτάται από τη μορφή του αρχείου.</p>
+
+  <steps>
+    <title>Ενημέρωση πεδίου ετικέτας σε ένα αρχείο</title>
+    <item>
+      <p>Επιλέξτε το αρχείο στο οποίο θέλετε να βάλετε ετικέτα.</p>
+    </item>
+    <item>
+      <p>Ενημερώστε το πεδίο που θέλετε να αλλάξετε στο φάτνωμα <gui>ετικέτα</gui>.</p>
+    </item>
+    <item>
+      <p>Επιλέξτε <guiseq><gui style="menu">Αρχείο</gui><gui style="menuitem">Αποθήκευση αρχείων</gui></guiseq> για να αποθηκεύσετε τις αλλαγές σας στο επιλεγμένο αρχείο.</p>
+    </item>
+    <item>
+      <p>Όταν σας ζητηθεί <gui>Επιβεβαίωση εγγραφής ετικέτας</gui>, πατήστε <gui style="button">Αποθήκευση</gui> για να αποθηκεύσετε τις αλλαγές.</p>
+    </item>
+  </steps>
+
+  <p>Μπορείτε να βάλετε ετικέτες σε πολλά αρχεία με το ίδιο πεδίο επιλέγοντας τα στον κατάλογο και πατώντας το εικονίδιο <gui>Τοποθέτηση ετικέτας στα επιλεγμένα αρχεία με αυτό […]</gui> στο πεδίο που θέλετε να βάλετε ετικέτα. Θα χρειαστείτε να αποθηκεύσετε αυτές τις αλλαγές για να τις γράψετε στα αρχεία.</p>
+
+</page>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" xmlns:e="http://projectmallard.org/experimental/" type="guide" style="task" id="index" xml:lang="el">
+
+  <info>
+    <revision pkgversion="2.1.9" date="2013-03-05" status="review"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@gmail.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <title type="link">EasyTAG</title>
+    <title type="text">EasyTAG</title>
+
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title><media its:translate="no" type="image" mime="image/png" src="media/icon.png"/> EasyTAG</title>
+
+  <section id="main" style="2column">
+    <title>Γνωρίσματα</title>
+  </section>
+
+  <section id="tag" style="2column">
+    <title>Ετικέτες</title>
+  </section>
+
+  <section id="image" style="2column">
+    <title>Το πεδίο ετικέτας εικόνας</title>
+  </section>
+
+<!--  <section id="preferences" style="2column">
+    <title>Preferences</title>
+  </section>-->
+
+  <section id="problems">
+    <title>Συνηθισμένα προβλήματα και ερωτήσεις</title>
+  </section>
+
+</page>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="guide" id="keyboard-shortcuts" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index#main"/>
+    <revision pkgversion="2.1.9" date="2013-03-20" status="draft"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@gmail.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc/>
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Συντομεύσεις πληκτρολογίου</title>
+
+  <p>Το <app>EasyTAG</app> έχει έναν αριθμό από συντομεύσεις πληκτρολογίου, οι περισσότερες από τις οποίες είναι καταχωρισμένες στα μενού. Ιδού μερικές που είναι ιδιαίτερα χρήσιμες:</p>
+
+  <table rules="rows" frame="top bottom">
+    <thead>
+      <tr>
+        <td>
+          <p>Ενέργεια</p>
+        </td>
+        <td>
+          <p>Συντόμευση</p>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p>Εφαρμογή ετικέτας στα επιλεγμένα αρχεία</p>
+        </td>
+        <td>
+          <p><keyseq><key>Ctrl</key><key>Return</key></keyseq></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Αναζήτηση όλων των αρχείων, συμπεριλαμβάνοντας ονόματα αρχείων και ετικέτες</p>
+        </td>
+        <td>
+          <p><keyseq><key>Ctrl</key><key>F</key></keyseq></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Μετάβαση στο προηγούμενο αρχείο ενώ κρατάτε εστίαση στο ίδιο πεδίο ετικέτας</p>
+        </td>
+        <td>
+          <p><key>Page Up</key></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Μετάβαση στο επόμενο αρχείο ενώ κρατάτε εστίαση στο ίδιο πεδίο ετικέτας</p>
+        </td>
+        <td>
+          <p><key>Page Down</key></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</page>

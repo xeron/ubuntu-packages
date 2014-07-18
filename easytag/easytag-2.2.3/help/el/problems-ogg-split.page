@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="problems-ogg-split" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index#problems"/>
+    <revision pkgversion="2.2.0" date="2014-04-11" status="candidate"/>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <credit type="author">
+      <name>David King</name>
+      <email its:translate="no">amigadave@amigadave.com</email>
+    </credit>
+    <credit type="editor">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@gmail.com</email>
+    </credit>
+
+    <desc>Διαίρεση ενός μοναδικού πεδίου ετικέτας σε πολλά πεδία, όταν αποθηκεύετε αρχεία Ogg και FLAC</desc>
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Διαίρεση πεδίων ετικετών κατά την αποθήκευση</title>
+
+  <p>Στα αρχεία Ogg και FLAC, μπορείτε να έχετε περισσότερα από ένα <link xref="tag">πεδία ετικέτας</link> κάθε τύπου. Για παράδειγμα, αν δύο καλλιτέχνες τραγούδησαν έναν τραγούδι, τότε μπορεί να υπάρχουν δύο πεδία καλλιτέχνη στην ετικέτα, ένα για κάθε καλλιτέχνη. Το <app>EasyTAG</app> διαβάζει αυτόματα τα πρόσθετα πεδία, συνδυάζοντάς και εμφανίζοντάς τα μαζί σαν να ήταν ένα μόνο πεδίο.</p>
+
+  <p>Πολλές εφαρμογές δεν διαβάζουν το πεδίο πολλαπλής τιμής σωστά, έτσι η προεπιλεγμένη ρύθμιση πρέπει να αποθηκευτεί χρησιμοποιώντας ένα μόνο πεδίο ανά καταχώριση. Αν η εφαρμογή που χρησιμοποιείτε υποστηρίζει πολλά πεδία ενός τύπου, μπορείτε να ρυθμίσετε το EasyTAG ώστε να διαιρεί πεδία όταν αποθηκεύετε το αρχείο. Τα πεδία θα διαιρεθούν αυτόματα όποτε εμφανίζεται " - " στο πεδίο. Για παράδειγμα, στο πεδίο "Πασχάλης Αρβανιτόπουλος - Τσαρμς", θα αποθηκευτούν δύο πεδία: "Πασχάλης Αρβανιτόπουλος" και "Τσαρμς".</p>
+
+  <p>Για να διαιρέσετε πεδία κατά την αποθήκευση των αρχείων:</p>
+
+  <steps>
+    <item>
+      <p>Επιλέξτε <guiseq style="menuitem"><gui style="menu">Επεξεργασία</gui><gui style="menuitem">Προτιμήσεις</gui></guiseq></p>
+    </item>
+    <item>
+      <p>Επιλέξτε την καρτέλα <gui style="tab">Ρυθμίσεις ετικέτας</gui></p>
+    </item>
+    <item>
+      <p>Στην ενότητα <gui style="group">Διαίρεση ετικέτας</gui>, σημειώστε τα πεδία που θέλετε να διαιρεθούν σε πολλαπλά πεδία κατά την αποθήκευση</p>
+    </item>
+    <item>
+      <p>Πατήστε <gui style="button">Εντάξει</gui> για να αποθηκεύσετε τις ρυθμίσεις</p>
+    </item>
+  </steps>
+
+</page>

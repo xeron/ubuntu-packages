@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="problems-id3" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index#problems"/>
+    <revision pkgversion="2.2.0" date="2014-04-09" status="review"/>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <credit type="author">
+      <name>David King</name>
+      <email its:translate="no">amigadave@amigadave.com</email>
+    </credit>
+
+    <desc>Διορθώστε ετικέτες ID3 που εμφανίζουν κενές ή εσφαλμένες ετικέτες σε άλλες εφαρμογές</desc>
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Ετικέτες MP3 που δεν εμφανίζονται σωστά</title>
+
+  <p>Ετικέτες <em>ID3</em>, που χρησιμοποιούνται για αρχεία MP3, μπορούν να είναι μία από πολλές διαφορετικές εκδόσεις. Το <app>EasyTAG</app> υποστηρίζει ID3v2.4, ID3v2.3 και ID3v1.1. Η προεπιλεγμένη έκδοση στο <app>EasyTAG</app> είναι ID3v2.4, που έχει τα περισσότερα γνωρίσματα και είναι περισσότερο αποτελεσματική.</p>
+
+  <p>Οι περισσότερες εφαρμογές υποστηρίζουν την πιο πρόσφατη έκδοση του προτύπου ID3: ID3v2.4.</p>
+
+  <p>Μερικές εφαρμογές και συσκευές μπορεί να υποστηρίζουν μόνο τις ετικέτες ID3v2.3 και ID3v1.1 και κάποιες λίγες ενδέχεται να υποστηρίζουν μόνο ετικέτες ID3v1.1. Αν μια άλλη εφαρμογή ή συσκευή έχει πρόβλημα ανάγνωσης ετικετών από τα αρχεία σας, θα πρέπει να προσπαθήσετε να αλλάξετε τις ρυθμίσεις έκδοσης ετικέτας ID3 στις προτιμήσεις:</p>
+
+  <steps>
+    <item>
+      <p>Επιλέξτε <guiseq style="menuitem"><gui style="menu">Επεξεργασία</gui><gui style="menuitem">Προτιμήσεις</gui></guiseq></p>
+    </item>
+    <item>
+      <p>Επιλέξτε την καρτέλα <gui style="tab">Ρυθμίσεις ετικέτας ID3</gui></p>
+    </item>
+    <item>
+      <p>Στην ενότητα <gui style="group">Ετικέτες ID3v2</gui>, επιλέξτε τη ρύθμιση <gui>ID3v2.3</gui> στο πτυσσόμενο κάλυμμα <gui>Έκδοση</gui> για να βελτιώσετε τη συμβατότητα με άλλα συστήματα ικανά να διαβάσουν ετικέτες ID3v2</p>
+    </item>
+    <item>
+      <p>Βεβαιωθείτε ότι το <gui style="check">Εγγραφή ετικέτας ID3v1.x</gui> είναι σημειωμένο στην ενότητα <gui style="group">Ετικέτες ID3v1</gui></p>
+    </item>
+    <item>
+      <p>Πατήστε <gui style="button">Εντάξει</gui> για να αποθηκεύσετε τις ρυθμίσεις</p>
+    </item>
+  </steps>
+
+</page>

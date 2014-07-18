@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="image" xml:lang="el">
+
+  <info>
+    <link type="guide" xref="index#image"/>
+    <link type="guide" xref="tag"/>
+    <revision pkgversion="2.1.9" date="2013-05-20" status="review"/>
+    <revision pkgversion="2.2.0" date="2014-04-10" status="review"/>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@googlemail.com</email>
+    </credit>
+
+    <desc>Προσθήκη εικόνων, όπως καλλιτεχνικό κάλυμμα στην ετικέτα</desc>
+
+  
+    <mal:credit xmlns:mal="http://projectmallard.org/1.0/" type="translator copyright">
+      <mal:name> Δημήτρης Σπίγγος</mal:name>
+      <mal:email>dmtrs32@gmail.com</mal:email>
+      <mal:years>2014</mal:years>
+    </mal:credit>
+  </info>
+
+  <title>Προσθήκη εικόνας σε αρχείο</title>
+
+  <p>Οι περισσότερες μορφές αρχείων ήχου υποστηρίζουν ένα πεδίο ετικέτας <sys>εικόνας</sys> που μπορεί να χρησιμοποιηθεί για να προσθέσει καλλιτεχνικό κάλυμμα και άλλες σχετικές εικόνες στο αρχείο ήχου.</p>
+
+  <p>Για να προσθέσετε μια εικόνα στο αρχείο, επιλέξτε το αρχείο, ανοίξτε την καρτέλα <gui style="tab">Εικόνες</gui> και πατήστε το πλήκτρο <gui style="button">Προσθήκη εικόνων στην ετικέτα</gui>. Επιλέξτε την εικόνα και επιβεβαιώστε την επιλογή σας.</p>
+
+  <p>Μόλις ανέβει η εικόνα, θα σημειωθεί αυτόματα ως εμπροσθόφυλλο και η περιγραφή θα είναι το όνομα του αρχείου . Για να αλλάξετε τον <gui>τύπο</gui> και την <gui>περιγραφή</gui>, πατήστε το πλήκτρο <gui style="button">Επεξεργασία ιδιοτήτων εικόνας</gui>. Αφού έχετε κάνει τις αλλαγές, πατήστε <gui style="button">Εντάξει</gui> για να εφαρμόσετε τις αλλαγές.</p>
+
+  <note>
+    <p>Οι αλλαγές σας δεν θα αποθηκευτούν αυτόματα.</p>
+  </note>
+
+  <p>Μπορείτε να βάλετε ετικέτες σε πολλά αρχεία με την ίδια εικόνα επιλέγοντας τα στον κατάλογο των αρχείων, έπειτα επιλέγοντας την εικόνα και πατώντας το πλήκτρο <gui style="button">Ετικέτα επιλεγμένων αρχείων με αυτές τις εικόνες</gui>. Θα χρειαστείτε να αποθηκεύσετε αυτές τις αλλαγές για να τις γράψετε στα αρχεία.</p>
+
+  <p>Μπορείτε να δουλέψετε με περισσότερες από μία εικόνες τη φορά επιλέγοντας αυτές τις εικόνες πριν τις επεξεργαστείτε, εφαρμόσετε, αποθηκεύσετε σε αρχείο ή τις διαγράψετε.</p>
+
+</page>
