@@ -1,0 +1,10 @@
+tries-to-umount-proc-when-told-to-umount-some-dir-pr.patch
+Multiarch-support-in-util-linux-build.patch
+cfdisk.8-mention-slang-next-to-curses.-Closes-295487.patch
+man-page-tweaks-cleanup-my_dev_t.h-ancient-stuff.patch
+Disable-the-fallback-clause-in-hwclock-when-dev-rtc-.patch
+Report-correct-disk-size-on-GNU-kFreeBSD.-Thanks-Tuc.patch
+mount-segfault-when-creating-mtab-and-cannot-determi.patch
+remaining-kFreeBSD-hackery-for-building.patch
+2.20.1-1.2.patch
+Use-libuuid-user-group-in-sysvinit-script-systemd-un.patch

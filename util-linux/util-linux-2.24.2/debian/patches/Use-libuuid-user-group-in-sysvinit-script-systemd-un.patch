@@ -1,0 +1,42 @@
+From: Andreas Henriksson <andreas@fatal.se>
+Date: Fri, 11 Jul 2014 09:58:36 +0200
+Subject: Use libuuid user/group in sysvinit script / systemd units
+
+Upstream calls the unprivilegied user "uuidd" while in Debian
+it has been called "libuuid".
+Patch things to use the debian name for now....
+---
+ misc-utils/uuidd.rc.in      | 4 ++--
+ misc-utils/uuidd.service.in | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/misc-utils/uuidd.rc.in b/misc-utils/uuidd.rc.in
+index 27b75c6..1e9f3ab 100644
+--- a/misc-utils/uuidd.rc.in
++++ b/misc-utils/uuidd.rc.in
+@@ -20,8 +20,8 @@ UUIDD_ON_DEMAND_ONLY="no"
+ 
+ PATH=/bin:/usr/bin:/sbin:/usr/sbin
+ DAEMON=/usr/sbin/uuidd
+-UUIDD_USER=uuidd
+-UUIDD_GROUP=uuidd
++UUIDD_USER=libuuid
++UUIDD_GROUP=libuuid
+ UUIDD_DIR=@localstatedir@/uuidd
+ PIDFILE=$UUIDD_DIR/uuidd.pid
+ 
+diff --git a/misc-utils/uuidd.service.in b/misc-utils/uuidd.service.in
+index 89e0eac..86990c6 100644
+--- a/misc-utils/uuidd.service.in
++++ b/misc-utils/uuidd.service.in
+@@ -5,8 +5,8 @@ Requires=uuidd.socket
+ [Service]
+ ExecStart=@usrsbin_execdir@/uuidd --socket-activation --timeout 60
+ Restart=no
+-User=uuidd
+-Group=uuidd
++User=libuuid
++Group=libuuid
+ 
+ [Install]
+ Also=uuidd.socket

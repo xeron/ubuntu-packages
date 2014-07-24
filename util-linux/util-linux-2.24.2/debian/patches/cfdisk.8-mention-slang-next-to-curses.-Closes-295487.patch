@@ -1,0 +1,23 @@
+From: LaMont Jones <lamont@debian.org>
+Date: Fri, 21 Sep 2007 21:52:46 -0600
+Subject: cfdisk.8: mention slang next to curses.  Closes: #295487
+
+Conflicts:
+	fdisk/cfdisk.8
+---
+ fdisks/cfdisk.8 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fdisks/cfdisk.8 b/fdisks/cfdisk.8
+index 2da8a31..65cae88 100644
+--- a/fdisks/cfdisk.8
++++ b/fdisks/cfdisk.8
+@@ -28,7 +28,7 @@ cfdisk \- display or manipulate disk partition table
+ .RI [ device ]
+ .SH DESCRIPTION
+ .B cfdisk
+-is a curses-based program for partitioning any hard disk drive.
++is a curses/slang based program for partitioning any hard disk drive.
+ Typical values of the
+ .I device
+ argument are:

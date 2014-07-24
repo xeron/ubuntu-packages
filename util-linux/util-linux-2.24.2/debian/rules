@@ -1,0 +1,187 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/architecture.mk
+
+DEB_VERSION ?= $(shell dpkg-parsechangelog | awk '/^Version: /{print $$2}')
+
+CONFOPTS= --enable-raw --with-slang --enable-line
+CONFOPTS += --libdir=/lib/$(DEB_HOST_MULTIARCH) --libexecdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+CONFOPTS += --with-selinux --enable-partx \
+		--enable-socket-activation
+endif
+CONFOPTS += --enable-tunelp
+CONFOPTS += --localstatedir=/run
+CONFOPTS += --disable-silent-rules
+
+ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+	CROSS :=
+else
+	CROSS := CC=$(DEB_HOST_GNU_TYPE)-gcc
+endif
+
+%:
+	dh $@ --with autoreconf
+
+override_dh_autoreconf:
+	AM_OPTS=--copy LT_OPTS=--copy dh_autoreconf ./autogen.sh
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(CONFOPTS) $(CROSS)
+
+override_dh_auto_build:
+	dh_auto_build -- $(CROSS)
+
+override_dh_auto_install:
+	dh_auto_install
+	#
+	# XXX - push things to where debian has always(?) had them...
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+	mv debian/tmp/usr/sbin/*part* debian/tmp/usr/bin
+	mv debian/tmp/usr/bin/cytune debian/tmp/usr/sbin
+endif
+	mv debian/tmp/usr/bin/tailf debian/tmp/bin
+	mv debian/tmp/usr/bin/isosize debian/tmp/sbin
+	mv debian/tmp/usr/share/man/man8/linux32.8 debian/tmp/usr/share/man/man1/linux32.1
+	mv debian/tmp/usr/share/man/man8/linux64.8 debian/tmp/usr/share/man/man1/linux64.1
+	# initscripts delivers this
+	rm -f debian/tmp/bin/mountpoint debian/tmp/usr/share/man/man1/mountpoint.1*
+	# the version in bsdmainutils seems newer.
+	rm -f debian/tmp/usr/bin/look debian/tmp/usr/share/man/man1/look.1
+	rm -f debian/tmp/usr/bin/hexdump debian/tmp/usr/share/man/man1/hexdump.1
+	# and it's less pain to just let bsmainutils deliver col for now.
+	rm -f debian/tmp/usr/bin/col* debian/tmp/usr/share/man/man1/col*.1
+	rm -f debian/tmp/usr/bin/ul debian/tmp/usr/share/man/man1/ul*.1
+	rm -f debian/tmp/usr/bin/cal debian/tmp/usr/share/man/man1/cal.1
+	# remove *.la files and empty directories which do not belong into util-linux
+	rm -f debian/tmp/usr/lib/*/*.la
+	# perl gets to do rename, not us.
+	mv debian/tmp/usr/bin/rename debian/tmp/usr/bin/rename.ul
+	mv debian/tmp/usr/share/man/man1/rename.1 debian/tmp/usr/share/man/man1/rename.ul.1
+	rm -f debian/tmp/usr/share/info/dir
+	#
+	#
+	if [ -f debian/tmp/sbin/hwclock ] ; then \
+	    install -m 644 debian/hwclock.5 debian/tmp/usr/share/man/man5; \
+	    mkdir -p debian/tmp/lib/udev/rules.d/; \
+	    install -m 644 debian/hwclock.rules debian/tmp/lib/udev/rules.d/85-hwclock.rules; \
+	    install -m 755 debian/hwclock-set debian/tmp/lib/udev/hwclock-set; \
+	fi
+
+override_dh_install:
+	dh_install
+	#
+	# Install files into udebs....
+	#
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+	# copy mount library and symlink into udeb
+	mkdir -p debian/libmount1-udeb/lib/
+	ln debian/libmount1/lib/*/libmount.so.1.* debian/libmount1-udeb/lib/
+	ln debian/libmount1/lib/*/libmount.so.1   debian/libmount1-udeb/lib/
+endif
+	# copy blkid library and symlink into udeb
+	mkdir -p debian/libblkid1-udeb/lib/
+	ln debian/libblkid1/lib/*/libblkid.so.1.* debian/libblkid1-udeb/lib/
+	ln debian/libblkid1/lib/*/libblkid.so.1   debian/libblkid1-udeb/lib/
+	mkdir -p debian/util-linux-udeb/sbin/
+	ln debian/util-linux/sbin/blkid debian/util-linux-udeb/sbin/
+	# copy uuid library and symlink into udeb
+	mkdir -p debian/libuuid1-udeb/lib/
+	ln debian/libuuid1/lib/*/libuuid.so.1.* debian/libuuid1-udeb/lib/
+	ln debian/libuuid1/lib/*/libuuid.so.1   debian/libuuid1-udeb/lib/
+	#
+	cd debian; if [ -f util-linux/sbin/fdisk ]; then \
+	    mkdir -p fdisk-udeb/usr/sbin/; \
+	    ln util-linux/sbin/*fdisk fdisk-udeb/usr/sbin/; \
+	    S=fdisk-udeb/usr/sbin/cfdisk; if [ -f $$S ]; then \
+	        mkdir -p cfdisk-udeb/usr/sbin; \
+	        mv $$S cfdisk-udeb/usr/sbin/; fi; \
+	fi
+	if [ -d debian/cfdisk-udeb ]; then \
+		cd debian/util-linux-locales && find usr/share/locale -type f | while read x; do \
+			mkdir -p ../cfdisk-udeb/$$(dirname $$x); \
+			ln $$x ../cfdisk-udeb/$$x; \
+		done \
+	fi
+	#
+	# Architecture specific installs...
+	#
+	# Rename fdisk to ddisk on PowerPC
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+ifeq ($(DEB_HOST_ARCH),$(findstring $(arch),powerpc ppc64 ppc64el))
+	mv -f debian/util-linux/sbin/fdisk debian/util-linux/sbin/ddisk
+endif
+endif
+	# Use agetty for getty, except on Hurd.
+ifneq ($(DEB_HOST_ARCH_OS),hurd)
+	cd debian/util-linux/sbin ; ln agetty getty
+endif
+	# Use agetty for getty, except on Hurd.
+ifneq ($(DEB_HOST_ARCH_OS),linux)
+	cd debian/util-linux/sbin ; mv mkswap mkswap.linux
+endif
+	#
+	rm -rf debian/*-udeb/usr/share/doc
+
+override_dh_installman:
+	dh_installman
+	#
+	# Architecture specific installs...
+	#
+	# Rename fdisk to ddisk on PowerPC
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+ifeq ($(DEB_HOST_ARCH),$(findstring $(arch),powerpc ppc64 ppc64el))
+	cd debian/util-linux/usr/share/man/man8/ && mv fdisk.8 ddisk.8
+endif
+endif
+	# Use agetty for getty, except on Hurd.
+ifneq ($(DEB_HOST_ARCH_OS),hurd)
+	cd debian/util-linux/usr/share/man/man8 && ln agetty.8 getty.8
+endif
+	# Rename mkswap to mkswap.linux on non-linux.
+ifneq ($(DEB_HOST_ARCH_OS),linux)
+	cd debian/util-linux/usr/share/man/man8 && mv mkswap.8 mkswap.linux.8
+endif
+
+override_dh_gencontrol:
+	# FIXME: just use: Conflicts: getty [hurd-any]
+ifeq ($(DEB_HOST_ARCH_OS),hurd)
+	echo util-linux:Conflicts=getty >> debian/util-linux.substvars
+endif
+	dh_gencontrol -Xbsdutils
+	dh_gencontrol -pbsdutils -u-v1:$(DEB_VERSION)
+
+override_dh_installinit:
+	# install /etc/init.d/hwclock.sh
+	# - update-rc.d manually handled in maintainers scripts as there
+	#   is special per-arch considerations.
+	dh_installinit --name=hwclock.sh --noscripts
+	# install /etc/default/hwclock
+	dh_installinit --name=hwclock
+	# install uuidd sysvinit script
+	make misc-utils/uuidd.rc
+	ln -s ../misc-utils/uuidd.rc debian/uuid-runtime.uuidd.init
+	dh_installinit --name=uuidd
+	rm -f debian/uuid-runtime.uuidd.init
+
+override_dh_makeshlibs:
+	dh_makeshlibs -N libblkid1 -N libmount1 -N libuuid1
+	dh_makeshlibs -plibblkid1 -V \
+		--add-udeb=libblkid1-udeb
+	dh_makeshlibs -plibmount1 -V \
+		--add-udeb=libmount1-udeb
+	dh_makeshlibs -plibuuid1 -V \
+		--add-udeb=libuuid1-udeb
+
+override_dh_fixperms:
+	dh_fixperms -i -s -Xusr/bin/wall -Xbin/mount -Xbin/umount
+
+override_dh_auto_test:
+	# Disable the tests for now.
+	# Except from requiring network access, the tests also prints:
+	# -------------------- util-linux regression tests --------------------
+	#
+	#                    For development purpose only.                    
+	#                 Don't execute on production system!                 
+	#
+
