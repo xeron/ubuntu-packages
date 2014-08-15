@@ -1,0 +1,63 @@
+.TH "DH\-EXEC\-SUBST" "1" "2012-05-03" "" "dh-exec"
+.ad l
+.nh
+.SH "NAME"
+dh\-exec\-subst \- Debhelper executable file substition scripts
+.SH "SYNOPSIS"
+\fB#! /usr/bin/dh\-exec\fR
+.br
+src/libfoo-*.so.* debian/foo-plugins/usr/lib/foo/${DEB_HOST_MULTIARCH}/
+
+.SH "DESCRIPTION"
+Being a sub\-command of \fIdh\-exec\fR(1), this program must not be
+ran directly, but through \fIdh\-exec\fR, which automatically runs all
+available sub\-commands if run bare; or explicitly with \fBdh\-exec
+\-\-with=subst\fR.
+
+It is a wrapper around the various other substitution helpers, and
+will pipe the input file through all the available substitution
+helpers. It is up to these scripts to do the actual work.
+
+When a helper fails to expand a variable within its input, it will
+leave it as-is, so that later in the pipeline it can perhaps be
+expanded by another program.
+
+.SH "SCRIPTS"
+
+.TP
+.B dh\-exec\-subst\-env
+Substitutes any of the available, exported environment variables into
+its input. It does not do any kind of filtering: whatever is available
+in the environment, will be available for substitution, however unsafe
+that may be.
+
+.TP
+.B dh\-exec\-subst\-multiarch
+Attempts to expand any of the variables known to
+\fIdpkg\-architecture\fR(1), mostly useful for multi\-arch support.
+
+The command will query \fIdpkg\-architecture\fR(1) directly, and does
+not rely on environment variables set (as the called program will
+prefer already set environment variables anyway).
+
+.SH "ENVIRONMENT"
+.PP
+\fIDH_EXEC_SCRIPTDIR\fR
+.RS 4
+Indicates which directory the command\-specific scripts should be
+sought for. If not specified, scripts will be searched for in
+\fI/usr/share/dh\-exec/\fR.
+.RE
+
+.SH "FILES"
+.PP
+\fI$DH_EXEC_SCRIPTDIR/dh\-exec\-subst\-*\fR
+.RS 4
+The various scripts for the higher\-level program.
+.RE
+
+.SH "SEE ALSO"
+\fIdebhelper\fR(1), \fIdh\-exec\fR(1)
+
+.SH "AUTHOR"
+dh\-exec\-subst is copyright \(co 2011-2012 by Gergely Nagy <algernon@madhouse\-project.org>.

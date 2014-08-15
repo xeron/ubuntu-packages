@@ -1,0 +1,43 @@
+#! /usr/bin/perl -w
+use strict;
+
+# The first line is the she-bang, always ignore it.
+<>;
+
+my @files;
+my $last_file;
+
+while (<>) {
+        next unless /[\`']/;
+
+        # Find `...' constructs. The first is always the source, the
+        # second is the destination.
+        while (/\`([^']+)'/) {
+                if ($last_file) {
+                        push (@files, {src => $last_file, dst => $1});
+                        $last_file = undef;
+                } else {
+                        $last_file = $1;
+                }
+                s/\`([^']+)'//;
+        }
+
+        # Once done, find the '...' constructs, which is always a
+        # directory, no second stuff.
+        while (/'([^' ]+)'/) {
+                push (@files, {src => $1, solo => 1});
+                s/'([^' ]+)'//;
+        }
+};
+
+# Great, we got the stuff extracted, now turn it into something
+# illiterate.
+foreach (@files) {
+        if (defined ($_->{solo})) {
+                print $_->{src} . "\n";
+        } elsif ($_->{dst} =~ /\/$/) {
+                print $_->{src} . " " . $_->{dst} . "\n";
+        } else {
+                print $_->{src} . " => " . $_->{dst} . "\n";
+        }
+}

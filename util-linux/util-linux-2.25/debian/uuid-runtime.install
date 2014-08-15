@@ -1,0 +1,5 @@
+#!/usr/bin/dh-exec
+usr/bin/uuidgen
+usr/sbin/uuidd
+usr/share/man/man1/uuidgen.*
+usr/share/man/man8/uuidd.*

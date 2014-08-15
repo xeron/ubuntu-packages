@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-if [ -L /usr/doc/libblkid-dev ] ; then
-    rm -f /usr/doc/libblkid-dev
-fi
-
-#DEBHELPER#

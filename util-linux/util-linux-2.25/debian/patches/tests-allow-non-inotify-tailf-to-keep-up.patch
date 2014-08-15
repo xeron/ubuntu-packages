@@ -1,0 +1,38 @@
+From: Andreas Henriksson <andreas@fatal.se>
+Date: Sat, 26 Jul 2014 22:44:01 +0200
+Subject: tests: allow non-inotify tailf to keep up
+
+When tailf is not using inotify, it seems to sleep for 0.25s between
+checks. Just giving a 0.1s time window between update and removal of the
+input file thus gives little chance for tailf to succeed.
+Similar between startup and append to file, make sure initial
+content is read before appending additional data by bumping the time.
+
+This should possibly be bumped much larger to make sure that
+the tailf process actually gets a chance to run at all in the
+given time window. Otherwise it might fail on really slow/overloaded
+machines.
+The drawback would then ofcourse be to increase the time it takes
+to run the testsuite.
+
+Signed-off-by: Andreas Henriksson <andreas@fatal.se>
+---
+ tests/ts/tailf/simple | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tests/ts/tailf/simple b/tests/ts/tailf/simple
+index 955844d..d0a1c5c 100755
+--- a/tests/ts/tailf/simple
++++ b/tests/ts/tailf/simple
+@@ -27,9 +27,9 @@ echo {a..z} > $INPUT
+ 
+ $TS_CMD_TAILF $INPUT > $TS_OUTPUT 2>&1 &
+ 
+-sleep 0.1
++sleep 0.5
+ echo {0..9} >> $INPUT
+-sleep 0.1
++sleep 0.5
+ 
+ rm -f $INPUT
+ 

@@ -1,0 +1,33 @@
+Source: dh-exec
+Section: devel
+Priority: extra
+Maintainer: Gergely Nagy <algernon@madhouse-project.org>
+Build-Depends: debhelper (>= 9~), dh-autoreconf,
+               automake (>= 1:1.11),
+               fakeroot,
+               libpipeline-dev, pkg-config,
+               perl
+Standards-Version: 3.9.5
+Homepage: https://github.com/algernon/dh-exec
+Vcs-Git: git://git.madhouse-project.org/debian/dh-exec.git
+Vcs-Browser: http://git.madhouse-project.org/debian/dh-exec/
+
+Package: dh-exec
+Multi-Arch: foreign
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         ${perl:Depends}, perl (>= 5.14.2~), debhelper (>= 8.9.13~)
+Description: Scripts to help with executable debhelper files
+ Debhelper (in compat level 9 and above) allows its config files to be
+ executable, and uses the output of such scripts as if it was the
+ content of the config file.
+ .
+ To ease and standardize the most common tasks, this package provides
+ a few solutions to help constructing such executable scripts:
+ .
+  * A way to ease variable substitution, from environment variables or
+    dpkg-architecture.
+  * Ability to filter files by architecture, within a single debhelper
+    control file.
+  * An extension to dh_install and dh_installman, with the ability to
+    rename files.

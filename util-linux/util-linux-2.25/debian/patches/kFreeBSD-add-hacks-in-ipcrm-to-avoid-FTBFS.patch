@@ -1,0 +1,26 @@
+From: Andreas Henriksson <andreas@fatal.se>
+Date: Wed, 23 Jul 2014 18:05:53 +0000
+Subject: kFreeBSD: add hacks in ipcrm to avoid FTBFS
+
+---
+ sys-utils/ipcrm.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/sys-utils/ipcrm.c b/sys-utils/ipcrm.c
+index aa58172..6443f48 100644
+--- a/sys-utils/ipcrm.c
++++ b/sys-utils/ipcrm.c
+@@ -271,6 +271,13 @@ static int remove_all(type_id type)
+ 			ret |= remove_id(SEM, 0, rm_me);
+ 		}
+ 	}
++/* kFreeBSD hackery -- ah 20140723 */
++#ifndef MSG_STAT
++#define MSG_STAT 11
++#endif
++#ifndef MSG_INFO
++#define MSG_INFO 12
++#endif
+ 	if (type == MSG || type == ALL) {
+ 		maxid =
+ 		    msgctl(0, MSG_INFO, (struct msqid_ds *)(void *)&msginfo);

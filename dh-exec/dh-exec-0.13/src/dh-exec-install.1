@@ -1,0 +1,87 @@
+.TH "DH\-EXEC\-INSTALL" "1" "2014-08-07" "" "dh-exec"
+.ad l
+.nh
+.SH "NAME"
+dh\-exec\-install \- Install (and possibly rename) files.
+.SH "SYNOPSIS"
+\fB#! /usr/bin/dh\-exec\fR
+.br
+debian/default.conf => /etc/my\-package/start.conf
+.br
+usr/bin/*
+.br
+[linux-any kfreebsd-any] some-arch-specific-file /usr/lib/foo/
+
+.SH "DESCRIPTION"
+Being a sub\-command of \fIdh\-exec\fR(1), this program must not be
+ran directly, but through \fIdh\-exec\fR, which automatically runs all
+available sub\-commands if run bare; or explicitly with \fBdh\-exec
+\-\-with=install\fR.
+
+It is meant to be used for the \fIdh_install\fR(1) family of files,
+and those alone. If it finds that its input is not such a file, it
+will do nothing, but echo back the contents. For a ful list of
+recognised files, see the \fBFILE TYPES\fR section of this manual.
+
+The purpose of the program is to extend \fIdh_install\fR(1)'s
+functionality, by allowing to specify a destination filename.
+
+This can be accomplished by a special syntax: the \fI" => "\fR mark
+between a source and a destination means that the source file should
+be installed with the specified destination name.
+
+For obvious reasons, the source \fBmust not\fR be a wildcard, and the
+destination in this case \fBmust\fR be a file, and not a directory.
+
+See the \fBFILTERING\fR section of \fIdh\-exec\fR(1) for more
+information about how lines are filtered. Any non\-comment lines
+without a filter will be left alone.
+
+.SH "RESTRICTIONS"
+Due to the way executable scripts are called from \fIdebhelper\fR(1),
+there is no way to know what options were used for the original
+\fIdh_install\fR(1). This means, that the \fB\-\-sourcedir\fR option
+of \fIdh_install\fR(1) will not work correctly when
+\fIdh\-exec\-install\fR is in use.
+
+.SH "FILE TYPES"
+
+The program supports \fIdh_install\fR(1) and
+\fIdh_installmanpages\fR(1) files only.
+
+.SH "IMPLEMENTATION"
+Internally, the renaming happens by creating a temporary directory
+under \fIdebian/tmp/\fR, and copying (or moving, if the source was
+under \fIdebian/tmp/\fR to begin with) the file there, with the new
+name.
+
+This is done this way to allow \fIdh_install\fR(1) to do the real
+copying, and allow its options to continue working, even when renaming
+is involved.
+
+The temporary directory is put under \fIdebian/tmp\fR so that it will
+be cleaned by \fIdh_prep\fR(1) when the \fBclean\fR target gets to
+run. Thus, no extra code is needed anywhere to clean up the renamed
+files.
+
+.SH "ENVIRONMENT"
+.PP
+\fIDH_EXEC_SCRIPTDIR\fR
+.RS 4
+Indicates which directory the command\-specific scripts should be
+sought for. If not specified, scripts will be searched for in
+\fI/usr/share/dh\-exec/\fR.
+.RE
+
+.SH "FILES"
+.PP
+\fI$DH_EXEC_SCRIPTDIR/dh\-exec\-install\-*\fR
+.RS 4
+The various scripts for the higher\-level program.
+.RE
+
+.SH "SEE ALSO"
+\fIdebhelper\fR(1), \fIdh\-exec\fR(1), \fIdh_install\fR(1)
+
+.SH "AUTHOR"
+dh\-exec\-install is copyright \(co 2011-2012 by Gergely Nagy <algernon@madhouse\-project.org>.
