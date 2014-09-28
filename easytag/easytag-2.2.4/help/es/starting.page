@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" type="topic" style="guide" id="starting" xml:lang="es">
+
+  <info>
+    <link type="guide" xref="index"/>
+    <revision pkgversion="2.1.9" date="2013-06-25" status="candidate"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email>kittykat3756@gmail.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc>Using <app>EasyTAG</app> for the first time</desc>
+  </info>
+
+  <title>Start using <app>EasyTAG</app></title>
+
+  <p>When you start <app>EasyTAG</app> for the first time, it will search your
+  <file>Music</file> directory or your home directory for audio files. If you
+  wish to skip the search, press the <gui style="button">Stop</gui> button.</p>
+
+  <p><app>EasyTAG</app> may apply some automatic corrections to some of your
+  music files. These files will be highlighted in bold. These are normally
+  updates to the tag metadata containers and will not be applied until you save
+  the changes.</p>
+
+  <p>To save these changes, select all the files that have been affected and
+  press <keyseq><key>Ctrl</key><key>S</key></keyseq>. It is not possible to
+  undo the automatic changes but they will not be saved unless you select the
+  file and save it. You can disable some of the automatic updates in the
+  <gui style="tab">ID3 Tag Settings</gui> tab in the
+  <gui style="dialog">Preferences</gui> dialog.</p>
+
+</page>
