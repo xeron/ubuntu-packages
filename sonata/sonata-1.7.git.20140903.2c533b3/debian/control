@@ -1,0 +1,27 @@
+Source: sonata
+Section: sound
+Priority: optional
+Maintainer: Python Applications Packaging Team <python-apps-team@lists.alioth.debian.org>
+Uploaders: Javi Merino <cibervicho@gmail.com>
+Build-Depends: debhelper (>= 7.3.0),
+    python3-setuptools,
+    pkg-config
+Build-Conflicts: libffi4-dev
+Standards-Version: 3.9.2
+Vcs-Git: https://github.com/multani/sonata.git
+Vcs-Browser: https://github.com/multani/sonata
+Homepage: https://github.com/multani/sonata
+X-Python3-Version: >= 3.2
+
+Package: sonata
+Architecture: all
+Provides: ${python3:Provides}, mpd-client
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends},
+    python3-mpd2,
+    python3-gobject,
+    python3-dbus
+Recommends: python3-taglib
+Description: GTK+ client for the Music Player Daemon (MPD)
+ Sonata is a lightweight GTK+ music client for the Music Player Daemon (MPD).
+ It aims to be efficient (no toolbar, main menu, or statusbar),
+ user-friendly, and clean.

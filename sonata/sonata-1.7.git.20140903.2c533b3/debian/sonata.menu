@@ -1,0 +1,4 @@
+?package(sonata):needs="X11" section="Applications/Sound"\
+  title="Sonata" command="/usr/bin/sonata" \
+  longtitle="A simple GTK+ MPD client" \
+  icon="/usr/share/pixmaps/sonata.png"

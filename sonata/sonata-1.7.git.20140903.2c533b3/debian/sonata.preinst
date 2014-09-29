@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+# Switch from pycentral to pysupport
+if [ "$1" = upgrade ] && dpkg --compare-versions "$2" lt 1.5.3-2 ; then
+    pycentral pkgremove sonata
+fi
+
+#DEBHELPER#
+
+exit 0
