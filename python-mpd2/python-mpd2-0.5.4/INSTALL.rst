@@ -10,7 +10,8 @@ Debian
 
 Drop this line in */etc/apt/sources.list.d/python-mpd2.list*::
 
-    deb http://sima.azylum.org/debian unstable main
+    deb http://deb.kaliko.me/debian/ testing main
+    deb-src http://deb.kaliko.me/debian/ testing main
 
 Import the gpg key as root::
 
@@ -22,7 +23,7 @@ Key fingerprint::
 
 Controls with *apt-key finger*.
 
-Then simply update/install *python-mpd2* or *python3-mpd* with apt or
+Then simply update/install *python-mpd2* or *python3-mpd2* with apt or
 aptitude:
 
 Arch Linux

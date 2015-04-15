@@ -20,8 +20,9 @@ The following features were added:
 
 -  Python 3 support (but you need at least Python 2.6)
 -  support for the upcoming client-to-client protocol
--  support for new commands from MPD v0.17 (seekcur, prio, prioid,
-   config, searchadd, searchaddpl)
+-  support for new commands from MPD (seekcur, prio, prioid,
+   config, searchadd, searchaddpl, listfiles, rangeid, addtagid, cleartagid,
+   mount, umount, listmounts, listneighbors)
 -  remove deprecated commands (volume)
 -  explicitly declared MPD commands (which is handy when using for
    example `IPython <http://ipython.org>`__)
@@ -33,11 +34,6 @@ The following features were added:
 -  support for `logging <http://pythonhosted.org/python-mpd2/topics/logging.html>`__
 -  improved support for sticker
 -  improved support for ranges
-
-If you like this module, you could try contact the original author
-jat@spatialrift.net or join the discussion on the
-`issue tracker <http://jatreuman.indefero.net/p/python-mpd/issues/7/>`__ so that
-it gets merged upstream.
 
 Getting the latest source code
 ------------------------------
@@ -121,13 +117,8 @@ Contacting the author
 
 Just contact me (Mic92) on Github or via email (joerg@higgsboson.tk).
 
-Usually I hang around on Jabber: sonata@conference.codingteam.net
-
-You can contact the original author by emailing
-J. Alexander Treuman jat@spatialrift.net.
-
-He can also be found idling in #mpd on irc.freenode.net as jat.
+Usually I hang around on Jabber in the channel ist@higgsboson.tk
 
 .. |Build Status| image:: https://travis-ci.org/Mic92/python-mpd2.png
 
-.. _python-mpd: http://jatreuman.indefero.net/p/python-mpd/
+.. _python-mpd: https://pypi.python.org/pypi/python-mpd/

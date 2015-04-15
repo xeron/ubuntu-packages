@@ -1,3 +1,9 @@
+python-mpd2 (0.5.4-1vivid1) vivid; urgency=low
+
+  * Import new upstream.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Tue, 14 Apr 2015 18:20:09 -0700
+
 python-mpd2 (0.5.3-1ubuntu1) utopic; urgency=low
 
   * Update upstream.

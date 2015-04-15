@@ -21,7 +21,7 @@ import socket
 import warnings
 from collections import Callable
 
-VERSION = (0, 5, 3)
+VERSION = (0, 5, 4)
 HELLO_PREFIX = "OK MPD "
 ERROR_PREFIX = "ACK "
 SUCCESS = "OK"
@@ -105,6 +105,8 @@ _commands = {
     # Playlist Commands
     "add":                "_fetch_nothing",
     "addid":              "_fetch_item",
+    "addtagid":           "_fetch_nothing",
+    "cleartagid":         "_fetch_nothing",
     "clear":              "_fetch_nothing",
     "delete":             "_fetch_nothing",
     "deleteid":           "_fetch_nothing",
@@ -119,6 +121,7 @@ _commands = {
     "plchangesposid":     "_fetch_changes",
     "prio":               "_fetch_nothing",
     "prioid":             "_fetch_nothing",
+    "rangeid":            "_fetch_nothing",
     "shuffle":            "_fetch_nothing",
     "swap":               "_fetch_nothing",
     "swapid":             "_fetch_nothing",
@@ -141,6 +144,7 @@ _commands = {
     "list":               "_fetch_list",
     "listall":            "_fetch_database",
     "listallinfo":        "_fetch_database",
+    "listfiles":          "_fetch_database",
     "lsinfo":             "_fetch_database",
     "readcomments":       "_fetch_object",
     "search":             "_fetch_songs",
@@ -148,6 +152,11 @@ _commands = {
     "searchaddpl":        "_fetch_nothing",
     "update":             "_fetch_item",
     "rescan":             "_fetch_item",
+    # Mounts and neighbors
+    "mount":              "_fetch_nothing",
+    "umount":             "_fetch_nothing",
+    "listmounts":         "_fetch_mounts",
+    "listneighbors":      "_fetch_neighbors",
     # Sticker Commands
     "sticker get":        "_fetch_sticker",
     "sticker set":        "_fetch_nothing",
@@ -237,7 +246,9 @@ class MPDClient(object):
         parts = [command]
         for arg in args:
             if type(arg) is tuple:
-                if len(arg) == 1:
+                if len(arg) == 0:
+                    parts.append('":"')
+                elif len(arg) == 1:
                     parts.append('"%d:"' % int(arg[0]))
                 else:
                     parts.append('"%d:%d"' % (int(arg[0]), int(arg[1])))
@@ -394,6 +405,12 @@ class MPDClient(object):
     def _fetch_songs(self):
         return self._fetch_objects(["file"])
 
+    def _fetch_mounts(self):
+        return self._fetch_objects(["mount"])
+
+    def _fetch_neighbors(self):
+        return self._fetch_objects(["neighbor"])
+
     def _fetch_playlists(self):
         return self._fetch_objects(["playlist"])
 
@@ -549,9 +566,9 @@ class MPDClient(object):
 
     @classmethod
     def add_command(cls, name, callback):
-        method = newFunction(cls._execute, key, callback)
-        send_method = newFunction(cls._send, key, callback)
-        fetch_method = newFunction(cls._fetch, key, callback)
+        method = newFunction(cls._execute, name, callback)
+        send_method = newFunction(cls._send, name, callback)
+        fetch_method = newFunction(cls._fetch, name, callback)
 
         # create new mpd commands as function in three flavors:
         # normal, with "send_"-prefix and with "fetch_"-prefix
