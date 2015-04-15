@@ -1,0 +1,59 @@
+#!/bin/sh
+# Copyright 2006-2009 Scott Horowitz <stonecrest@gmail.com>
+# Copyright 2009-2014 Jonathan Ballet <jon@multani.info>
+#
+# This file is part of Sonata.
+#
+# Sonata is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Sonata is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Sonata.  If not, see <http://www.gnu.org/licenses/>.
+
+PACKAGE=Sonata
+INTLTOOL_UPDATE="intltool-update --gettext-package=$PACKAGE"
+
+if ! which intltool-update > /dev/null
+then
+    echo "You need intltool-update to update the translation files!" > /dev/fd/2
+    exit 1
+fi
+
+cd $(dirname "$0")/../po
+
+rm -f missing
+echo Updating POTFILES.in...
+$INTLTOOL_UPDATE -m
+
+if [ -f missing ]
+then
+    exit 1
+fi
+
+echo Updating $PACKAGE.pot...
+$INTLTOOL_UPDATE -p
+
+for i in *.po
+do
+    # Generate ;po files only for the specified language.
+    echo "$*" | grep -q "$(echo $i | sed "s/.po$//g")"
+    if [ $? = 0 -o $# = 0 ]
+    then
+        echo Updating $i...
+        $INTLTOOL_UPDATE "${i%*.po}"
+
+        echo Purging old translations from $i...
+        msgattrib --output-file="$i" --no-obsolete "$i"
+    fi
+done
+
+
+echo "Translation status:"
+$INTLTOOL_UPDATE -r

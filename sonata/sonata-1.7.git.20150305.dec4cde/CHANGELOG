@@ -1,0 +1,553 @@
+Future release (not yet released!)
+----------------------------------
+
+New features
+''''''''''''
+
+    * redirect to the localized Wikipedia according to the user's local,
+      instead of redirecting to the English one.
+      https://github.com/multani/sonata/issues/61
+    * add "Shuffle by album"
+      https://github.com/multani/sonata/pull/59
+
+
+Bug fixes
+'''''''''
+
+    * fix crashs on Gtk.TextView when updating the lyrics of a song
+    * Fix streams parsing:
+      https://github.com/multani/sonata/issues/41
+      https://github.com/multani/sonata/issues/38
+    * fix withdrawn mode by fixing incorrect usage of threads and Gtk
+      eco-system
+    * choosing a local artwork wasn't working anymore
+    * fix artwork caching
+    * keep the selected tab when hiding/showing Sonata using the tray icon
+    * correctly handle tracks without a definitely reasonable track or disc
+      value (Peter Helbing)
+      https://github.com/multani/sonata/pull/74
+    * fix translation of of Glade dialogs (Peter Helbing)
+      https://github.com/multani/sonata/pull/75
+
+Internal changes
+''''''''''''''''
+
+    * slightly better performance when updating the library
+    * threading improvements:
+
+      - use GIO instead of a thread to download drag-and-droped covers
+      - remove the MPD from a dedicated thread. It works as good (if not
+        better) as before since the threaded code was poorly written anyway and
+        rendered the additionnal basically useless. This move is not definitive
+        but something better will probably come up some day.
+
+    * Looking for covers isn't as filesystem expensive as before, but it
+      doesn't check for multiple possible cases in the cover name anymore.
+
+
+1.7a2 (2013-11-26)
+------------------
+
+New features
+''''''''''''
+
+    * Download bigger covers from Last.fm
+    * Centering the current song using Ctrl+i now also selects the current song
+    * Use Transifex as a translation plateform. See
+      https://www.transifex.com/projects/p/sonata/
+    * Update translations:
+
+        - Russian (thanks Stas!)
+        - Ukrainian (thanks Stas!)
+        - French (thanks Jon!)
+
+Bug fixes
+'''''''''
+
+    * Fix search in library (using a specific filter or the 'everything' filter)
+    * Fix scrobbling to Last.fm
+    * Scrolling with the mouse wheel on the tray icon correctly changes the volume
+    * Some lyrics from LyricsWiki redirects to another page. The plugin now
+      follows those redirect to find the actual lyrics.
+    * Fix multiple issues related to drag-and-drop of songs in the current playlist
+    * Fix error while using Sonata's command line interface
+    * Fix filtering songs in the current playlist
+    * Fix DND of custom artwork images in the main window
+    * Fix breadcrumb icon in the library while browsing an album while in Artist view
+    * Fix saving the visibility flag of tabs: https://github.com/multani/sonata/issues/45
+    * Fix hiding/showing the main window even if it's not the active widget:
+      https://github.com/multani/sonata/issues/43
+    * Deleting a track doesn't toggle the filter bar anymore in the current playlist.
+    * Better support for MPD 0.18
+
+Internal changes
+''''''''''''''''
+
+    * Simplified the `current` module. It should also now use less memory than before.
+    * Provide a new GObject signal to notify on artwork change and artwork reset.
+
+
+1.7a1 (2013-02-08)
+------------------
+
+New features
+''''''''''''
+
+    * Fetch covers from Last.fm instead of Rhapsody.com
+    * Custom plugins are now stored along the configuration file in ~/.config/sonata/plugins/
+    * Switch to Python 3 and Gtk 3 (Jörg Thalheim & Adam Dane)
+    * More items in the tray menu (Kirill Lashuk)
+    * Better fullscreen support (Kirill Lashuk)
+    * Toggle fullscreen from the command line (Daniel)
+    * Support MPD's "consume" mode (Anton Lashkov)
+    * Use more default icons in the context menus (Anton Lashkov)
+    * Load only the most recent of plugins with the same names
+
+Bug fixes
+'''''''''
+
+    * Fix population of the "Save to playlist" menu (Zhihao Yuan)
+    * Prevent multiple entries and improve art search with multi-CD albums (Kirill Lashuk)
+    * Fixes weird show up if Sonata is not on the current workspace (Kirill Lashuk)
+    * Scrobble after seeking to the beginning (Kirill Lashuk)
+    * The lyricswiki plugin should now work again (Jonathan Ballet)
+    * Fix UI status after reconnection to MPD (Jonathan Ballet)
+    * Fix crash when searching the library (Kirill Lashuk)
+
+Internal changes
+''''''''''''''''
+
+    * Simpler API for cover fetching plugins
+    * Lot of code cleanup and internal changes
+    * Removed Sugar UI support
+    * Use Glade files to describe the interface and GtkBuilder to build the interface
+    * More systematic configuration file management
+    * High-level access to MPD's command results
+
+Previous releases
+-----------------
+
+v1.6.2.1 - September 21, 2009
+	+ Library artwork caching/displaying improvements
+	+ Lyricwiki screen scraping workaround
+	+ Replace Amazon.com cover art fetching with Rhapsody.com
+	+ Bug: Fix library sorting when adding, e.g., albums to playlist
+	+ Bug: Fix window positioning weirdness when unwithdrawing from systray
+	+ Bug: Fix album being labeled various artists when a duplicate exists
+	+ Bug: Fix album tracks in the info tab being out of order sometimes
+	+ Bug: Show songs with a missing date in info album listing
+	+ Bug: Library icons change after adding stream to playlist
+	+ Bug: Cpu spike, tooltips missing in library search results with gtk 2.16.2
+
+v1.6.2 - April 13, 2009
+	+ Bug: Fix cli options (e.g. 'sonata play')
+
+v1.6.1 - April 11, 2009
+	+ Reduce library's filesystem view row height
+	+ More auto-applying of preferences (e.g. format tab)
+	+ Bug: Fix python version check for Ubuntu Jaunty
+	+ Bug: Traceback if track has multiple date tags
+	+ Bug: Fix infinite loop when format strings end in '{'
+	+ Bug: Fix music directory chooser selecting the wrong folder sometimes
+	+ Bug: Catch OSErrors from os.listdir, e.g. flac files with cue sheets
+	+ Bug: Fix --profile option
+
+v1.6 - March 29, 2009
+	+ Album browsing mode, additional details in library views
+	+ Real-time searching of library (search as you type)
+	+ Fullscreen album art mode (via right-click on artwork) (mips)
+	+ Improve library searching across meta tags
+	+ Sort library search results
+	+ Show file path in tooltip for library search results
+	+ Improved support for updating less than entire library
+	+ Drag-and-drop to copy files from Sonata to a file manager (Kamil)
+	+ Ability to show file paths in tag editing window
+	+ Use plchanges for faster performance (e.g. add to playlist)
+	+ Allow manually fetching remote art when using local art pref (Erik)
+	+ Swap mousewheel behavior for progressbar
+	+ Only minimize to trayicon on click if focused; raise if not focused
+	+ Use new 'listplaylists' command for retrieving playlists
+	+ Allow hiding the application's titlebar in preferences
+	+ Better error trapping
+	+ Make process name 'sonata' for linux (himdel)
+	+ Look for <artist> - <title>.txt lyrics files by other clients
+	+ Add Traditional Chinese translation (b4283)
+	+ Add Japanese translation (Masato)
+	+ Add Slovenian translation (Alan)
+	+ Code modernisation, modularisation, overall cleanup, documentation
+	+ A prototype of a plug-in system
+	+ Unicode fixes
+	+ Some helpful error messages if startup fails
+	+ Useless code removed, various code cleanups and refactorings (Stephen)
+	+ Bug: Bad profiles prevent Sonata from starting
+	+ Bug: Error for CLI arguments when Sonata can't connect to MPD (Juan)
+	+ Bug: Files may not update in interface after tag editing
+	+ Bug: Traceback with Turkish locale
+	+ Bug: Lyrics don't work with python-zsi 2.0 on Ubuntu
+	+ Bug: Bell sound when going to parent folder using backspace
+
+v1.5.3 - September 13, 2008
+	+ Quick link to edit lyrics through LyricWiki
+	+ Unicode lyrics and better searching with LyricWiki (orivej)
+	+ Store audioscrobbler password as md5 hash
+	+ Add Greek translation (Lazaros)
+	+ Bug: Fix lost connection when hard drive is spun down
+	+ Bug: Fix non-ascii characters when scrobbling with non-utf8 locale
+	+ Bug: Selected item changed on double-click
+	+ Bug: Use consistent behavior for titlebar
+	+ Bug: Prevent bad cover image files from causing problems
+	+ Bug: Don't sort library search results
+	+ Bug: Ensure image filenames are escaped in search routine
+
+v1.5.2 - June 5, 2008
+	+ Improved artwork/lyrics caching through case-insenstive searching
+	+ Add Turkish translation (Gökmen)
+	+ Bug: Fix artwork for files with unicode characters
+	+ Bug: Fix crash if mpd library is empty
+	+ Bug: Fix regression where dbus-python became required
+	+ Bug: Bold titles lose sync if song changes with visible filterbar
+	+ Bug: Doesn't scrobble when same song is repeated
+	+ Bug: Python conflict when installed with sugar (OLPC)
+	+ Bug: Fix artwork display in song notification window for RTL languages
+	+ Bug: Fix progressbar seeking for RTL languages
+	+ Bug: No play/pause indicator in egg tray icon if started while mpd is active
+
+v1.5.1 - May 3, 2008
+	+ Swap 'shuffle' and 'random' to be consistent with MPD
+	+ "Save list to">"foo" can now either replace playlist or append songs
+	+ Add Catalan translation (Franc)
+	+ Add Arabic translation (Ahmad)
+	+ Bug: Fix play/pause with multimedia keys (Vinay)
+	+ Bug: Prevent possible traceback from gobject.filename_from_utf8
+	+ Bug: 'play after replace' when in shuffle mode plays 1st song, not random
+	+ Bug: Fix random, repeat, and toggle commands from console
+	+ Bug: Songs not tagged with the album name don't show up
+	+ Bug: Cannot disconnect when MPD_HOST and MPD_PORT are set
+	+ Bug: Fix %D and %N formats within brackets
+
+v1.5 - April 3, 2008
+	+ Replace album view with genre view for library
+	+ Display covers for albums in artist/genre views
+	+ Add menu items and shortcuts for playing library items after add/replace
+	+ Allow setting artwork for streams
+	+ Optional stylized album art with cases (Aidan)
+	+ New, faster python mpd interface (jat)
+	+ --popup argument to popup song notification (requires D-Bus) (Oleg)
+	+ Show 'Untagged' artists/genres in their respective library views
+	+ Allow DND of cover art from a web browser (Артем)
+	+ Allow DND of music from a file manager into playlist (requires mpd 0.14)
+	+ Preserve column percentages for current tab across window resizing
+	+ Speed up mpd-related commandline arguments
+	+ Switch back to last tab on second cover art click
+	+ Retain selection in lists after removing items
+	+ Hidden config option to expand notebook tabs (tabs_expanded)
+	+ Set ServiceProxy cachedir for lyrics to work around ZSI bug
+	+ Add Estonian translation (Mihkel)
+	+ Bug: Fix multimedia keys for gnome 2.22
+	+ Bug: Fix artwork for artists/albums with "/" in them (e.g. AC/DC)
+	+ Bug: Fix egg trayicon with vertical system tray
+	+ Bug: Weird bug in library-view
+	+ Bug: Prevent failure to load if tab positions are saved as None
+	+ Bug: Fix non-ascii characters in files for non-utf8 filesystems (zap)
+	+ Bug: Prevent crash with certain locales like turkish (jat)
+	+ Bug: Using filter causes playlist to jump to the top
+	+ Bug: Fix AudioScrobblerQuery (kigurai)
+
+v1.4.2 - February 9, 2008
+	+ Add %D for disc tag in display formatting options
+	+ Better handling if no read permission (e.g. no/bad mpd password supplied)
+	+ Bug: Fix seeking in progress bar
+	+ Bug: Fix blank album info when there is an ampersand
+	+ Bug: Missing color in notification window
+	+ Bug: Notebook arrow clicks are ignored due to gtk bug
+	+ Bug: Potential ordering bug when sorting via column heading click
+	+ Bug: Make desktop file compliant
+	+ Bug: Column widths can collapse when exiting while minimized to the tray
+
+v1.4.1 - February 2, 2008
+	+ Remove queue support (it was removed from mpd-svn, complain to them)
+	+ Improved re-ordering of playlist songs (including multiple selected songs)
+	+ Add album info into info tab
+	+ Use hand2 instead of hand1 for song info links
+	+ Bug: Traceback can occur after enabling audioscrobbler
+	+ Bug: Text background color on tabs (ecik)
+	+ Bug: Visible background of eventboxes for info tab links, etc.
+	+ Bug: Can't click (more) link in non-English locales
+	+ Bug: Crash when using libegg with system tray icon disabled
+	+ Bug: Disable tag editing link in info tab for streams/remote files
+	+ Bug: Unescape common html codes from lyrics fetching, enable formatting
+	+ Bug: The main notebook should be scrollable
+
+v1.4 - January 15, 2008
+	+ Integrate info window into main player
+	+ Update to audioscrobbler protocol 1.2 and scrobbling bug fixes (mveers)
+	+ Implemented caching of scrobbles across client restarts
+	+ Vertically center currently playing song
+	+ Updated artwork (Adrian Chromenko)
+	+ IPv6 support for the mpd connection (Shane Kerr)
+	+ Allow screen center for notification popup
+	+ Preference for saving lyrics to music file's directory (like artwork)
+	+ Allow hiding and reordering notebook tabs (e.g. playlists, streams, info)
+	+ Retain library path when re-opening Sonata
+	+ Remove confusing 'remote only' and 'remote, then local' artwork options
+	+ Ability to hide progress bar (can create very minimal player)
+	+ Skip fallback artwork search of just album name if primary searches fail
+	+ Make system tray icon scalable
+	+ Shortcuts to search library (ctrl-h), randomize current playlist (alt-r)
+	+ Use gtk theme's link-color if available (only for gtk 2.12 and above)
+	+ Bug: Right-click menu can cause accidental actions with some gtk themes
+	+ Bug: Prevent crash on negative disc/track numbers
+	+ Bug: Filter + Edit Tags edits a different song than selected
+	+ Bug: Prevent possible exception regarding cover art on first load
+	+ Bug: Fix retrieving some non-English lyrics (ecik)
+	+ Bug: Allow MPD_HOST to override GUI
+	+ Bug: {} displays in the Current column title
+	+ Bug: Fix manpage path to be FHS compliant
+	+ Bug: Ensure that the version of ZSI is compatible with sonata
+
+v1.3 - October 29, 2007
+	+ Playlist queue support (requires mpd 0.14 - currently mpd-svn)
+	+ Use-configurable columns in playlist by using "|" in prefs > format (xsdnyd)
+	+ Switch from SOAPpy to newer ZSI library for lyrics fetching
+	+ Use xmms-like search filter by default when user types (no more ctrl-j)
+	+ Ctrl-i shortcut to center currently playing song
+	+ Use case insensitive sorting for library (holy_robot)
+	+ Ignore "the" when sorting library in artist/album views (holy_robot)
+	+ Better logic when sorting playlists and new "dir+file" sort option (sed)
+	+ Allow saving/overwriting existing playlists and streams
+	+ Hidden config options to set browser, hide column headers
+	+ Update license to GNU GPLv3
+	+ Added Brazilian translation (Alex Tercete Matos)
+	+ Added Danish translation (Martin Dybdal)
+	+ Bug: Fix nl.po translation causing crash
+	+ Bug: Remember playlist position when adding from library
+	+ Bug: Fixed tracebacks with certain encodings
+	+ Bug: MPD_HOST with password doesn't work on first install
+	+ Bug: Fix desktop file to match current XDG standard (nigel)
+	+ Bug: Search Amazon artwork using latin1 since it no longer supports utf8
+	+ Bug: Possible tag editing issues w/non-latin encoding (requires tagpy 0.93)
+	+ Bug: Fix czech translation to use cs.po
+
+v1.2.3 - August 23, 2007
+	+ Incorporate disc tag in album sorting (Emmanuel Viaud)
+	+ Significantly reduced wakeups/sec according to powertop
+	+ Add stream name as a formatting option
+	+ Added Italian translation (Gianni Vialetto)
+	+ Added Swedish translation (Daniel Nylander)
+	+ Added Dutch translation (Olivier)
+	+ Bug: Stupid parsing of amazon URLs, reduced success of cover art fetching
+	+ Bug: Default cover remains after refetching when not using ~/.covers
+	+ Bug: Czech translation incorrectly labeled Swedish
+	+ Bug: Song played after a replace is first in list, even in shuffle mode
+	+ Bug: Collapsed view doesn't work properly in some WMs (e.g. Fluxbox)
+	+ Bug: Display 'update library' menu item even when library is empty
+
+v1.2.2 - July 22, 2007
+	+ Bug: Fix artwork fetching (Amazon gzip'ed xml returns garbage)
+	+ Bug: Prevent connection error if the interface hasn't yet been run
+	+ Bug: Prevent possibility of deleting image file when choosing local art file
+	+ Bug: Don't load gnome-settings-daemon if it's not running (kinote)
+
+v1.2.1 - July 16, 2007
+	+ Bug: Using MPD with a password causes error
+
+v1.2 - July 15, 2007
+	+ Audioscrobbler support (requires python 2.5 or python-elementtree) (Owen)
+	+ Support for multiple profiles (and, e.g., "sonata --profile=2")
+	+ Ability to set search terms for lyrics
+	+ Ability to rename playlists (requires mpd >= 0.13)
+	+ Prevent continually searching for artwork/lyrics if not found the first time
+	+ Search for additional artwork filenames
+	+ Allows resetting artwork to the default image
+	+ 'Save All' button for tag editing window
+	+ Display MPD status in systray icon
+	+ Prevent GUI blocking when connecting to MPD, where possible
+	+ Added Finnish translation (Ilkka Tuohela)
+	+ Bug: Multimedia keys no longer work in Gnome 2.18 (Florian)
+	+ Bug: Hide statusbar in collapse mode when showing from systray
+	+ Bug: Cover artwork filename doesn't use system's locale charset
+	+ Bug: MPD_HOST variable doesn't work when it includes password
+
+v1.1.1 - May 18, 2007
+	+ Add Czech translation (Jakub Adler)
+	+ Bug: Incorrect artist can sometimes be set for album art/info (vEX)
+	+ Bug: Artwork isn't set when there is a single image in the song's dir
+	+ Bug: Improve handling under tiling WMs like ion3
+	+ Bug: A 2nd instance isn't prevented with dbus/python 2.4 (Sebastian)
+
+v1.1 - May 7, 2007
+	+ Ctrl-J for xmms-like search filter (vEX/Eduard)
+	+ Implemented logic for Various Artists albums
+	+ Cover art pref: save to ~/.covers or file's respective dir
+	+ Support for GNOME session management
+	+ Allow searching through ALL metadata in library
+	+ Link artist and album name in song info window to wikipedia entry
+	+ Add shuffle, repeat, --visible, and --hidden commandline arguments
+	+ Show if mpd is updating in statusbar
+	+ Save last used option in library search
+	+ Update code for dbus-python 0.80 API (Jordan)
+	+ Ellipsize text in treeviews, current playing song (Jordan)
+	+ Add button for listing of shortcuts to About dialog
+	+ Resize cover art to fit song info window
+	+ Added Simplified Chinese translation (Desmond Chang)
+	+ Bug: Prevent tracebacks between withdrawing app & gtk.StatusIcon
+	+ Bug: Fix error if mpd is not running and sonata starts hidden
+	+ Bug: Can't manually set artwork across filesystems
+	+ Bug: Can't use find-as-you-type in the current playlist
+	+ Bug: Right-click menu closes right away for some users
+
+v1.0.1 - February 13, 2007
+	+ Make lyrics fetching optional
+	+ Allow editing of stream name/url
+	+ Hide the notification window when it is clicked
+	+ Small usability improvements to gtk.StatusIcon
+	+ Improvements to reordering the current playlist with drag-n-drop
+	+ Bug: Info window freezes when editing currently playing song's tags
+	+ Bug: Tag editing doesn't work with older version (0.90.1) of tagpy
+	+ Bug: Prevent strange potential freeze with gc.collect()
+	+ Bug: Cover art doesn't update correctly if Local Only artwork set
+	+ Bug: Lyrics occassionally don't stay synced with current playing song
+
+v1.0 - January 21, 2007
+	+ Multiple views for library: filesystem, artists, albums
+	+ Editing of song tags (requires optional taglib & tagpy)
+	+ Auto-fetching of song lyrics (requires optional soappy)
+	+ Improved song info window and access to it
+	+ Allow pls/m3u/extm3u's as stream inputs
+	+ Sort current playlist (by metadata, random, reverse)
+	+ Optional statusbar (playlist length, time)
+	+ Revert to gtk's StatusIcon if gnome-python-extras isn't installed
+	+ Make system tray icon optional
+	+ Pref to write xmms-info like status file to use with IM, IRC.. (Tim)
+	+ Allow drag-n-drop of images to set album art
+	+ If there is only one image in the song's dir, set as art (Ivan)
+	+ Album art priority preference (local vs remove)
+	+ Formatting options (genre, song length, elapsed time, year) (Ivan)
+	+ Pref to play enqueued items on activate (i.e. enter/double-click)
+	+ Play friendler with other clients for shuffle/repeat/crossfade
+	+ Reduced startup time/memory usage
+	+ Use curly brackets {} to have formatting appear only if all enclosed
+	  tags are available
+	+ Ability to run on OLPC's Sugar user environment (Owen)
+	+ Added Ukranian translation (Господарисько Тарас)
+	+ Bug: No more freezes due to threading! Finally! Seriously!
+	+ Bug: Cannot set album art for album/artist with "/" in name
+	+ Bug: Prevent interface jumping because of progress bar font
+	+ Bug: Notification window isn't positioned correctly for dual-head
+
+v0.9 - November 19, 2006
+	+ Added stream support
+	+ Use local artwork (cover.jpg, folder.jpg) first, if it exists
+	  (requires music_directory to be specified in preferences)
+	+ Allow crossfading (mixing) between songs
+	+ Fetch higher-resolution cover art
+	+ Allow specifying search terms for remote album art
+	+ Improved song info viewer
+	+ Make remote images window non-blocking
+	+ Popup song notification on un-pause
+	+ Pick up tooltip album background color from gtk theme
+	+ Store cover art in ~/.covers for consistency with gmpc
+	+ Add German translation (Paul Johnson)
+	+ Bug: Prevent infrequent crash when fetching album art
+	+ Bug: Intermittent interface freezes due to threading
+	+ Bug: Unable to delete playlists with ampersand, etc.
+	+ Bug: Player can become the wrong height on expand
+	+ Bug: Ensure local art is correctly applied on song changes
+	+ Bug: Searching library doesn't work for non-english locale
+
+v0.8.1 - October 19, 2006
+	+ Add Polish translation (Tomasz Dominikowski)
+	+ Bug: Correctly send mpd password when using manual connect
+	+ Bug: Prevent certain keys from causing events
+	+ Bug: Prevent potential crash if not able to obtain mpd status
+
+v0.8 - October 7, 2006
+	+ Allow user formatting of current playlist, library, and title
+	+ Pref for song notification location
+	+ Allow song notification for users without gnome-python-extras
+	+ Pref to hide playback buttons
+	+ Pref to update MPD library on start
+	+ --info, --status displays current song info or MPD status
+	+ Pref to autoconnect on start, connect/disconnect buttons
+	+ Fetch album art in background (non-blocking)
+	+ Correctly retain previous library state when ending search
+	+ Add russian translation [Andrew Lukoshko]
+	+ Bug: Display path when filename is empty or http/ftp prefixes
+	+ Bug: Fix crash if changing connection w/o gnome-python-extras
+	+ Bug: Prevent --help, --toggle, etc. from happening twice if
+	  dbus is installed
+	+ Bug: Some shortcuts don't work with numslock enabled
+
+v0.7.1 - September 27, 2006
+	+ Bug: Fix crash if dbus is not installed
+	+ Bug: Fix crash if song does not have some id3 info specified
+
+v0.7 - September 27, 2006
+	+ Ability to search library by type (can be disabled in prefs)
+	+ Optional notification popup on song changes
+	+ Show larger image on left-click of cover art
+	+ Reduce (pygmy's) default polling time
+	+ Retain selection of browsed directories in library
+	+ Retain selection after drag-n-drop
+	+ Keep width of tooltip fixed
+	+ Show previous instance of app if user tries to open a second
+	  instance [Mike Massonnet patch]
+	+ Add --version, --help; print usage
+	+ --toggle argument to minimize to tray or show (requires D-Bus)
+	+ Add french translation [Floréal M]
+	+ Additional shortcuts (see docs)
+	+ Bug: repeat/shuffle isn't updated if mpd is restarted
+	+ Bug: Unable to delete multiple playlists at once
+	+ Bug: Crash when playing ogg streams [patch]
+
+v0.6 - September 18, 2006
+	+ Add support for playlists (save, load, queue, delete)
+	+ Ability to use local image for album cover
+	+ Support for multimedia keys
+	+ Fetch cover art if an artist, but not album, is specified
+	+ Add Ctrl-U and Ctrl-Shift-U for updating library (see docs)
+	+ (Re-)display systray icon if tray is (re-)opened
+	+ Fix mpdclient3.py to return all playlist objects
+	+ Bug: Delete key doesn't remove songs from playlist
+
+v0.5.2 - September 15, 2006
+	+ Correctly update interface after updating MPD library
+	+ Interface prefs: show album art, show volume, sticky, above
+	+ Behavior prefs: minimize to systray, stop playback on exit
+	+ Increase iter time if connection timesout (to make gui responsive)
+	+ Use gtk.STOCK_JUSTIFY_FILL instead of custom playlist icon
+	+ Try gnome-open/exo-open first for opening help, then fallback
+	+ Ability to set translations (see TRANSLATIONS file)
+	+ Use dbus to prevent multiple instances
+	+ More shortcuts (see documentation)
+	+ Minor bugfixes
+
+v0.5.1 - September 13, 2006
+	+ Increment to mpdclient3 to prevent incompatibility issues
+	+ Bug: Running Sonata without systray causes crash
+
+v0.5 - September 12, 2006
+	+ Added album art (and ability to choose from alternatives
+	  if the one automatically selected is incorrect, via right-click)
+	+ Integrate playlist and library into one app
+	+ Change song progress with mousewheel over progressbar
+	+ Change volume with mousewheel over volume button, systray icon
+	+ Change volume icon based on volume level
+	+ Added playback, etc, shortcuts
+	+ Added Replace menu and dir/file icons to library browser
+	+ Removed toolbar, cleaned up interface
+	+ Removed horizontal scrollbar
+	+ Don't update systray icon based on playback status
+	+ Moved config to freedesktop.org standard
+	+ Keep app width constant when (un)expanding
+	+ Keep currently playing song visible in list
+	+ Removed python-empy, glade
+	+ Bug: mpdclient2/app doesn't accept passwords (crash)
+	+ Bug: mdpclient2 - lsinfo skips the first file found after dirs
+	+ Bug: Cannot remove multiple rows from right-click
+	+ Bug: Crash if user has MPD connection but no read access
+	+ Bug: GTK+ treeview search does not work
+	+ Bug: Right-Click checkbox doesnt set value on start
+	+ Bug: Doesn't properly retain view when browsing playlist
+	+ Added documentation
+	+ Other bugfixes, tweaks
