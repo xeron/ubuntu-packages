@@ -1,0 +1,2854 @@
+# Serbian translation of gparted-help
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2010 — 2013.
+# This file is distributed under the same license as the gparted package.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2010, 2012, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2013-09-10 18:52+0000\n"
+"PO-Revision-Date: 2013-09-17 05:26+0200\n"
+"Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Project-Style: gnome\n"
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: C/gparted.xml:301(None)
+msgid ""
+"@@image: 'figures/gparted_window.png'; md5=0c6eb27cd7d5d614b4ea752846ccb50b"
+msgstr ""
+"@@image: 'figures/gparted_window.png'; md5=0c6eb27cd7d5d614b4ea752846ccb50b"
+
+#: C/gparted.xml:34(title)
+msgid "GParted Manual"
+msgstr "Uputstvo Gparteda"
+
+#: C/gparted.xml:36(publishername) C/gparted.xml:78(orgname)
+#: C/gparted.xml:107(para) C/gparted.xml:116(para) C/gparted.xml:125(para)
+#: C/gparted.xml:134(para) C/gparted.xml:143(para) C/gparted.xml:152(para)
+#: C/gparted.xml:161(para)
+msgid "GParted Project"
+msgstr "Projekat Gparteda"
+
+#: C/gparted.xml:40(para)
+msgid ""
+"GParted is the Gnome Partition Editor for creating, reorganizing, and "
+"deleting disk partitions. GParted enables you to change the partition "
+"organization while preserving the partition contents."
+msgstr ""
+"Gparted je Gnomov uređivač particija za stvaranje, reorganizovanje i brisanje "
+"particija na disku. Gparted vam omogućava da izmenite organizaciju particije "
+"i u isto vreme čuva sadržaj particije."
+
+#: C/gparted.xml:49(year)
+#| msgid "2008, 2009, 2010, 2011, 2012"
+msgid "2008, 2009, 2010, 2011, 2012, 2013"
+msgstr "2008, 2009, 2010, 2011, 2012, 2013"
+
+#: C/gparted.xml:50(holder) C/gparted.xml:106(para) C/gparted.xml:115(para)
+#: C/gparted.xml:124(para) C/gparted.xml:133(para) C/gparted.xml:142(para)
+#: C/gparted.xml:151(para) C/gparted.xml:160(para)
+msgid "Curtis Gedak"
+msgstr "Kurtis Gedak"
+
+#: C/gparted.xml:61(para)
+msgid ""
+"Permission is granted to copy, distribute and/or modify this document under "
+"the terms of the GNU Free Documentation License, Version 1.2 or any later "
+"version published by the Free Software Foundation; with no Invariant "
+"Sections, no Front-Cover Texts, and no Back-Cover Texts. You can find a copy "
+"of the GFDL at this <ulink type=\"help\" url=\"ghelp:fdl\">link</ulink> or "
+"at <ulink type=\"http\" url=\"http://www.fsf.org/licensing/licenses/fdl.html"
+"\"/> or in the file COPYING-DOCS distributed with this manual."
+msgstr ""
+"Dozvoljeno je da umnožavate, dostavljate i/ili menjate ovaj dokument pod "
+"uslovima Gnuove licence slobodne dokumentacije (GFDL), izdanja 1.2 ili bilo "
+"kog novijeg izdanja koje objavi Zadužbina Slobodnog Softvera; bez "
+"Nepromenjenih odeljaka, bez Teksta naslovne strane i bez Teksta zadnje strane. "
+"Možete naći primerak GLSD na ovoj <ulink type=\"help\" "
+"url=\"ghelp:fdl\">vezi</ulink> ili na <ulink type=\"http\" "
+"url=\"http://www.fsf.org/licensing/licenses/fdl.html\"/> veb sajtu ili u "
+"datoteci „COPYING-DOCS“ koja je dostavljena uz ovaj priručnik."
+
+#: C/gparted.xml:75(firstname)
+msgid "Curtis"
+msgstr "Kurtis"
+
+#: C/gparted.xml:76(surname)
+msgid "Gedak"
+msgstr "Gedak"
+
+#: C/gparted.xml:80(email)
+msgid "gedakc@users.sf.net"
+msgstr "gedakc@users.sf.net"
+
+#: C/gparted.xml:103(revnumber)
+#| msgid "GParted Manual V1.4"
+msgid "GParted Manual V1.5"
+msgstr "Uputstvo Gparteda v.1.5"
+
+#: C/gparted.xml:104(date)
+#| msgid "September 2008"
+msgid "September 2013"
+msgstr "Septembar 2013"
+
+#: C/gparted.xml:108(para)
+#| msgid "Describes version 0.4.2 of GParted"
+msgid "Describes version 0.16.2 of GParted"
+msgstr "Opisuje izdanje 0.16.2 Gparteda"
+
+#: C/gparted.xml:112(revnumber)
+msgid "GParted Manual V1.4"
+msgstr "Uputstvo Gparteda v.1.4"
+
+#: C/gparted.xml:113(date)
+msgid "February 2012"
+msgstr "Februar 2012"
+
+#: C/gparted.xml:117(para)
+msgid "Describes version 0.12.0 of GParted"
+msgstr "Opisuje izdanje 0.12.0 Gparteda"
+
+#: C/gparted.xml:121(revnumber)
+msgid "GParted Manual V1.3"
+msgstr "Uputstvo Gparteda v.1.3"
+
+#: C/gparted.xml:122(date)
+msgid "January 2011"
+msgstr "Januar 2011"
+
+#: C/gparted.xml:126(para)
+msgid "Describes version 0.8.0 of GParted"
+msgstr "Opisuje izdanje 0.8.0 Gparteda"
+
+#: C/gparted.xml:130(revnumber)
+msgid "GParted Manual V1.2"
+msgstr "Uputstvo Gparteda v.1.2"
+
+#: C/gparted.xml:131(date)
+msgid "June 2010"
+msgstr "Jun 2010"
+
+#: C/gparted.xml:135(para)
+msgid "Describes version 0.6.0 of GParted"
+msgstr "Opisuje izdanje 0.6.0 Gparteda"
+
+#: C/gparted.xml:139(revnumber)
+msgid "GParted Manual V1.1"
+msgstr "Uputstvo Gparteda v.1.1"
+
+#: C/gparted.xml:140(date)
+msgid "July 2009"
+msgstr "Jul 2009"
+
+#: C/gparted.xml:144(para)
+msgid "Describes version 0.4.6 of GParted"
+msgstr "Opisuje izdanje 0.4.6 Gparteda"
+
+#: C/gparted.xml:148(revnumber)
+msgid "GParted Manual V1.0"
+msgstr "Uputstvo Gparteda v.1.0"
+
+#: C/gparted.xml:149(date)
+msgid "January 2009"
+msgstr "Januar 2009"
+
+#: C/gparted.xml:153(para)
+msgid "Describes version 0.4.2 of GParted"
+msgstr "Opisuje izdanje 0.4.2 Gparteda"
+
+#: C/gparted.xml:157(revnumber)
+msgid "GParted Manual V0.3.9"
+msgstr "Uputstvo Gparteda v.0.3.9"
+
+#: C/gparted.xml:158(date)
+msgid "September 2008"
+msgstr "Septembar 2008"
+
+#: C/gparted.xml:162(para)
+msgid "Describes version 0.3.9 of GParted"
+msgstr "Opisuje izdanje 0.3.9 Gparteda"
+
+#: C/gparted.xml:167(releaseinfo)
+#| msgid "This manual describes version 0.12.0 of GParted"
+msgid "This manual describes version 0.16.2 of GParted"
+msgstr "Ovo uputstvo opisuje izdanje 0.16.2 Gparteda"
+
+#: C/gparted.xml:172(title)
+msgid "Feedback"
+msgstr "Povratne informacije"
+
+#: C/gparted.xml:173(para)
+msgid ""
+"To report a bug or make a suggestion regarding the <application>gparted</"
+"application> application or this manual, follow the directions at <ulink "
+"type=\"http\" url=\"http://gparted.org/bugs.php\"/>."
+msgstr ""
+"Da prijavite grešku ili da date predlog u vezi "
+"<application>gparteda</application> ili u vezi ovog uputstva, sledite "
+"uputstva na <ulink type=\"http\" url=\"http://gparted.org/bugs.php\"/>."
+
+#: C/gparted.xml:187(title)
+msgid "Introduction"
+msgstr "Uvod"
+
+#: C/gparted.xml:188(para)
+msgid ""
+"The <application>gparted</application> application is the GNOME partition "
+"editor for creating, reorganizing, and deleting disk partitions."
+msgstr ""
+"Program <emphasis "
+"role=\"strong\"><application>gparted</application></emphasis> je Gnomov "
+"uređivač particija za stvaranje, reorganizovanje i brisanje particija na disku."
+
+#: C/gparted.xml:192(para)
+msgid ""
+"A disk device can be subdivided into one or more partitions. The "
+"<application>gparted</application> application enables you to change the "
+"partition organization on a disk device while preserving the contents of the "
+"partition."
+msgstr ""
+"Disk uređaj može biti podeljen na jednu ili više particija. Program "
+"<application>gparted</application> vam omogućava da izmenite organizaciju "
+"particija na disk uređaju uz čuvanje sadržaja particije."
+
+#: C/gparted.xml:203(para)
+msgid "Create a partition table on a disk device."
+msgstr "Da napravite particionu tabelu na disk uređaju."
+
+#: C/gparted.xml:208(para)
+msgid "Enable and disable partition flags such as boot and hidden."
+msgstr ""
+"Da uključite i isključite opcije particije kao što su „učitavanje“ i "
+"„skrivena“."
+
+#: C/gparted.xml:213(para)
+msgid ""
+"Perform actions with partitions such as create, delete, resize, move, check, "
+"label, copy, and paste."
+msgstr ""
+"Da izvršite radnje nad particijama kao što su stvaranje, brisanje, menjanje "
+"veličine, proveravanje, označavanje, umnožavanje i ubacivanje."
+
+#: C/gparted.xml:198(para)
+msgid ""
+"With <application>gparted</application> you can accomplish the following "
+"tasks: <placeholder-1/>"
+msgstr ""
+"Sa <application>gpartedom</application> možete da obavite sledeće zadatke: "
+"<placeholder-1/>"
+
+#: C/gparted.xml:221(para)
+msgid "Editing partitions has the potential to cause LOSS of DATA."
+msgstr "Uređivanje particija može prouzrokovati GUBITAK PODATAKA."
+
+#: C/gparted.xml:224(para)
+msgid ""
+"The <application>gparted</application> application is designed to enable you "
+"to edit partitions while reducing the risk of data loss. The application is "
+"carefully tested and is used by the GParted project team. However, loss of "
+"data might occur due to software bugs, hardware problems, or power failure."
+msgstr ""
+"Program <application>gparted</application> je osmišljen da vam omogući da "
+"uređujete particije uz umanjeni rizik od gubljenja podataka. Program je "
+"brižljivo isproban i koristi ga tim projekta Gparteda. Međutim, do gubljenja "
+"podataka može doći usled greške u programu, problema sa hardverom ili usled "
+"nestanka napajanja."
+
+#: C/gparted.xml:233(para)
+msgid ""
+"You can help to reduce the risk of data loss by not mounting or unmounting "
+"partitions outside of the <application>gparted</application> application "
+"while <application>gparted</application> is running."
+msgstr ""
+"Vi možete pomoći u smanjivanju rizika od gubljenja podataka tako što nećete "
+"montirati ili demontirati particije izvan programa "
+"<application>gparteda</application> za vreme rada "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:239(para)
+msgid ""
+"You are advised to BACKUP your DATA before using the <application>gparted</"
+"application> application."
+msgstr ""
+"Savetuje vam se da NAPRAVITE REZERVU vaših PODATAKA pre korišćenja programa "
+"<application>gparted</application>."
+
+#: C/gparted.xml:248(title)
+msgid "Getting Started"
+msgstr "Započeti korišćenje"
+
+#: C/gparted.xml:254(title)
+msgid "Starting gparted"
+msgstr "Pokretanje gparteda"
+
+#: C/gparted.xml:255(para)
+msgid "You can start <application>gparted</application> in the following ways:"
+msgstr ""
+"Možete da pokrenete <application>gparted</application> na sledeće načine:"
+
+#: C/gparted.xml:260(term)
+msgid "<guimenu>Applications</guimenu> menu"
+msgstr "Izbornik <guimenu>„Programi“</guimenu>"
+
+#: C/gparted.xml:262(para)
+msgid ""
+"Choose <menuchoice><guisubmenu>System Tools</guisubmenu><guimenuitem>GParted "
+"Partition Editor</guimenuitem></menuchoice>."
+msgstr ""
+"Izaberite: <menuchoice><guisubmenu>„Sistem</guisubmenu><guimenuitem>Gparted "
+"uređivač particija“</guimenuitem></menuchoice>."
+
+#: C/gparted.xml:268(term)
+msgid "Command line"
+msgstr "Linija naredbi"
+
+#: C/gparted.xml:270(para)
+msgid "Execute the following command: <command>gparted</command>"
+msgstr "Izvršite sledeću naredbu: <command>gparted</command>"
+
+#: C/gparted.xml:276(para)
+msgid ""
+"On startup, <application>gparted</application> will scan your computer for "
+"disk devices."
+msgstr ""
+"Prilikom pokretanja, <application>gparted</application> će pretražiti vaš "
+"računar za disk uređajima."
+
+#: C/gparted.xml:285(title)
+msgid "The gparted Window"
+msgstr "Prozor gparteda"
+
+#: C/gparted.xml:286(para)
+msgid ""
+"When you start <application>gparted</application>, the following window is "
+"displayed:"
+msgstr ""
+"Kada pokrenete <application>gparted</application>, biće prikazan sledeći "
+"prozor:"
+
+#: C/gparted.xml:297(title)
+msgid "gparted Window"
+msgstr "Prozor gparteda"
+
+#: C/gparted.xml:304(phrase)
+msgid "Shows gparted main window."
+msgstr "Prikazuje glavni prozor gparteda."
+
+#: C/gparted.xml:310(para)
+msgid ""
+"The <application>gparted</application> window contains the following "
+"elements:"
+msgstr "Prozor <application>gparteda</application> sadrži sledeće elemente:"
+
+#: C/gparted.xml:316(term)
+msgid "Menubar"
+msgstr "Traka izbornika"
+
+#: C/gparted.xml:318(para)
+msgid ""
+"The menus on the menubar contain all of the commands you need to work with "
+"disk devices and partitions in <application>gparted</application>."
+msgstr ""
+"Izbornici na traci izbornika sadrže sve naredbe koje su vam potrebne za rad "
+"sa disk uređajima i particijama u <application>gpartedu</application>."
+
+#: C/gparted.xml:326(term)
+msgid "Toolbar"
+msgstr "Traka alata"
+
+#: C/gparted.xml:328(para)
+msgid ""
+"The toolbar contains a subset of the commands that you can access from the "
+"menubar."
+msgstr ""
+"Traka alata sadrži podskup naredbi kojima možete da pristupite sa trake "
+"izbornika."
+
+#: C/gparted.xml:335(term)
+msgid "Graphic Display Area"
+msgstr "Površ za prikaz grafikona"
+
+#: C/gparted.xml:337(para)
+msgid ""
+"The graphic display area contains the visual representation of the "
+"partitions on the selected disk device."
+msgstr ""
+"Površ za prikazivanje grafikona sadrži vizuelno predstavljanje particija na "
+"izabranom disk uređaju."
+
+#: C/gparted.xml:344(term)
+msgid "Text Display Area"
+msgstr "Površ za prikazivanje teksta"
+
+#: C/gparted.xml:346(para)
+msgid ""
+"The text display area contains the text list of the partitions on the "
+"selected disk device."
+msgstr ""
+"Površ za prikazivanje teksta sadrži tekstualni spisak particija na izabranom "
+"disk uređaju."
+
+#: C/gparted.xml:353(term)
+msgid "Statusbar"
+msgstr "Traka stanja"
+
+#: C/gparted.xml:355(para)
+msgid ""
+"The statusbar displays information about current <application>gparted</"
+"application> activity or the number of operations pending."
+msgstr ""
+"Traka stanja prikazuje informacije o trenutnoj aktivnosti "
+"<application>gparteda</application> ili broj zakazanih radnji."
+
+#: C/gparted.xml:363(term)
+msgid "Device Information Pane"
+msgstr "Okno za informacije o uređaju"
+
+#: C/gparted.xml:365(para)
+msgid ""
+"The device information pane displays details about the selected disk device."
+msgstr ""
+"Okno za informacije o uređaju prikazuje detalje o izabranom disk uređaju."
+
+#: C/gparted.xml:369(para)
+msgid ""
+"By default the device information pane is not shown. To show the device "
+"information pane, choose <menuchoice><guimenu>View</"
+"guimenu><guimenuitem>Device Information</guimenuitem></menuchoice>."
+msgstr ""
+"Okno za informacije o uređaju se ne prikazuje unapred. Da prikažete okno za "
+"informacije o uređaju, izaberite: "
+"<menuchoice><guimenu>„Pregled</guimenu><guimenuitem>Informacije o "
+"uređaju“</guimenuitem></menuchoice>."
+
+#: C/gparted.xml:377(term)
+msgid "Pending Operations Pane"
+msgstr "Okno zakazanih operacija"
+
+#: C/gparted.xml:379(para)
+msgid ""
+"The pending operations pane displays the current list of partition "
+"operations in the queue."
+msgstr "Okno zakazanih operacija prikazuje tekući spisak operacija na čekanju."
+
+#: C/gparted.xml:383(para)
+msgid ""
+"By default the pending operations pane is not shown when there are 0 pending "
+"operations. To show the pending operations pane, choose "
+"<menuchoice><guimenu>View</guimenu><guimenuitem>Pending Operations</"
+"guimenuitem></menuchoice>."
+msgstr ""
+"Okno za zakazane operacije nije prikazano ako nema zakazanih operacija. Da "
+"prikažete okno za zakazane operacije, izaberite: "
+"<menuchoice><guimenu>„Pregled</guimenu><guimenuitem>Zakazane "
+"operacije“</guimenuitem></menuchoice>."
+
+#: C/gparted.xml:392(para)
+msgid ""
+"When you left-click in either display area, you select a partition to use "
+"for partition editing actions."
+msgstr ""
+"Kada kliknete levim tasterom miša na neku prikazanu površ, vi birate "
+"particiju koja će biti korišćena za radnje uređivanja particije."
+
+#: C/gparted.xml:396(para)
+msgid ""
+"When you right-click in either display area, the application displays a "
+"popup menu. The popup menu contains the most common partition editing "
+"actions."
+msgstr ""
+"Kada kliknete desnim tasterom miša na neku prikazanu površ, program "
+"prikazuje oblačić izbornika. Oblačić izbornika sadrži najčešće radnje "
+"uređivanja particije."
+
+#: C/gparted.xml:402(para)
+msgid ""
+"Like other GNOME applications, actions in <application>gparted</application> "
+"can be performed in several ways: with the menu, with the toolbar, or with "
+"shortcut keys."
+msgstr ""
+"Kao i u drugim Gnomovim programima, radnje u "
+"<application>gpartedu</application> mogu biti izvršene na nekoliko načina: "
+"upotrebom izbornika, trake alata ili tasterskih prečica."
+
+#: C/gparted.xml:410(title)
+msgid "Running gparted from a Command Line"
+msgstr "Pokretanje gparteda sa linije naredbi"
+
+#: C/gparted.xml:411(para)
+msgid ""
+"You can run <application>gparted</application> from a command line and "
+"specify one or more disk devices."
+msgstr ""
+"Možete da pokrenete <application>gparted</application> sa linije naredbi i "
+"da odredite jedan ili više disk uređaja."
+
+#: C/gparted.xml:415(para)
+msgid ""
+"To work with multiple disk devices from a command line, type the following "
+"command, then press <keycap>Enter</keycap>:"
+msgstr ""
+"Da radite sa više disk uređaja sa linije naredbi, ukucajte sledeću naredbu i "
+"zatim pritisnite <keycap>Unesi</keycap>:"
+
+#: C/gparted.xml:420(prompt)
+msgid "$"
+msgstr "$"
+
+#: C/gparted.xml:420(replaceable)
+msgid "/path-to-your-device1 /path-to-your-device2"
+msgstr "/putanja-do-vašeg-uređaja1 /putanja-do-vašeg-uređaja2"
+
+#: C/gparted.xml:420(command)
+msgid "gparted <placeholder-1/>"
+msgstr "gparted <placeholder-1/>"
+
+#: C/gparted.xml:428(title)
+msgid "Viewing File System Support"
+msgstr "Pregledanje podrške sistema datoteka"
+
+#: C/gparted.xml:429(para)
+msgid ""
+"To view the actions supported on file systems, choose: "
+"<menuchoice><guimenu>View</guimenu><guimenuitem>File System Support</"
+"guimenuitem></menuchoice>. The application displays the <guilabel>File "
+"System Support</guilabel> dialog."
+msgstr ""
+"Da pregledate radnje podržane na sistemu datoteka, izaberite: "
+"„<menuchoice><guimenu>Pregled</guimenu><guimenuitem>Podrška sistema "
+"datoteka</guimenuitem></menuchoice>“. Program će prikazati prozorče "
+"„<guilabel>Podrška sistema datoteka</guilabel>“."
+
+#: C/gparted.xml:437(para)
+msgid ""
+"To view details about the chart, click <guibutton>Legend</guibutton>. The "
+"application displays more information about the chart."
+msgstr ""
+"Da pregledate detalje o grafikonu, kliknite „<guibutton>Legenda</guibutton>“. "
+"Program će prikazati više detalja o grafikonu."
+
+#: C/gparted.xml:443(para)
+msgid ""
+"If you have installed software while <application>gparted</application> is "
+"running, click <guibutton>Rescan For Supported Actions</guibutton> to "
+"refresh the chart. The application refreshes the display of the chart."
+msgstr ""
+"Ako ste instalirali softver dok je <application>gparted</application> radio, "
+"kliknite  „<guibutton>Osveži za podržanim radnjama</guibutton>“ da osvežite "
+"grafikon. Program će osvežiti prikaz grafikona."
+
+#: C/gparted.xml:452(para)
+msgid ""
+"To close the <guilabel>File System Support</guilabel> dialog, click "
+"<guibutton>Close</guibutton>."
+msgstr ""
+"Da zatvorite prozorče „<guilabel>Podrška sistema datoteka</guilabel>“, "
+"kliknite „<guibutton>Zatvori</guibutton>“."
+
+#: C/gparted.xml:460(title)
+msgid "Working with Devices"
+msgstr "Rad sa uređajima"
+
+#: C/gparted.xml:464(title)
+msgid "Selecting a Device"
+msgstr "Biranje uređaja"
+
+#: C/gparted.xml:465(para)
+msgid ""
+"To select a disk device, choose: <menuchoice><guimenu>GParted</"
+"guimenu><guimenuitem>Devices</guimenuitem></menuchoice> and select a device "
+"from the list. The application displays the device partition layout in the "
+"<application>gparted</application> window."
+msgstr ""
+"Da izaberete disk uređaj, izaberite: „<menuchoice><guimenu>Gparted</guimenu>"
+"<guimenuitem>Uređaji</guimenuitem></menuchoice>“ i izaberite uređaj sa "
+"spiska. Program će prikazati raspored particija na uređaju u prozoru "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:476(title)
+msgid "Viewing Device Information"
+msgstr "Pregledanje informacija o uređaju"
+
+#: C/gparted.xml:481(para) C/gparted.xml:522(para) C/gparted.xml:571(para)
+msgid "Select a disk device. See <xref linkend=\"gparted-select-device\"/>."
+msgstr ""
+"Izaberite disk uređaj. Pogledajte <xref linkend=\"gparted-select-device\"/>."
+
+#: C/gparted.xml:487(para)
+msgid ""
+"Select: <menuchoice><guimenu>View</guimenu><guimenuitem>Device Information</"
+"guimenuitem></menuchoice>. The application opens a side pane in the "
+"<application>gparted</application> window and displays information about the "
+"device."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Pregled</guimenu><guimenuitem>Informacije o "
+"uređaju</guimenuitem></menuchoice>“. Program će otvoriti bočnu površ u "
+"prozoru <application>gparteda</application> i prikazati informacije o "
+"uređaju."
+
+#: C/gparted.xml:477(para)
+msgid "To view information about a disk device: <placeholder-1/>"
+msgstr "Da pregledate informacije o disk uređaju: <placeholder-1/>"
+
+#: C/gparted.xml:497(para)
+msgid ""
+"To close the <guilabel>Device Information</guilabel> side pane, deselect: "
+"<menuchoice><guimenu>View</guimenu><guimenuitem>Device Information</"
+"guimenuitem></menuchoice>."
+msgstr ""
+"Da zatvorite bočnu površ „<guilabel>Informacije o uređaju</guilabel>“, "
+"poništite: „<menuchoice><guimenu>Pregled</guimenu><guimenuitem>Informacije o "
+"uređaju</guimenuitem></menuchoice>“."
+
+#: C/gparted.xml:506(title)
+msgid "Refreshing All Devices"
+msgstr "Osvežavanje svih uređaja"
+
+#: C/gparted.xml:507(para)
+msgid ""
+"To refresh all disk devices, choose: <menuchoice><guimenu>GParted</"
+"guimenu><guimenuitem>Refresh Devices</guimenuitem></menuchoice>. The "
+"application rescans all the disk devices and refreshes the device partition "
+"layout in the <application>gparted</application> window."
+msgstr ""
+"Da osvežite sve disk uređaje, izaberite: "
+"„<menuchoice><guimenu>Gparted</guimenu><guimenuitem>Osveži "
+"uređaje</guimenuitem></menuchoice>“. Program će ponovo pretražiti sve disk "
+"uređaje i osvežiti raspored particija uređaja u prozoru "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:517(title)
+msgid "Creating a New Partition Table"
+msgstr "Stvaranje nove particione tabele"
+
+#: C/gparted.xml:528(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Device</guimenu><guimenuitem>Create Partition "
+"Table</guimenuitem></menuchoice>. The application displays a "
+"<guilabel>Create partition table on <replaceable>/path-to-device</"
+"replaceable></guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Uređaj</guimenu><guimenuitem>Napravi "
+"particionu tabelu</guimenuitem></menuchoice>“. Program će prikazati prozorče "
+"„<guilabel>Napravi particionu tabelu na "
+"<replaceable>/putanja-do-uređaja</replaceable></guilabel>“."
+
+#: C/gparted.xml:537(para)
+msgid ""
+"If you want a partition table other than msdos, click <guibutton>Advanced</"
+"guibutton> and select a partition table type from the list."
+msgstr ""
+"Ako želite neku drugu particionu tabelu a ne msdos, kliknite "
+"„<guibutton>Napredno</guibutton>“ i sa spiska izaberite vrstu particione "
+"tabele."
+
+#: C/gparted.xml:544(para)
+msgid ""
+"Click <guibutton>Apply</guibutton> to create the new partition table. The "
+"application writes the new partition table to the disk device. The "
+"application refreshes the device partition layout in the "
+"<application>gparted</application> window."
+msgstr ""
+"Kliknite na dugme „<guibutton>Primeni</guibutton>“ da napravite novu "
+"particionu tabelu. Program će zapisati novu particionu tabelu na disk "
+"uređaju i osvežiti raspored particija uređaja u prozoru "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:518(para)
+msgid "To create a new partition table on a disk device: <placeholder-1/>"
+msgstr "Da napravite novu particionu tabelu na disk uređaju: <placeholder-1/>"
+
+#: C/gparted.xml:554(para)
+msgid "WARNING: This will ERASE ALL DATA on the ENTIRE DISK DEVICE."
+msgstr "UPOZORENJE: Ovo će OBRISATI SVE PODATKE na ČITAVOM DISK UREĐAJU."
+
+#: C/gparted.xml:557(para)
+msgid ""
+"If you accidentally overwrite your partition table, see <xref linkend="
+"\"gparted-recover-partition-table\"/>."
+msgstr ""
+"Ako slučajno prepišete vašu particionu tabelu, pogledajte <xref linkend"
+"=\"gparted-recover-partition-table\"/>."
+
+#: C/gparted.xml:566(title)
+msgid "Attempting Data Rescue"
+msgstr "Pokušaj spašavanja podataka"
+
+#: C/gparted.xml:577(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Device</guimenu><guimenuitem>Attempt Data "
+"Rescue</guimenuitem></menuchoice>. The application displays a "
+"<guilabel>Search for file systems on <replaceable>/path-to-device</"
+"replaceable></guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Uređaj</guimenu><guimenuitem>Pokušaj "
+"spašavanje podataka</guimenuitem></menuchoice>“. Program će prikazati "
+"prozorče „<guilabel>Potraži sisteme datoteka na "
+"<replaceable>/putanja-do-uređaja</replaceable></guilabel>“."
+
+#: C/gparted.xml:586(para)
+msgid "Click <guibutton>OK</guibutton> to start the full disk scan."
+msgstr ""
+"Kliknite na dugme <guibutton>U redu</guibutton> da započnete pregledanje "
+"čitavog diska."
+
+#: C/gparted.xml:590(para)
+msgid ""
+"Large disk devices can take a very long time to scan. If you do not have the "
+"time to wait for a full disk scan then click <guibutton>Cancel</guibutton>."
+msgstr ""
+"Može biti potrebno vrlo mnogo vremena za pregledanje velikih disk uređaja. "
+"Ako nemate vremena da sačekate pregledanje čitavog diska onda kliknite "
+"<guibutton>Otkaži</guibutton>."
+
+#: C/gparted.xml:597(para)
+msgid ""
+"A maximum of 4 partitions with file systems might be discovered. If you want "
+"to discover more than 4 partitions and restore the partition table, see "
+"<xref linkend=\"gparted-recover-partition-table\"/>."
+msgstr ""
+"Može biti otriveno najviše 4 particija sa sistemima datoteka. Ako želite da "
+"otkrijete više od 4 particije i da povratite particionu tabelu, pogledajte "
+"<xref linkend=\"gparted-recover-partition-table\"/>."
+
+#: C/gparted.xml:613(replaceable) C/gparted.xml:634(replaceable)
+msgid "/path-to-device"
+msgstr "/putanja-do-uređaja"
+
+#: C/gparted.xml:612(guilabel)
+msgid "No file systems found on <placeholder-1/>"
+msgstr "Nisu pronađeni sistemi datoteka na <placeholder-1/>"
+
+#: C/gparted.xml:616(para)
+msgid ""
+"If no file systems are found, you have other options to try to rescue your "
+"data. The <application>photorec</application> application is designed to "
+"help recover many different types of lost files. For more information about "
+"<application>photorec</application>, see <ulink type=\"http\" url=\"http://"
+"www.cgsecurity.org/wiki/PhotoRec\"/>."
+msgstr ""
+"Ako nisu pronađeni sistemi datoteka, imate druge mogućnosti da pokušate da "
+"spasite vaše podatke. Program <application>photorec</application> je "
+"osmišljen da pomogne oporavak mnogih različitih vrsta izgubljenih datoteka. Za "
+"više podataka o <application>fotoreku</application>, pogledajte <ulink "
+"type=\"http\" url=\"http://www.cgsecurity.org/wiki/PhotoRec\"/>."
+
+#: C/gparted.xml:626(para)
+msgid ""
+"Click <guibutton>OK</guibutton> to close the dialog box, and end this "
+"attempt to rescue data."
+msgstr ""
+"Kliknite na dugme „<guibutton>U redu</guibutton>“ da zatvorite prozorče, i "
+"da završite ovaj pokušaj spašavanja podataka."
+
+#: C/gparted.xml:633(guilabel)
+msgid "File systems found on <placeholder-1/>"
+msgstr "Pronađeni su sistemi datoteka na <placeholder-1/>"
+
+#: C/gparted.xml:637(para)
+msgid ""
+"If file systems are found, each file system is displayed in a list along "
+"with a <guibutton>View</guibutton> button. The dialog will indicate if there "
+"are data inconsistencies. Inconsistencies in the data might prevent you from "
+"viewing the data."
+msgstr ""
+"Ako su pronađeni sistemi datoteka, svaki sistem datoteka je prikazan na "
+"spisku pored dugmeta <guibutton>Pregled</guibutton>. U prozorčetu će biti "
+"naznačeno da li postoji nesaglasnost podataka. Nesaglasnosti u podacima mogu "
+"da vas spreče da vidite podatke."
+
+#: C/gparted.xml:606(para)
+msgid ""
+"When the full disk scan completes one of two possible dialogs is displayed: "
+"<placeholder-1/>"
+msgstr ""
+"Kada se završi pregledanje čitavog diska biće prikazan jedan od dva moguća "
+"rezultata: <placeholder-1/>"
+
+#: C/gparted.xml:654(para)
+msgid ""
+"Click <guibutton>View</guibutton> to mount and display the file system. Your "
+"default file manager is opened and displays a read-only view of the file "
+"system."
+msgstr ""
+"Kliknite na dugme <guibutton>Pregled</guibutton> da montirate i prikažete "
+"sistem datoteka. Biće otvoren vaš osnovni upravnik datoteka koji će "
+"prikazati samo-za-čitanje pregled sistema datoteka."
+
+#: C/gparted.xml:660(para)
+msgid ""
+"If the dialog <guilabel>Unable to open the default file manager</guilabel> "
+"is displayed, then you will need to open a file manager and navigate to the "
+"mount point for the file system."
+msgstr ""
+"Ako bude prikazano prozorče <guilabel>Ne mogu da otvorim osnovnog upravnika "
+"datoteka</guilabel>, onda ćete morati da otvorite upravnika datoteka i da se "
+"prebacite do tačke montiranja sistema datoteka."
+
+#: C/gparted.xml:666(para)
+msgid ""
+"The mount point is shown in the dialog, for example \"/tmp/gparted-roview-"
+"XXXXXX\"."
+msgstr ""
+"Tačka montiranja je prikazana u prozorčetu, na primer „/tmp/gparted-roview-"
+"XXXXXX“"
+
+#: C/gparted.xml:670(para)
+msgid ""
+"Click <guibutton>OK</guibutton> to close the <guilabel>Unable to open the "
+"default file manager</guilabel> dialog."
+msgstr ""
+"Kliknite na dugme „<guibutton>U redu</guibutton>“ da zatvorite prozorče "
+"<guilabel>Ne mogu da otvorim osnovnog upravnika datoteka</guilabel>."
+
+#: C/gparted.xml:678(para)
+msgid "Use the file manager to copy your data to other storage media."
+msgstr ""
+"Koristite upravnika datoteka da umnožite vaše podatke na drugi skladišni "
+"medijum."
+
+#: C/gparted.xml:684(para)
+msgid "When you are finished copying your data, close the file manager."
+msgstr ""
+"Kada završite sa umnožavanjem vaših podataka, zatvorite upravnika datoteka."
+
+#: C/gparted.xml:650(para)
+msgid ""
+"To rescue data, use the following steps for each file system: <placeholder-1/"
+">"
+msgstr ""
+"Da spasite podatke, koristite sledeće korake za svaki sistem datoteka: "
+"<placeholder-1/>"
+
+#: C/gparted.xml:693(para)
+msgid ""
+"When you are finished rescuing data, click <guibutton>Close</guibutton> to "
+"end this attempt to rescue data. The application umounts any file systems "
+"that were mounted for viewing. Then the application rescans all the disk "
+"devices and refreshes the device partition layout in the "
+"<application>gparted</application> window."
+msgstr ""
+"Kada završite sa spašavanjem podataka, kliknite na dugme "
+"„<guibutton>Zatvori</guibutton>“ da završite ovaj pokušaj spašavanja "
+"podataka. Program će demontirati sve sisteme datoteka koji su bili montirani "
+"za pregled. Nakon toga program će pregledati sve disk uređaje i osvežiti "
+"raspored particija uređaja u prozoru <application>gparteda</application>."
+
+#: C/gparted.xml:567(para)
+msgid "To attempt data rescue from a disk device: <placeholder-1/>"
+msgstr "Da pokušate da spasite podatke sa disk uređaja: <placeholder-1/>"
+
+#: C/gparted.xml:711(title)
+msgid "Working with Partitions"
+msgstr "Rad sa particijama"
+
+#: C/gparted.xml:715(title)
+msgid "Basic Partition Actions"
+msgstr "Osnovne radnje particija"
+
+#: C/gparted.xml:716(para)
+msgid "These actions will not alter partitions on your disk device."
+msgstr "Ove radnje neće izmeniti particije na vašem disk uređaju."
+
+#: C/gparted.xml:722(title)
+msgid "Selecting a Partition"
+msgstr "Biranje particije"
+
+#: C/gparted.xml:727(para)
+msgid "Click on a partition in the graphic display area."
+msgstr "Kliknite na particiju u oblasti za grafičko prikazivanje."
+
+#: C/gparted.xml:732(para)
+msgid "Click on a partition in the text display area."
+msgstr "Kliknite na particiju u oblasti za tekstualno prikazivanje."
+
+#: C/gparted.xml:723(para)
+msgid "To select a partition, use one of the following: <placeholder-1/>"
+msgstr "Da izaberete particiju, uradite jedno od sledećeg: <placeholder-1/>"
+
+#: C/gparted.xml:738(para)
+msgid ""
+"The application highlights the partition in both the graphic display area "
+"and the text display area in the <application>gparted</application> window."
+msgstr ""
+"Program će označiti particiju i u oblasti za grafičko prikazivanje i u "
+"oblasti za tekstualno prikazivanje u prozoru "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:744(para)
+msgid ""
+"Partition operations such as delete, resize, move, copy, format, check, and "
+"label require the partition to be unmounted. See <xref linkend=\"gparted-"
+"unmount-partition\"/>."
+msgstr ""
+"Radnje nad particijama kao što je brisanje, premeštanje, umnožavanje, "
+"formatiranje, proveravanje i označavanje zahtevaju da particija bude "
+"demontirana. Pogledajte <xref linkend=\"gparted-unmount-partition\"/>."
+
+#: C/gparted.xml:755(title)
+msgid "Selecting Unallocated Space"
+msgstr "Biranje neraspoređenog prostora"
+
+#: C/gparted.xml:760(para)
+msgid "Click on <guilabel>unallocated</guilabel> in the graphic display area."
+msgstr ""
+"Kliknite na „<guilabel>neraspređeno</guilabel>“ u oblasti za grafičko "
+"prikazivanje."
+
+#: C/gparted.xml:765(para)
+msgid "Click on <guilabel>unallocated</guilabel> in the text display area."
+msgstr ""
+"Kliknite na „<guilabel>neraspoređeno</guilabel>“ u oblasti za tekstualno "
+"prikazivanje."
+
+#: C/gparted.xml:756(para)
+msgid "To select unallocated space, use one of the following: <placeholder-1/>"
+msgstr ""
+"Da izaberete neraspoređeni prostor, uradite jedno od sledećeg: "
+"<placeholder-1/>"
+
+#: C/gparted.xml:771(para)
+msgid ""
+"The application highlights the unallocated space in both the graphic display "
+"area and the text display area in the <application>gparted</application> "
+"window."
+msgstr ""
+"Program će označiti neraspoređeni prostor i u oblasti za grafičko "
+"prikazivanje i u oblasti za tekstualno prikazivanje u prozoru "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:777(para)
+msgid ""
+"If you do not have any disk devices with unallocated space, you might try "
+"the following:"
+msgstr ""
+"Ako nemate ni jedan disk sa neraspoređenim prostorom, možete probati "
+"sledeće:"
+
+#: C/gparted.xml:783(para)
+msgid "Add a new disk device to your computer."
+msgstr "Dodajte novi disk uređaj vašem računaru."
+
+#: C/gparted.xml:788(para)
+msgid ""
+"Shrink a partition that contains unused space. See <xref linkend=\"gparted-"
+"resize-partition\"/>."
+msgstr ""
+"Skupite particiju koja sadrži neiskorišćeni prostor. Pogledajte <xref "
+"linkend=\"gparted-resize-partition\"/>."
+
+#: C/gparted.xml:799(title)
+msgid "Viewing Partition Information"
+msgstr "Pregledanje informacija particije"
+
+#: C/gparted.xml:804(para) C/gparted.xml:1816(para)
+msgid "Select a partition. See <xref linkend=\"gparted-select-partition\"/>."
+msgstr ""
+"Izaberite particiju. Pogledajte <xref linkend=\"gparted-select-partition\"/>."
+
+#: C/gparted.xml:810(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Information</"
+"guimenuitem></menuchoice>. The application opens an <guilabel>Information "
+"about <replaceable>/path-to-partition</replaceable></guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Informacije"
+"</guimenuitem></menuchoice>“. Program će otvoriti prozorče "
+"„<guilabel>Informacije o "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“."
+
+#: C/gparted.xml:800(para)
+msgid "To view information about a partition: <placeholder-1/>"
+msgstr "Da pregledate informacije o particiji: <placeholder-1/>"
+
+#: C/gparted.xml:819(para)
+msgid ""
+"To close the <guilabel>Information about <replaceable>/path-to-partition</"
+"replaceable></guilabel> dialog, click <guibutton>Close</guibutton>."
+msgstr ""
+"Da zatvorite prozorče „<guilabel>Informacije o "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“, kliknite "
+"„<guibutton>Zatvori</guibutton>“."
+
+#: C/gparted.xml:828(title)
+msgid "Mounting a Partition"
+msgstr "Montiranje particije"
+
+#: C/gparted.xml:833(para) C/gparted.xml:979(para) C/gparted.xml:1083(para)
+#: C/gparted.xml:1113(para) C/gparted.xml:1149(para) C/gparted.xml:1462(para)
+#: C/gparted.xml:1633(para) C/gparted.xml:1688(para) C/gparted.xml:2006(para)
+msgid ""
+"Select an unmounted partition. See <xref linkend=\"gparted-select-partition"
+"\"/>."
+msgstr ""
+"Izaberite demontiranu particiju. Pogledajte <xref linkend=\"gparted-select-"
+"partition\"/>."
+
+#: C/gparted.xml:839(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Mount</"
+"guimenuitem></menuchoice> and select a mount point from the list. The "
+"application mounts the partition on the mount point and refreshes the device "
+"partition layout in the <application>gparted</application> window."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Montiraj</g"
+"uimenuitem></menuchoice>“ i izaberite tačku montiranja sa spiska. Program će "
+"montirati particiju na tačku montiranja i osvežiti raspored particija na "
+"uređaju u prozoru <application>gparteda</application>."
+
+#: C/gparted.xml:829(para)
+msgid "To mount a partition: <placeholder-1/>"
+msgstr "Da montirate particiju: <placeholder-1/>"
+
+#: C/gparted.xml:851(para)
+msgid ""
+"If <menuchoice><guimenu>Partition</guimenu><guimenuitem>Mount</guimenuitem></"
+"menuchoice> is not visible, then <application>gparted</application> does not "
+"know where the partition should be mounted."
+msgstr ""
+"Ako nije vidljivo „<menuchoice><guimenu>Particija "
+"</guimenu><guimenuitem>Montiraj</guimenuitem></menuchoice>“, onda "
+"<application>gparted</application> ne zna gde particija treba biti "
+"montirana."
+
+#: C/gparted.xml:862(title)
+msgid "Unmounting a Partition"
+msgstr "Demontiranje particije"
+
+#: C/gparted.xml:867(para)
+msgid ""
+"Select a mounted partition. See <xref linkend=\"gparted-select-partition\"/>."
+msgstr ""
+"Izaberite montiranu particiju. Pogledajte <xref linkend=\"gparted-select-"
+"partition\"/>."
+
+#: C/gparted.xml:873(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Unmount</"
+"guimenuitem></menuchoice>. The application unmounts the partition from the "
+"mount point and refreshes the device partition layout in the "
+"<application>gparted</application> window."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Demontiraj<"
+"/guimenuitem></menuchoice>“. Program će demontirati particiju sa tačke "
+"montiranja i osvežiti raspored particija na uređaju u prozoru "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:863(para)
+msgid "To unmount a partition: <placeholder-1/>"
+msgstr "Da demontirate particiju: <placeholder-1/>"
+
+#: C/gparted.xml:884(para)
+msgid ""
+"If <menuchoice><guimenu>Partition</guimenu><guimenuitem>Unmount</"
+"guimenuitem></menuchoice> does not succeed, then the partition is probably "
+"in use."
+msgstr ""
+"Ako radnja „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Demontiraj</"
+"guimenuitem></menuchoice>“ ne urodi plodom, onda je najverovatnije da je "
+"particija u upotrebi."
+
+#: C/gparted.xml:889(para)
+msgid ""
+"To have all partitions unmounted and available for partition editing "
+"actions, boot from a Live CD and use <application>gparted</application>. See "
+"<xref linkend=\"gparted-acquire-livecd\"/>"
+msgstr ""
+"Da bi sve particije bile demontirane i dostupne za radnje uređivanja "
+"particije, pokrenite sistem sa živog CD-a i koristite program "
+"<application>gparted</application>. Pogledajte <xref linkend=\"gparted-"
+"acquire-livecd\"/>"
+
+#: C/gparted.xml:903(title)
+msgid "Intermediate Partition Actions"
+msgstr "Neposredne radnje particije"
+
+#: C/gparted.xml:904(para)
+msgid ""
+"These actions will alter partitions on your disk device. These actions will "
+"not modify the start or end boundaries of your existing partitions."
+msgstr ""
+"Ove radnje će izmeniti particije na vašem disk uređaju, ali neće izmeniti "
+"početne i krajnje granice vaših postojećih particija."
+
+#: C/gparted.xml:912(title)
+msgid "Creating a New Partition"
+msgstr "Stvaranje nove particije"
+
+#: C/gparted.xml:917(para)
+msgid ""
+"Select an unallocated space on the disk device. See <xref linkend=\"gparted-"
+"select-unallocated\"/>."
+msgstr ""
+"Izaberite neraspoređeni prostor na disk uređaju. Pogledajte <xref linkend"
+"=\"gparted-select-unallocated\"/>."
+
+#: C/gparted.xml:923(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>New</"
+"guimenuitem></menuchoice>. The application displays the <guilabel>Create new "
+"Partition</guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Nova</guime"
+"nuitem></menuchoice>“. Program će prikazati prozorče „<guilabel>Napravite "
+"novu particiju</guilabel>“."
+
+#: C/gparted.xml:930(para)
+msgid ""
+"Specify the size and the location for the partition. See <xref linkend="
+"\"gparted-specify-partition-size-and-location\"/>."
+msgstr ""
+"Odredite veličinu i mesto particije. Pogledajte <xref linkend=\"gparted-"
+"specify-partition-size-and-location\"/>."
+
+#: C/gparted.xml:936(para)
+msgid ""
+"Specify the alignment for the partition. See <xref linkend=\"gparted-specify-"
+"partition-alignment\"/>."
+msgstr ""
+"Odredite poravnanje particije. Pogledajte <xref linkend=\"gparted-specify-"
+"partition-alignment\"/>."
+
+#: C/gparted.xml:942(para)
+msgid ""
+"Specify the type of partition. See <xref linkend=\"gparted-specify-partition-"
+"type\"/>."
+msgstr ""
+"Odredite vrstu particije. Pogledajte <xref linkend=\"gparted-specify-"
+"partition-type\"/>."
+
+#: C/gparted.xml:948(para)
+msgid ""
+"Specify the type of file system for the partition. See <xref linkend="
+"\"gparted-specify-partition-file-system\"/>."
+msgstr ""
+"Odredite vrstu sistema datoteka particije. Pogledajte <xref linkend"
+"=\"gparted-specify-partition-file-system\"/>."
+
+#: C/gparted.xml:954(para)
+msgid ""
+"Specify the label for the partition. See <xref linkend=\"gparted-specify-"
+"partition-label\"/>."
+msgstr ""
+"Odredite natpis particije. Pogledajte <xref linkend=\"gparted-specify-"
+"partition-label\"/>."
+
+#: C/gparted.xml:960(para)
+msgid ""
+"Click <guibutton>Add</guibutton> to add the create partition operation to "
+"the operation queue. The application displays the create partition operation "
+"in the <guilabel>Pending Operations</guilabel> pane in the "
+"<application>gparted</application> window."
+msgstr ""
+"Kliknite „<guibutton>Dodaj</guibutton>“ da dodate operaciju stvaranja "
+"particije u red zakazanih radnji. Program će prikazati operaciju stvaranja "
+"particije u oknu „<guilabel>Zakazane operacije</guilabel>“ u prozoru "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:913(para)
+msgid "To create a new partition: <placeholder-1/>"
+msgstr "Da napravite novu particiju: <placeholder-1/>"
+
+#: C/gparted.xml:974(title)
+msgid "Deleting a Partition"
+msgstr "Brisanje particije"
+
+#: C/gparted.xml:985(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Delete</"
+"guimenuitem></menuchoice>. The application displays the delete partition "
+"operation in the <guilabel>Pending Operations</guilabel> pane."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Obriši</gui"
+"menuitem></menuchoice>“. Program će prikazati operaciju brisanja particije u "
+"oknu „<guilabel>Zakazane operacije</guilabel>“."
+
+#: C/gparted.xml:975(para)
+msgid "To delete a partition: <placeholder-1/>"
+msgstr "Da obrišete particiju: <placeholder-1/>"
+
+#: C/gparted.xml:995(para)
+msgid ""
+"If you delete a logical partition, then all existing logical partitions "
+"after the deleted logical partition will experience changes in device names."
+msgstr ""
+"Ako obrišete logičku particiju, onda će sve logičke particije nakon "
+"izbrisane logičke particije pretrpeti izmene u nazivima uređaja."
+
+#: C/gparted.xml:1000(para)
+msgid ""
+"For example, an extended partition contains four logical partitions A, B, C, "
+"and D. These logical partitions are accessed by the operating system as "
+"follows:"
+msgstr ""
+"Na primer, jedna proširena particija sadrži četiri logičke particije A, B, V "
+"i G. Operativni sistem pristupa ovim logičkim particijama na sledeći način:"
+
+#: C/gparted.xml:1007(para) C/gparted.xml:1033(para)
+msgid "Partition A as /dev/sda5."
+msgstr "Particija A — „/dev/sda5“."
+
+#: C/gparted.xml:1012(para)
+msgid "Partition B as /dev/sda6."
+msgstr "Particija B — „/dev/sda6“."
+
+#: C/gparted.xml:1017(para)
+msgid "Partition C as /dev/sda7."
+msgstr "Particija G — „/dev/sda7“."
+
+#: C/gparted.xml:1022(para)
+msgid "Partition D as /dev/sda8."
+msgstr "Particija D — „/dev/sda8“."
+
+#: C/gparted.xml:1027(para)
+msgid ""
+"If partition B is deleted, then the remaining logical partitions will be "
+"accessed by the operating system as follows:"
+msgstr ""
+"Ako je obrisana particija B, onda će operativni sistem preostalim logičkim "
+"particijama pristupiti na sledeći način:"
+
+#: C/gparted.xml:1038(para)
+msgid "Partition C as /dev/sda6. Note the change in device name."
+msgstr "Particija G — „/dev/sda6“. Primetite promenu u nazivu uređaja."
+
+#: C/gparted.xml:1043(para)
+msgid "Partition D as /dev/sda7. Note the change in device name."
+msgstr "Particija D — „/dev/sda7“. Primetite promenu u nazivu uređaja."
+
+#: C/gparted.xml:1048(para)
+msgid ""
+"Changes in a device name can cause problems if a partition is mounted using "
+"a device name. You can avoid the problem by using the label or the "
+"Universally Unique Identifier (UUID) of the partition when mounting the "
+"partition."
+msgstr ""
+"Promene u nazivu uređaja mogu izazvati probleme ako je particija montirana "
+"korišćenjem naziva uređaja. Možete da izbegnete problem ako koristite oznaku "
+"ili univerzalni jedinstveni identifikator (UUID) particije prilikom "
+"montiranja particije."
+
+#: C/gparted.xml:1060(para)
+msgid "/etc/fstab - Contains a list of file systems to mount."
+msgstr "„/etc/fstab“ — Sadrži spisak sistema datoteka za montiranje."
+
+#: C/gparted.xml:1065(para)
+msgid ""
+"/boot/grub/menu.lst - Contains operating system boot instructions for the "
+"<application>grub</application> boot loader."
+msgstr ""
+"„/boot/grub/menu.lst“ — Sadrži uputstvo za učitavanje operativnog sistema za "
+"pokretački program <application>grub</application>."
+
+#: C/gparted.xml:1055(para)
+msgid ""
+"Changes in a device name might adversely affect the following files: "
+"<placeholder-1/>"
+msgstr ""
+"Promene u nazivu uređaja mogu negativno uticati na sledeće datoteke: "
+"<placeholder-1/>"
+
+#: C/gparted.xml:1078(title)
+msgid "Formatting a Partition"
+msgstr "Formatiranje particije"
+
+#: C/gparted.xml:1089(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Format to</"
+"guimenuitem></menuchoice>, and select a type of file system from the list. "
+"The application displays the format partition operation in the "
+"<guilabel>Operations Pending</guilabel> pane."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Formatiraj<"
+"/guimenuitem></menuchoice>“ i sa spiska izaberite vrstu sistema datoteka. "
+"Program će prikazati radnju formatiranja particije u oknu „<guilabel>Zakazane "
+"operacije</guilabel>“."
+
+#: C/gparted.xml:1096(para)
+msgid ""
+"See <xref linkend=\"gparted-specify-partition-file-system\"/> for the "
+"meaning of the <guimenuitem>cleared</guimenuitem> file system type."
+msgstr ""
+"Pogledajte <xref linkend=\"gparted-specify-partition-file-system\"/> za "
+"značenje „<guimenuitem>očišćenog</guimenuitem>“ sistema dtoteka."
+
+#: C/gparted.xml:1079(para)
+msgid "To format a partition: <placeholder-1/>"
+msgstr "Da formatirate particiju: <placeholder-1/>"
+
+#: C/gparted.xml:1108(title)
+msgid "Setting a Partition Label"
+msgstr "Postavljanje natpisa particije"
+
+#: C/gparted.xml:1119(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Label</"
+"guimenuitem></menuchoice>. The application opens a <guilabel>Set partition "
+"label on <replaceable>/path-to-partition</replaceable></guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Natpis</gui"
+"menuitem></menuchoice>“. Program će otvoriti prozorče „<guilabel>Postavite "
+"natpis particije na "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“."
+
+#: C/gparted.xml:1127(para)
+msgid "Type a label name in the <guilabel>Label </guilabel> text box."
+msgstr "Upišite natpis u polje „<guilabel>Natpis</guilabel>“."
+
+#: C/gparted.xml:1132(para)
+msgid ""
+"Click <guibutton>OK</guibutton>. The application displays the set partition "
+"label operation in the <guilabel>Operations Pending</guilabel> pane."
+msgstr ""
+"Kliknite „<guibutton>U redu</guibutton>“. Program će prikazati operaciju "
+"postavljanja oznake u oknu „<guilabel>Zakazane operacije</guilabel>“."
+
+#: C/gparted.xml:1109(para)
+msgid "To set a label or a volume name for a partition: <placeholder-1/>"
+msgstr "Da postavite natpis ili naziv volumena za particiju: <placeholder-1/>"
+
+#: C/gparted.xml:1144(title)
+msgid "Changing a Partition UUID"
+msgstr "Menjanje UUID-a particije"
+
+#: C/gparted.xml:1155(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>New UUID</"
+"guimenuitem></menuchoice>. The application displays the set a new random "
+"UUID operation in the <guilabel>Operations Pending</guilabel> pane."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Novi "
+"UUID</guimenuitem></menuchoice>“. Program će prikazati operaciju podešavanja "
+"novog nasumičnog UUID-a particije u oknu „<guilabel>Zakazane "
+"radnje</guilabel>“."
+
+#: C/gparted.xml:1164(para)
+msgid ""
+"Changing the UUID might invalidate the Windows Product Activation key (WPA)."
+msgstr ""
+"Izmena UUID-a može da poništi ključ za aktiviranje Vindouzovih proizvoda "
+"(WPA)."
+
+#: C/gparted.xml:1168(para)
+msgid ""
+"On FAT and NTFS file systems, the Volume Serial Number is used as UUID. "
+"Changing the Volume Serial Number on the Windows system partition, normally "
+"C:, might invalidate the WPA key. An invalid WPA key will prevent login "
+"until you reactivate Windows."
+msgstr ""
+"Na FAT i NTFS sistemima datoteka, serijski broj volumena se koristi kao "
+"UUID. Izmena serijskog broja volumena na sistemskoj particiji Vindouza, "
+"obično je to „C:“, može da poništi VPA ključ. Neispravan VPA ključ će sprečiti "
+"prijavljivanje sve dok ponovo ne aktivirate Vindouz."
+
+#: C/gparted.xml:1175(para)
+msgid ""
+"In an attempt to avoid invalidating the WPA key, on NTFS file systems only "
+"half of the UUID is set to a new random value. On FAT file systems, such a "
+"precaution is not possible."
+msgstr ""
+"Kao pokušaj sprečavanja poništavanja VPA ključa, na NTFS sistemima datoteka "
+"samo polovina UUID-a biva podešena na novu nasumičnu vrednost. Na FAT "
+"sistemima datoteka, ovakva predostrožnost nije moguća."
+
+#: C/gparted.xml:1181(para)
+msgid ""
+"The WPA key should not be affected by changing the UUID of data partitions "
+"or removable media partitions. In rare cases, a partition that is present at "
+"boot time might be an exception to this rule."
+msgstr ""
+"Izmena UUID-a particija sa podacima ili uklonjivih medijskih particija neće "
+"uticati na VPA ključ. U retkim slučajevima, particija koja je prisutna za "
+"vreme podizanja sistema može biti izuzetak od ovog pravila."
+
+#: C/gparted.xml:1189(para)
+msgid ""
+"Changing the UUID when there is no need to do so might cause a GNU/Linux "
+"system to fail to boot, or to fail to mount a file system."
+msgstr ""
+"Menjanje UUID-a kada za to nema potrebe može da prouzrokuje da sistem "
+"GNU/Linuksa ne uspe da se učita, ili da ne uspe da montira sistem datoteka."
+
+#: C/gparted.xml:1194(para)
+msgid ""
+"Changing the UUID is only required after copying a partition. The UUID "
+"change is needed to prevent duplicate UUIDs when both the source and the "
+"copy of the partition are used on the same computer."
+msgstr ""
+"Menjanje UUID-a je neophodno samo nakon umnožavanja particije. Promena UUID-a "
+"je potrebna za sprečavanje dupliranja UUID-a kada se obe particije, i izvorna "
+"i umnožena, koriste na istom računaru."
+
+#: C/gparted.xml:1200(para)
+msgid ""
+"If boot or mount problems occur you might need to edit configuration files, "
+"such as /etc/fstab, and regenerate the grub menu to ensure that the correct "
+"UUID is specified."
+msgstr ""
+"Ako dođe do problema podizanja sistema ili montiranja particija moraćete da "
+"izmenite datoteke podešavanja, kao što je „/etc/fstab“, i da ponovo napravite "
+"izbornik gruba da biste bili sigurni da je naveden tačan UUID."
+
+#: C/gparted.xml:1145(para)
+msgid ""
+"To change the Universally Unique Identifier (UUID) of a partition: "
+"<placeholder-1/>"
+msgstr ""
+"Da izmenite univerzalni jedinstveni identifikator (UUID) particije: "
+"<placeholder-1/>"
+
+#: C/gparted.xml:1214(title)
+msgid "Specifying Partition Details"
+msgstr "Određivanje detalja particije"
+
+#: C/gparted.xml:1215(para)
+msgid ""
+"Specifying partition details is useful when performing actions such as "
+"create, resize, and move."
+msgstr ""
+"Određivanje detalja particije je korisno prilikom obavljanja radnji kao što su "
+"stvaranje, menjanje veličine i premeštanje."
+
+#: C/gparted.xml:1222(title)
+msgid "Specifying Partition Size and Location"
+msgstr "Određivanje veličine i mesta particije"
+
+#: C/gparted.xml:1228(para)
+msgid ""
+"Click-and-hold the arrow at either end of the graphic area. Drag the arrow "
+"left or right within the display range."
+msgstr ""
+"Kliknite i držite strelicu na bilo kom kraju oblasti grafikona. Prevucite "
+"strelicu levo ili desno unutar prikazanog opsega."
+
+#: C/gparted.xml:1234(para)
+msgid ""
+"Click-and-hold the middle of the partition in the graphic area. Drag the "
+"partition left or right within the display range."
+msgstr ""
+"Kliknite i držite sredinu particije u oblasti grafikona. Prevucite particiju "
+"levo ili desno unutar prikazanog opsega."
+
+#: C/gparted.xml:1246(guilabel)
+msgid "Free Space Preceding"
+msgstr "Slobodan prostor koji prethodi"
+
+#: C/gparted.xml:1251(guilabel)
+msgid "New Size"
+msgstr "Nova veličina"
+
+#: C/gparted.xml:1256(guilabel)
+msgid "Free Space Following"
+msgstr "Slobodan prostor koji sledi"
+
+#: C/gparted.xml:1240(para)
+msgid ""
+"Click the spin button arrows, or type numeric values to adjust the following "
+"fields: <placeholder-1/>"
+msgstr ""
+"Kliknite na sterlice dugmeta za okretanje ili upišite brojnu vrednost da "
+"podesite sledeća polja: <placeholder-1/>"
+
+#: C/gparted.xml:1223(para)
+msgid ""
+"To specify the size and the location of the partition, use one or a "
+"combination of the following: <placeholder-1/>"
+msgstr ""
+"Da odredite veličinu i mesto particije, koristite jedno ili kombinaciju "
+"sledećeg: <placeholder-1/>"
+
+#: C/gparted.xml:1264(para)
+msgid ""
+"The application refreshes both the graphic area and the numbers beside the "
+"three field labels."
+msgstr ""
+"Program će osvežiti i grafičku oblast i brojeve pored oznaka u polju stabla."
+
+#: C/gparted.xml:1272(title)
+msgid "Specifying Partition Alignment"
+msgstr "Određivanje poravnanja particije"
+
+#: C/gparted.xml:1273(para)
+msgid ""
+"To specify the alignment of the partition, click the <guilabel>Align to</"
+"guilabel> arrow button, and select from the list."
+msgstr ""
+"Da odredite poravnanje particije, klikinte na strelicu dugmeta "
+"„<guilabel>Zaokruži na</guilabel>“ i izaberite sa spiska."
+
+#: C/gparted.xml:1279(para)
+msgid ""
+"Use <guilabel>MiB</guilabel> alignment for modern operating systems. This "
+"setting aligns partitions to start and end on precise mebibyte (1,048,576 "
+"byte) boundaries. MiB alignment provides enhanced performance when used with "
+"RAID systems and with Solid State Drives, such as USB flash drives."
+msgstr ""
+"Koristite poravnavanje na <guilabel>MiB</guilabel> za savremene operativne "
+"sisteme. Ova postavka poravnava početne i krajnje granice particija na tačne "
+"mebibite (1.048.576 bita). Poravnavanje na mebibite (MiB) obezbeđuje "
+"poboljšane performanse kada se koristi sa RAID sistemima i sa Uređajima u "
+"čvrstom stanju (SSD), kao što je USB disk."
+
+#: C/gparted.xml:1289(para)
+msgid ""
+"Use <guilabel>Cylinder</guilabel> alignment to maintain compatibility with "
+"operating systems released before the year 2000, such as DOS. This setting "
+"aligns partitions to start and end on disk cylinder boundaries."
+msgstr ""
+"Koristite poravnavanje na „<guilabel>Cilindar</guilabel>“ da zadržite "
+"kompatibilnost sa operativnim sistemima koji su izdati pre 2000 godine, kao "
+"što je DOS. Ova postavka poravnava početak i kraj particija na granice "
+"cilindra diska."
+
+#: C/gparted.xml:1296(para)
+msgid ""
+"The Cylinder/Head/Sector values reported by modern disk devices no longer "
+"have a direct physical relationship to the data stored on the disk device. "
+"Hence it is no longer valid to use this alignment setting to achieve "
+"enhanced performance."
+msgstr ""
+"Vrednosti „Cilindar/Glava/Sektor“ iznešene savremenim disk uređajima više "
+"nemaju neposredan fizički odnos prema podacima uskladištenim na disk "
+"uređaju. Stoga više nije ispravno koristiti ovu postavku poravnavanja za "
+"postizanje poboljšanja performansi."
+
+#: C/gparted.xml:1306(para)
+msgid ""
+"Use <guilabel>None</guilabel> only if you have an in-depth knowledge of disk "
+"structure, partition tables, and boot records. This setting places partition "
+"boundaries relative to the end of any immediately preceding partition on the "
+"disk device. This setting is not guaranteed to reserve or respect space "
+"required for boot records."
+msgstr ""
+"Koristite „<guilabel>Ništa</guilabel>“ samo ako ste detaljno upoznati sa "
+"strukturom diska, particionim tabelama i sa zapisima učitavanja. Ova postavka "
+"postavlja granice particije odmah na kraj bilo koje neposredno prethodne "
+"particije na disk uređaju. Ova postavka ne garantuje rezervisanje ili "
+"poštovanje prostora potrebnog za zapis učitavanja."
+
+#: C/gparted.xml:1321(title)
+msgid "Specifying Partition Type"
+msgstr "Određivanje vrste particije"
+
+#: C/gparted.xml:1322(para)
+msgid ""
+"To specify the partition type, click the <guilabel>Create as</guilabel> "
+"arrow button, and select from the list."
+msgstr ""
+"Da odredite vrstu particije, klikinte na strelicu dugmeta „<guilabel>Napravi "
+"kao</guilabel>“ i izaberite sa spiska."
+
+#: C/gparted.xml:1331(para)
+msgid "Maximum of 4 primary partitions."
+msgstr "Najviše 4 primarne particije."
+
+#: C/gparted.xml:1336(para)
+msgid "Maximum of 3 primary partitions, and 1 extended partition."
+msgstr "Najviše 3 primarne particije i 1 proširena particija."
+
+#: C/gparted.xml:1339(para)
+msgid ""
+"The extended partition can contain multiple logical partitions. Some GNU/"
+"Linux distributions support accessing at most 15 partitions on a disk device."
+msgstr ""
+"Proširena particija može da sadrži više logičkih particija. Neke GNU/Linuks "
+"distribucije podržavaju pristupanje na najviše 15 particija na disk uređaju."
+
+#: C/gparted.xml:1347(para)
+msgid ""
+"Maximum size of a partition is 2 Terabytes using a sector size of 512 bytes. "
+"The partition must also start within the first 2 Terabytes of the disk "
+"device."
+msgstr ""
+"Najveća veličina particije je 2 Terabajta (TB) koristeći veličinu sektora od "
+"512 bajta. Particija mora takođe da počne unutar prva 2 Terabajta na disk "
+"uređaju."
+
+#: C/gparted.xml:1327(para)
+msgid ""
+"The msdos partition table limits partitions as follows: <placeholder-1/>"
+msgstr ""
+"Msdos particiona tabela ograničava particije kao što sledi: <placeholder-1/>"
+
+#: C/gparted.xml:1357(para)
+msgid ""
+"Primary partitions provide better data recoverability because the partition "
+"boundaries are stored at known locations on the disk device."
+msgstr ""
+"Primarne particije obezbeđuju bolje oporavljanje podataka zato što su granice "
+"particije sačuvane na poznatim mestima na disk uređaju."
+
+#: C/gparted.xml:1367(title)
+msgid "Specifying Partition File System"
+msgstr "Određivanje sistema datoteka particije"
+
+#: C/gparted.xml:1368(para)
+msgid ""
+"To specify the type of file system for the partition, click the "
+"<guilabel>File System</guilabel> arrow button, and select from the list."
+msgstr ""
+"Da odredite vrstu sistema datoteka particije, klikinte na strelicu dugmeta "
+"„<guilabel>Sistem datoteka</guilabel>“ i izaberite sa spiska."
+
+#: C/gparted.xml:1377(para)
+#| msgid ""
+#| "Ext2, and ext3 file systems can be used for installing GNU/Linux, and for "
+#| "data."
+msgid ""
+"<guimenuitem>ext2</guimenuitem>, and <guimenuitem>ext3</guimenuitem> file "
+"systems can be used for installing GNU/Linux, and for data."
+msgstr ""
+"Sistemi datoteka <guimenuitem>eht2</guimenuitem> i "
+"<guimenuitem>eht3</guimenuitem> mogu biti korišćeni za instaliranje "
+"GNU/Linuksa i podataka."
+
+#: C/gparted.xml:1384(para)
+#| msgid ""
+#| "Linux-swap can be used with GNU/Linux to increase the virtual memory of "
+#| "your computer."
+msgid ""
+"<guimenuitem>linux-swap</guimenuitem> can be used with GNU/Linux to increase "
+"the virtual memory of your computer."
+msgstr ""
+"<guimenuitem>Linuks-svop</guimenuitem> može biti korišćen uz GNU/Linuks za "
+"povećanje virtuelne memorije vašeg računara."
+
+#: C/gparted.xml:1391(para)
+#| msgid ""
+#| "Fat16 and fat32 file systems can be used to share data between free and "
+#| "commercial operating systems."
+msgid ""
+"<guimenuitem>fat16</guimenuitem> and <guimenuitem>fat32</guimenuitem> file "
+"systems can be used to share data between free and commercial operating "
+"systems."
+msgstr ""
+"Sistemi datoteka <guimenuitem>fat16</guimenuitem> i "
+"<guimenuitem>fat32</guimenuitem> mogu biti korišćeni za razmenjivanje podataka "
+"između slobodnih i komercijalnih operativnih sistema."
+
+#: C/gparted.xml:1399(para)
+msgid ""
+"<guimenuitem>cleared</guimenuitem> can be used to clear any existing file "
+"system signatures and ensure that the partition is recognised as empty."
+msgstr ""
+"<guimenuitem>Očišćen</guimenuitem> može biti korišćen za čišćenje potpisa "
+"svih postojećih sistema datoteka i da osigura prepoznavanje particije kao "
+"prazne."
+
+#: C/gparted.xml:1406(para)
+#| msgid ""
+#| "Unformatted can be used if you want to create a partition with no file "
+#| "system."
+msgid ""
+"<guimenuitem>unformatted</guimenuitem> can be used to just create a "
+"partition without writing a file system."
+msgstr ""
+"<guimenuitem>Neformatiran</guimenuitem> sistem može biti korišćen ako želite "
+"da napravite particiju bez sistema datoteka."
+
+#: C/gparted.xml:1373(para)
+msgid "Examples of uses for some file systems are as follows: <placeholder-1/>"
+msgstr ""
+"Primeri korišćenja nekih sistema datoteka su kao što sledi: <placeholder-1/>"
+
+#: C/gparted.xml:1418(title)
+msgid "Specifying Partition Label"
+msgstr "Određivanje natpisa particije"
+
+#: C/gparted.xml:1419(para)
+msgid ""
+"To specify the partition label, also known as a volume label, type a label "
+"name in the <guilabel>Label</guilabel> text box."
+msgstr ""
+"Da odredite natpis particije, takođe poznatog kao natpis volumena, upišite "
+"natpis u polje „<guilabel>Natpis</guilabel>“."
+
+#: C/gparted.xml:1424(para)
+msgid ""
+"Labels can be used to help you remember what is stored in the partition."
+msgstr ""
+"Natpisi mogu biti korišćeni da vam pomognu da se prisetite šta je "
+"uskladišteno na particiji."
+
+#: C/gparted.xml:1428(para)
+msgid ""
+"Unique labels can be used to mount file systems with the GNU/Linux operating "
+"system."
+msgstr ""
+"Jedinstveni natpisi mogu biti korišćeni za montiranje sistema datoteka sa "
+"GNU/Linuks operativnim sistemom."
+
+#: C/gparted.xml:1443(title)
+msgid "Advanced Partition Actions"
+msgstr "Napredne radnje particija"
+
+#: C/gparted.xml:1444(para)
+msgid ""
+"These actions will alter partitions on your disk device. These actions might "
+"modify the start or end boundaries of your existing partitions. These "
+"actions might cause operating systems to fail to boot."
+msgstr ""
+"Ove radnje će izmeniti particije na vašem disk uređaju, a mogu da izmene "
+"početne i krajnje granice vaših postojećih particija i mogu da prouzrokuju "
+"neuspeh učitavanja operativnog sistema."
+
+#: C/gparted.xml:1453(title)
+msgid "Resizing a Partition"
+msgstr "Menjanje veličine particije"
+
+#: C/gparted.xml:1454(para)
+msgid ""
+"Resizing and moving a partition can be performed by a single "
+"<application>gparted</application> operation."
+msgstr ""
+"Promena veličine i premeštanje particije može biti obavljeno jednom radnjom "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:1468(para) C/gparted.xml:1639(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Resize/Move</"
+"guimenuitem></menuchoice>. The application displays the <guilabel>Resize/"
+"Move <replaceable>/path-to-partition</replaceable></guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Promeni "
+"veličinu/Premesti</guimenuitem></menuchoice>“. Program će prikazati prozorče "
+"„<guilabel>Promeni veličinu/Premesti "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“."
+
+#: C/gparted.xml:1477(para)
+msgid ""
+"Adjust the size of the partition. See <xref linkend=\"gparted-specify-"
+"partition-size-and-location\"/>."
+msgstr ""
+"Podesite veličinu particije. Pogledajte <xref linkend=\"gparted-specify-"
+"partition-size-and-location\"/>."
+
+#: C/gparted.xml:1482(para)
+msgid ""
+"If you do not want the start of an existing partition to move, then do not "
+"change the <guilabel>free space preceding</guilabel> value."
+msgstr ""
+"Ako ne želite da započne premeštanje neke postojeće particije, onda nemojte "
+"da menjate vrednost „<guilabel>slobodan prostor koji prethodi</guilabel>“."
+
+#: C/gparted.xml:1490(para) C/gparted.xml:1654(para)
+msgid ""
+"Specify the alignment of the partition. See <xref linkend=\"gparted-specify-"
+"partition-alignment\"/>."
+msgstr ""
+"Odredite poravnanje particije. Pogledajte <xref linkend=\"gparted-specify-"
+"partition-alignment\"/>."
+
+#: C/gparted.xml:1496(para) C/gparted.xml:1660(para)
+msgid ""
+"Click <guibutton>Resize/Move</guibutton>. The application displays the "
+"resize/move partition operation in the <guilabel>Pending Operations</"
+"guilabel> pane."
+msgstr ""
+"Kliknite „<guibutton>Promeni veličinu/Premesti</guibutton>“. Program će "
+"prikazati operaciju promene veličine/premeštanja u oknu „<guilabel>Zakazane "
+"radnje</guilabel>“."
+
+#: C/gparted.xml:1503(para)
+msgid ""
+"Examine the operation that was added to the <guilabel>Pending Operations</"
+"guilabel> pane."
+msgstr ""
+"Proučite radnju koja je dodata u okno „<guilabel>Zakazane radnje</guilabel>“."
+
+#: C/gparted.xml:1512(para)
+msgid "A move step might take a long time to complete."
+msgstr "Može biti potrebno više vremena da bi korak premeštanja bio obavljen."
+
+#: C/gparted.xml:1518(para)
+msgid ""
+"If the partition is an operating system boot partition, then a move step "
+"might cause the operating system to fail to boot."
+msgstr ""
+"Ako je particija u isto vreme i particija za učitavanje operativnog sistema, "
+"onda korak premeštanja može da prouzrokuje neuspeh učitavanja operativnog "
+"sistema."
+
+#: C/gparted.xml:1507(para)
+msgid ""
+"If the operation involves a move step, then consider the following: "
+"<placeholder-1/>"
+msgstr ""
+"Ako radnja obuhvata i korak premeštanja, onda uzmite u obzir sledeće: "
+"<placeholder-1/>"
+
+#: C/gparted.xml:1526(para)
+msgid ""
+"If you are not prepared to wait or to fix potential operating system boot "
+"problems, then you might want to undo the operation. See <xref linkend="
+"\"gparted-undo-last-operation\"/>."
+msgstr ""
+"Ako niste spremni da čekate ili da opravite potencijalne probleme učitavanja "
+"operativnog sistema, onda ćete možda želeti da poništite operaciju. "
+"Pogledajte <xref linkend=\"gparted-undo-last-operation\"/>."
+
+#: C/gparted.xml:1458(para)
+msgid "To resize a partition: <placeholder-1/>"
+msgstr "Da promenite veličinu particije: <placeholder-1/>"
+
+#: C/gparted.xml:1536(para)
+msgid ""
+"To grow or move a partition, unallocated space must be available adjacent to "
+"the partition."
+msgstr ""
+"Da povećate ili premestite particiju, nerasporređeni prostor mora biti "
+"dostupan odmah pored particije."
+
+#: C/gparted.xml:1540(para)
+msgid ""
+"If you are growing a logical partition, then the unallocated space must be "
+"within the extended partition."
+msgstr ""
+"Ako uvećavate logičku particiju, onda neraspoređeni prostor mora biti unutar "
+"proširene particije."
+
+#: C/gparted.xml:1544(para)
+msgid ""
+"If you are growing a primary partition, then the unallocated space must not "
+"be within the extended partition."
+msgstr ""
+"Ako uvećavate primarnu particiju, onda neraspoređeni prostor ne mora biti "
+"unutar proširene particije."
+
+#: C/gparted.xml:1548(para)
+msgid ""
+"You can move unallocated space to be inside or outside of the extended "
+"partition by resizing the extended partition boundaries."
+msgstr ""
+"Možete da premestite neraspoređeni prostor unutar ili izvan proširene "
+"particije menjajući veličinu granica proširene particije."
+
+#: C/gparted.xml:1559(para)
+msgid "Defragment the file system."
+msgstr "Defragmentirajte sistem datoteka."
+
+#: C/gparted.xml:1562(para)
+msgid ""
+"Booting into Safe Mode with the commercial operating system that uses NTFS "
+"can improve the ability to defragment the file system. To enter Safe Mode "
+"press <keycap>F8</keycap> while your computer is booting the operating "
+"system."
+msgstr ""
+"Učitavanje u bezbednom režimu sa komercijalnim operativnim sistemom koji "
+"koristi NTFS može da poboljša sposobnost defragmentiranja sistema datoteka. Da "
+"pristupite „Bezbednom režimu“ pritisnite „<keycap>F8</keycap>“ dok vaš "
+"računar učitava operativni sistem."
+
+#: C/gparted.xml:1573(para)
+msgid ""
+"Check the partition for errors with the following command: <screen><prompt>C:"
+"&gt; </prompt><command>chkdsk</command> /f /r</screen> Remember to reboot "
+"back into the commercial operating system that uses NTFS to allow the "
+"<command>chkdsk</command> command to execute."
+msgstr ""
+"Proverite particiju za greškama sledećom naredbom: <screen><prompt>C:&gt; "
+"</prompt><command>chkdsk</command> /f /r</screen> Ne zaboravite da ponovo "
+"učitate komercijalni operativni sistem koji koristi NTFS kako biste "
+"omogućili izvršavanje naredbe „<command>chkdsk</command>“."
+
+#: C/gparted.xml:1582(para)
+msgid ""
+"Temporarily disable the paging file. The paging file occupies a fixed "
+"location in the partition that the defragmentation process is unable to move."
+msgstr ""
+"Privremeno onemogućite datoteku straničenja. Datoteka straničenja zauzima "
+"nepromenljivo mesto na particiji koje proces defragmentacije nije u stanju da "
+"premesti."
+
+#: C/gparted.xml:1590(para)
+msgid ""
+"Temporarily move large files to another partition or disk device. Large "
+"files are defined as greater than a few hundred Megabytes (MB)."
+msgstr ""
+"Privremeno premestite velike datoteke na drugu particiju ili disk uređaj. "
+"Velike datoteke su definisane kao veće od nekoliko stotina megabajta (MB)."
+
+#: C/gparted.xml:1597(para)
+msgid ""
+"Ensure a proper shut down of the commercial operating system that uses NTFS "
+"before you resize the NTFS partition"
+msgstr ""
+"Osigurajte apsolutno gašenje komercijalnog operativnog sistema koji koristi "
+"NTFS pre nego što izmenite veličinu NTFS particije."
+
+#: C/gparted.xml:1604(para)
+msgid ""
+"Leave at least 10 percent unused space in the NTFS partition. If you shrink "
+"the partition too much, then the commercial operating system might have "
+"difficulty functioning properly."
+msgstr ""
+"Ostavite najmanje 10 procenata neiskorišćenog prostora na NTFS particiji. Ako "
+"previše skupite particiju, onda će možda komercijalni operativni sistem "
+"imati poteškoća u funkcionisanju."
+
+#: C/gparted.xml:1612(para)
+msgid ""
+"Reboot twice into the commercial operating system that uses NTFS after "
+"shrinking the NTFS partition."
+msgstr ""
+"Dva puta izvršite učitavanje komercijalnog operativnog sistema koji koristi "
+"NTFS nakon sužavanja NTFS particije."
+
+#: C/gparted.xml:1554(para)
+msgid ""
+"To improve the ability to shrink NTFS partitions, you might consider one or "
+"more of the following: <placeholder-1/>"
+msgstr ""
+"Da poboljšate sposobnost skupljanja NTFS particija, mogli biste da razmotrite "
+"nešto od sledećeg: <placeholder-1/>"
+
+#: C/gparted.xml:1624(title)
+msgid "Moving a Partition"
+msgstr "Premeštanje particije"
+
+#: C/gparted.xml:1625(para)
+msgid ""
+"Moving and resizing a partition can be performed by a single "
+"<application>gparted</application> operation."
+msgstr ""
+"Promena veličine i premeštanje particije može biti izvršeno jednom radnjom "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:1648(para)
+msgid ""
+"Adjust the location of the partition. See <xref linkend=\"gparted-specify-"
+"partition-size-and-location\"/>."
+msgstr ""
+"Podesite mesto particije. Pogledajte <xref linkend=\"gparted-specify-"
+"partition-size-and-location\"/>."
+
+#: C/gparted.xml:1629(para)
+msgid "To move a partition: <placeholder-1/>"
+msgstr "Da premestite particiju: <placeholder-1/>"
+
+#: C/gparted.xml:1669(para)
+msgid ""
+"If the partition is an operating system boot partition, then the operating "
+"system might not boot after the move operation is applied."
+msgstr ""
+"Ako je particija koju premeštate particija učitavanja operativnog sistema, "
+"onda operativni sistem možda neće moći da se učita nakon primenjene radnje "
+"premeštanja."
+
+#: C/gparted.xml:1674(para)
+msgid ""
+"If the operating system fails to boot, see <xref linkend=\"gparted-fix-"
+"operating-system-boot-problems\"/>."
+msgstr ""
+"Ako operativni sistem ne uspe da se pokrene, pogledajte <xref linkend"
+"=\"gparted-fix-operating-system-boot-problems\"/>."
+
+#: C/gparted.xml:1683(title)
+msgid "Copying and Pasting a Partition"
+msgstr "Umnožavanje i ubacivanje particije"
+
+#: C/gparted.xml:1694(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Copy</"
+"guimenuitem></menuchoice>. The application marks the partition as the source "
+"partition."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Umnoži</gui"
+"menuitem></menuchoice>“. Program će obeležiti particiju kao izvornu."
+
+#: C/gparted.xml:1684(para)
+msgid "To copy a partition: <placeholder-1/>"
+msgstr "Da umnožite particiju: <placeholder-1/>"
+
+#: C/gparted.xml:1707(para)
+msgid ""
+"Select an unallocated space on a disk device. See <xref linkend=\"gparted-"
+"select-unallocated\"/>."
+msgstr ""
+"Izaberite neraspoređeni prostor na disk uređaju. Pogledajte <xref linkend"
+"=\"gparted-select-unallocated\"/>."
+
+#: C/gparted.xml:1713(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Paste</"
+"guimenuitem></menuchoice>. The application displays the <guilabel>Paste "
+"<replaceable>/path-to-partition</replaceable></guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Ubaci</guim"
+"enuitem></menuchoice>“. Program će prikazati prozorče „<guilabel>Ubaci "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“."
+
+#: C/gparted.xml:1722(para)
+msgid ""
+"If you want you can adjust the size and location of the partition. See <xref "
+"linkend=\"gparted-specify-partition-size-and-location\"/>."
+msgstr ""
+"Ako želite možete da podesite veličinu i mesto particije. Pogledajte <xref "
+"linkend=\"gparted-specify-partition-size-and-location\"/>."
+
+#: C/gparted.xml:1728(para)
+msgid ""
+"If you want you can specify the alignment of partition. See <xref linkend="
+"\"gparted-specify-partition-alignment\"/>."
+msgstr ""
+"Ako želite možete da odredite poravnanje particije. Pogledajte <xref linkend"
+"=\"gparted-specify-partition-alignment\"/>."
+
+#: C/gparted.xml:1734(para)
+msgid ""
+"Click <guibutton>Paste</guibutton>. The application displays the copy "
+"partition operation in the <guilabel>Pending Operations</guilabel> pane."
+msgstr ""
+"Kliknite „<guibutton>Ubaci</guibutton>“. Program će prikazati radnju "
+"umnožavanja u oknu „<guilabel>Zakazane radnje</guilabel>“."
+
+#: C/gparted.xml:1703(para)
+msgid "To Paste a partition: <placeholder-1/>"
+msgstr "Da ubacite particiju: <placeholder-1/>"
+
+#: C/gparted.xml:1743(para)
+msgid ""
+"The copy of the partition has the same label and the same Universally Unique "
+"Identifier (UUID) as the source partition. This can cause a problem when "
+"booting, or when mount actions use the partition label or the UUID to "
+"identify the partition."
+msgstr ""
+"Umnožena particija ima isti natpis i isti univerzalni jedinstveni "
+"identifikator (UUID) kao izvorna particija. To može prouzrokovati probleme "
+"prilikom učitavanja sistema, ili kada radnja montiranja koristi natpis "
+"particije ili UUID za prepoznavanje particije."
+
+#: C/gparted.xml:1751(para)
+msgid ""
+"The problem is that the operating system will randomly select to mount "
+"either the source, or the copy of the partition. For example, on the first "
+"mount action the source partition might be mounted. On the next mount action "
+"the copy of the partition might be mounted. Over time this random nature of "
+"partition mounting might make files seem to mysteriously appear or disappear "
+"depending upon which partition is mounted. Random mounting of the source or "
+"the copy of the partition might also cause severe data corruption or loss."
+msgstr ""
+"Problem je u tome što će operativni sistem nasumično izabrati da montira "
+"bilo izvornu bilo umnoženu particiju. Na primer, prilikom prve radnje "
+"montiranja može biti montirana izvorna particija. Prilikom sledeće radnje "
+"montiranja može biti montirana umnožena particija. S vremenom ova priroda "
+"nasumičnog montiranja particija može da dovede do toga da se datoteke "
+"tajanstveno pojavljuju ili nestaju u zavisnosti od toga koja particija je "
+"montirana. Nasumično montiranje izvorne ili umnožene particije može takođe da "
+"prouzrokuje ozbiljna oštećenja podataka ili gubljenje istih."
+
+#: C/gparted.xml:1772(para)
+msgid ""
+"Change the UUID of either the source, or the copy of the partition. See "
+"<xref linkend=\"gparted-changing-partition-uuid\"/>."
+msgstr ""
+"Izmenite UUID bilo izvorne bilo umnožene particije. Pogledajte <xref linkend"
+"=\"gparted-changing-partition-uuid\"/>."
+
+#: C/gparted.xml:1779(para)
+msgid ""
+"If the partition label is not blank then change the label of either the "
+"source, or the copy of the partition. See <xref linkend=\"gparted-setting-"
+"partition-label\"/>."
+msgstr ""
+"Ako natpis particije nije prazan onda izmenite natpis bilo izvorne bilo "
+"umnožene particije. Pogledajte <xref linkend=\"gparted-setting-partition-"
+"label\"/>."
+
+#: C/gparted.xml:1768(para)
+msgid "After you have applied the copy operation: <placeholder-1/>"
+msgstr "Nakon što ste primenili radnju umnožavanja: <placeholder-1/>"
+
+#: C/gparted.xml:1790(para)
+msgid ""
+"After you have applied the copy operation, delete or reformat the source "
+"partition."
+msgstr ""
+"Nakon što ste primenili radnju umnožavanja, obrišite ili ponovo formatirajte "
+"izvornu particiju."
+
+#: C/gparted.xml:1796(para)
+msgid ""
+"Use some other method to ensure that the source partition and the copy of "
+"the partition are not used on the same computer at the same time. For "
+"example, if the copy of the partition is on a separate drive then remove the "
+"drive from the computer."
+msgstr ""
+"Koristite neki drugi način da se uverite da izvorna particija i umnožena "
+"particija nisu korišćene na istom računaru u isto vreme. Na primer, ako se "
+"umnožena particija nalazi na zasebnom uređaju onda uklonite uređaj sa "
+"računara."
+
+#: C/gparted.xml:1763(para)
+msgid ""
+"To avoid the problem you are advised to do one of the following: "
+"<placeholder-1/>"
+msgstr ""
+"Da izbegnete probleme savetuje vam se da uradite nešto od sledećeg: "
+"<placeholder-1/>"
+
+#: C/gparted.xml:1811(title)
+msgid "Managing Partition Flags"
+msgstr "Upravljanje opcijama particije"
+
+#: C/gparted.xml:1822(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Manage Flags</"
+"guimenuitem></menuchoice>. The application opens a <guilabel>Manage flags on "
+"<replaceable>/path-to-partition</replaceable></guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Upravljaj "
+"opcijama</guimenuitem></menuchoice>“. Program će otvoriti prozorče "
+"„<guilabel>Upravljajte opcijama na "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“."
+
+#: C/gparted.xml:1831(para)
+msgid ""
+"To enable a flag, select the check box beside the flag. The application "
+"writes the enabled flag to the partition and refreshes the <guilabel>Manage "
+"flags on <replaceable>/path-to-partition</replaceable></guilabel> dialog."
+msgstr ""
+"Da uključite opciju, potvrdite kvadratić za izbor pored opcije. Program će "
+"zapisati uključenu opciju na particiji i osvežiti prozorče "
+"„<guilabel>Upravljajte opcijama na "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“."
+
+#: C/gparted.xml:1839(para)
+msgid ""
+"To disable a flag, deselect the check box beside the flag. The application "
+"writes the disabled flag to the partition and refreshes the <guilabel>Manage "
+"flags on <replaceable>/path-to-partition</replaceable></guilabel> dialog."
+msgstr ""
+"Da isključite opciju, poništite kvadratić za izbor pored opcije. Program će "
+"zapisati isključenu opciju na particiji i osvežiti prozorče "
+"„<guilabel>Upravljajte opcijama na "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“."
+
+#: C/gparted.xml:1812(para)
+msgid "To manage partition flags: <placeholder-1/>"
+msgstr "Da upravljate opcijama particije: <placeholder-1/>"
+
+#: C/gparted.xml:1851(para)
+msgid ""
+"To close the <guilabel>Manage flags on <replaceable>/path-to-partition</"
+"replaceable></guilabel> dialog, click <guibutton>Close</guibutton>."
+msgstr ""
+"Da zatvorite prozorče „<guilabel>Upravljajte opcijama na "
+"<replaceable>/putanja-do-particije</replaceable></guilabel>“, kliknite "
+"„<guibutton>Zatvori</guibutton>“."
+
+#: C/gparted.xml:1862(para) C/gparted.xml:1937(para)
+msgid ""
+"Boot is used by some commercial operating system boot loaders. The boot flag "
+"indicates the partition is active or bootable. Only one partition on a disk "
+"device can be active."
+msgstr ""
+"„Boot“ koriste neki pokretači komercijalnih operativnih sistema. Opcija "
+"učitavanja ukazuje da je particija aktivna ili pokretačka. Samo jedna "
+"particija na disk uređaju može biti aktivna."
+
+#: C/gparted.xml:1871(para)
+#| msgid ""
+#| "LVM is used to indicate the partition is used by a Logical Volume Manager "
+#| "(LVM)."
+msgid ""
+"Diag is used to indicate the partition is used for diagnostics / recovery."
+msgstr ""
+"„Diag“ se koristi da ukaže da se particija koristi za dijagnozu / oporavak."
+
+#: C/gparted.xml:1877(para) C/gparted.xml:1952(para)
+msgid ""
+"Hidden is used by some commercial operating systems. The hidden flag makes "
+"the partition invisible to the operating system."
+msgstr ""
+"„Hidden“ koriste neki komercijalni operativni sistemi. Ova opcija čini "
+"particiju nevidljivom za operativni sistem."
+
+#: C/gparted.xml:1884(para)
+msgid ""
+"LBA is used by some commercial operating system boot loaders. The LBA flag "
+"indicates the partition should be accessed using Logical Block Addressing "
+"(LBA), instead of Cylinder-Head-Sector (CHS) addressing."
+msgstr ""
+"„LBA“ koriste neki pokretači komercijalnih operativnih sistema. LBA ukazuje "
+"da particiji treba pristupiti korišćenjem adresiranja logičkih blokova (LBA), "
+"umesto adresiranja cilindar-glava-sektor (CHS)."
+
+#: C/gparted.xml:1893(para)
+msgid ""
+"LVM is used to indicate the partition is used by a Logical Volume Manager "
+"(LVM)."
+msgstr ""
+"„LVM“ se koristi da ukaže da particiju koristi upravnik logičkih volumena "
+"(LVM)."
+
+#: C/gparted.xml:1899(para)
+msgid ""
+"Palo is used by the Precision Architecture - Reduced Instruction Set "
+"Computing (PA-RISC) boot loader, palo."
+msgstr ""
+"„Palo“ koristi pokretač učitavanja precizne arhitekture — umanjenog skupa "
+"instrukcija računara (PA-RISC), palo."
+
+#: C/gparted.xml:1906(para)
+msgid ""
+"Prep is used to indicate the boot partition on Power Performance Computing "
+"(PowerPC) hardware."
+msgstr ""
+"„Prep“ se koristi da ukaže na particiju za učitavanje na PauerPC hardveru."
+
+#: C/gparted.xml:1912(para)
+msgid ""
+"RAID is used to indicate the partition is used in a Redundant Array of "
+"Inexpensive Disks (RAID)."
+msgstr ""
+"„RAID“ se koristi da ukaže da je particija korišćena u pojačanom nizu "
+"jeftinih diskova (RAID)."
+
+#: C/gparted.xml:1857(para)
+msgid ""
+"A description of flags in an msdos partition table follows: <placeholder-1/>"
+msgstr ""
+"U nastavku je dat opis opcija u msdos particionoj tabeli: <placeholder-1/>"
+
+#: C/gparted.xml:1925(para)
+msgid "Atvrecv is used to indicate an Apple TV Recovery partition."
+msgstr "„Atvrecv“ se koristi da ukaže na Eplovu TV particiju oporavka."
+
+#: C/gparted.xml:1931(para)
+msgid ""
+"BIOS_GRUB indicates a BIOS boot partition often used by the GRUB 2 boot "
+"loader."
+msgstr ""
+"„BIOS_GRUB“ ukazuje na particiju učitavanja BIOS-a koju često koristi "
+"učitavač sistema GRUB 2."
+
+#: C/gparted.xml:1946(para)
+#| msgid ""
+#| "LVM is used to indicate the partition is used by a Logical Volume Manager "
+#| "(LVM)."
+msgid "Diag indicates the partition is used for diagnostics or recovery."
+msgstr "„Diag“ ukazuje da se particija koristi za dijagnozu ili oporavak."
+
+#: C/gparted.xml:1959(para)
+msgid "HP-service is used to indicate a Hewlett Packard service partition."
+msgstr "„HP-service“ se koristi da ukaže na particiju usluge Hevlet Pakarda."
+
+#: C/gparted.xml:1965(para)
+msgid ""
+"Legacy_boot is used by some special purpose software to indicate the "
+"partition might be bootable."
+msgstr ""
+"„Legacy_boot“ koriste neki programi posebne namene da ukažu da particija "
+"može biti učitavačka."
+
+#: C/gparted.xml:1971(para)
+#| msgid ""
+#| "LVM is used to indicate the partition is used by a Logical Volume Manager "
+#| "(LVM)."
+msgid "LVM indicates the partition is used by a Logical Volume Manager (LVM)."
+msgstr "„LVM“ ukazuje da particiju koristi upravnik logičkih volumena (ULV)."
+
+#: C/gparted.xml:1977(para)
+msgid "Msftres is used to indicate a Microsoft Reserved partition."
+msgstr "„Msftres“ se koristi da ukaže na Majkrosoftovu rezervisanu particiju."
+
+#: C/gparted.xml:1983(para)
+#| msgid ""
+#| "RAID is used to indicate the partition is used in a Redundant Array of "
+#| "Inexpensive Disks (RAID)."
+msgid ""
+"RAID indicates the partition is used in a Redundant Array of Inexpensive "
+"Disks (RAID)."
+msgstr ""
+"„RAID“ ukazuje da se particija koristi u pojačanom nizu jeftinih diskova "
+"(RAID)."
+
+#: C/gparted.xml:1921(para)
+#| msgid ""
+#| "A description of flags in an msdos partition table follows: "
+#| "<placeholder-1/>"
+msgid ""
+"A description of flags in a gpt partition table follows: <placeholder-1/>"
+msgstr ""
+"U nastavku je dat opis opcija u particionoj tabeli gparteda: "
+"<placeholder-1/>"
+
+#: C/gparted.xml:1995(title)
+msgid "Checking a Partition"
+msgstr "Proveravanje particije"
+
+#: C/gparted.xml:1996(para)
+msgid ""
+"Checking a partition will attempt to find and fix problems in the file "
+"system. Checking a partition will attempt to grow the file system to fill "
+"the partition."
+msgstr ""
+"Proveravanje particije će pokušati da pronađe i popravi probleme u sistemu "
+"datoteka. Provervanje particije će pokušati da uveća sistem datoteka kako bi "
+"popunio particiju."
+
+#: C/gparted.xml:2012(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Partition</guimenu><guimenuitem>Check</"
+"guimenuitem></menuchoice>. The application displays the check partition "
+"operation in the <guilabel>Pending Operations</guilabel> pane."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Particija</guimenu><guimenuitem>Proveri</gu"
+"imenuitem></menuchoice>“. Program će prikazati radnju proveravanja particije u "
+"oknu „<guilabel>Zakazane radnje</guilabel>“."
+
+#: C/gparted.xml:2002(para)
+msgid "To check a partition: <placeholder-1/>"
+msgstr "Da proverite particiju: <placeholder-1/>"
+
+#: C/gparted.xml:2028(title)
+msgid "Working with the Operation Queue"
+msgstr "Rad sa zakazanim radnjama"
+
+#: C/gparted.xml:2032(title)
+msgid "Undoing Last Operation"
+msgstr "Poništavanje poslednje radnje"
+
+#: C/gparted.xml:2033(para)
+msgid ""
+"To undo the last operation in the operation queue, choose: "
+"<menuchoice><guimenu>Edit</guimenu><guimenuitem>Undo Last Operation</"
+"guimenuitem></menuchoice>. The application removes the last operation from "
+"the queue displayed in the <guilabel>Pending Operations</guilabel> pane. If "
+"there are no operations remaining in the queue, the application closes the "
+"<guilabel>Pending Operations</guilabel> pane."
+msgstr ""
+"Da opozovete poslednju radnju u redu radnji, izaberite: "
+"„<menuchoice><guimenu>Uredi</guimenu><guimenuitem>Opozovi poslednju "
+"radnju</guimenuitem></menuchoice>“. Program će ukloniti poslednju radnju iz "
+"reda prikazanog u oknu „<guilabel>Zakazane radnje</guilabel>“. Ukoliko nema "
+"preostalih radnji u redu, program će zatvoriti okno „<guilabel>Zakazane "
+"radnje</guilabel>“."
+
+#: C/gparted.xml:2046(title)
+msgid "Clearing All Operations"
+msgstr "Brisanje svih radnji"
+
+#: C/gparted.xml:2047(para)
+msgid ""
+"To clear all operations in the operation queue, choose: "
+"<menuchoice><guimenu>Edit</guimenu><guimenuitem>Clear All Operations</"
+"guimenuitem></menuchoice>. The application removes all operations from the "
+"queue and closes the <guilabel>Pending Operations</guilabel> pane."
+msgstr ""
+"Da obrišete sve radnje u redu radnji, izaberite: "
+"„<menuchoice><guimenu>Uredi</guimenu><guimenuitem>Obriši sve "
+"radnje</guimenuitem></menuchoice>“. Program će ukloniti sve radnje iz reda i "
+"zatvoriće okno „<guilabel>Zakazane radnje</guilabel>“."
+
+#: C/gparted.xml:2057(title)
+msgid "Applying All Operations"
+msgstr "Primenjivanje svih radnji"
+
+#: C/gparted.xml:2062(para)
+msgid ""
+"Choose: <menuchoice><guimenu>Edit</guimenu><guimenuitem>Apply All "
+"Operations</guimenuitem></menuchoice>. The application displays an "
+"<guilabel>Apply operations to device</guilabel> dialog."
+msgstr ""
+"Izaberite: „<menuchoice><guimenu>Uređivanje</guimenu><guimenuitem>Primeni sve "
+"radnje</guimenuitem></menuchoice>“. Program će prikazati prozorče "
+"„<guilabel>Primeni radnje na uređaju</guilabel>“."
+
+#: C/gparted.xml:2069(para)
+msgid ""
+"Editing partitions has the potential to cause LOSS of DATA. You are advised "
+"to backup your data before applying your partition editing operations."
+msgstr ""
+"Uređivanje particija ima potencijal da izazove GUBITAK PODATAKA. Savetuje vam "
+"se da napravite rezervu vaših podataka pre nego što primenite radnje "
+"uređivanja particije."
+
+#: C/gparted.xml:2087(para)
+msgid ""
+"To view more information, click <guibutton>Details</guibutton>. The "
+"application displays more details about operations."
+msgstr ""
+"Da vidite više informacija, kliknite na dugme "
+"„<guibutton>Detalji</guibutton>“. Program će prikazati više pojedinosti o "
+"radnjama."
+
+#: C/gparted.xml:2092(para)
+msgid ""
+"To view more information about the steps in each operation, click the arrow "
+"button beside each step."
+msgstr ""
+"Da vidite više informacija o koracima svake radnje, kliknite na dugme "
+"strelice pored svakog koraka."
+
+#: C/gparted.xml:2098(para)
+#| msgid ""
+#| "To stop the operations while they are executing, click <guibutton>Cancel</"
+#| "guibutton>. The application displays a warning dialog."
+msgid ""
+"To stop the operations while they are executing, click <guibutton>Cancel</"
+"guibutton>. The application displays a disabled <guibutton>Force Cancel (5)</"
+"guibutton> button and counts down for 5 seconds."
+msgstr ""
+"Da zaustavite radnje za vreme njihovog izvršavanja, kliknite na dugme "
+"„<guibutton>Otkaži</guibutton>“. Program će prikazati isključeno dugme "
+"<guibutton>Primoraj otkazivanje (5)</guibutton> i odbrojavaće 5 sekunde."
+
+#: C/gparted.xml:2106(para)
+msgid ""
+"<guibutton>Cancel</guibutton> instructs the application to stop or roll back "
+"operations as necessary to ensure data integrity."
+msgstr ""
+"Dugme <guibutton>Otkaži</guibutton> naređuje programu da zaustavi ili "
+"povrati radnje kada je neophodno da bi osigurao celovitost podataka."
+
+#: C/gparted.xml:2112(para)
+msgid ""
+"If operations have not halted after 5 seconds the application enables the "
+"<guibutton>Force Cancel</guibutton> button."
+msgstr ""
+"Ako radnje nisu zaustavljene nakon 5 sekunde program uključuje dugme "
+"<guibutton>Primoraj otkazivanje</guibutton>."
+
+#: C/gparted.xml:2117(para)
+#| msgid ""
+#| "To stop the operations while they are executing, click <guibutton>Cancel</"
+#| "guibutton>. The application displays a warning dialog."
+msgid ""
+"To force the operations to stop, click <guibutton>Force Cancel</guibutton>. "
+"The application displays a warning dialog."
+msgstr ""
+"Da primorate zaustavljanje radnji, kliknite na dugme „<guibutton>Primoraj "
+"otkazivanje</guibutton>“. Program će prikazati prozorče upozorenja."
+
+#: C/gparted.xml:2122(para)
+#| msgid ""
+#| "You are advised to click <guibutton>Continue Operation</guibutton> "
+#| "because <guibutton>Cancel Operation</guibutton> might cause SEVERE file "
+#| "system damage. Cancel the operation only if you agree to the consequences."
+msgid ""
+"Click <guibutton>Continue Operation</guibutton> to allow the roll back "
+"operations to complete, or click <guibutton>Cancel Operation</guibutton> to "
+"cancel the roll back operations."
+msgstr ""
+"Kliknite „<guibutton>Nastavi radnju</guibutton>“ da omogućite povraćenim "
+"radnjama da završe, ili kliknite „<guibutton>Otkaži radnju</guibutton>“ da "
+"otkažete povraćene radnje."
+
+#: C/gparted.xml:2129(para)
+msgid ""
+"<guibutton>Cancel Operation</guibutton> terminates the safe roll back of "
+"operations and might cause SEVERE file system damage and data loss. You are "
+"advised to click <guibutton>Continue Operation</guibutton> to allow the roll "
+"back to complete."
+msgstr ""
+"Dugme „<guibutton>Otkaži radnju</guibutton>“ okončava bezbedno vraćanje radnji "
+"i može da izazove OZBILJNA oštećenja sistema datoteka gubitak podataka. "
+"Savetuje vam se da kliknete „<guibutton>Nastavi radnju</guibutton>“ da "
+"omogućite povraćaju da završi."
+
+#: C/gparted.xml:2138(para)
+#| msgid ""
+#| "When the application finishes applying all operations, the application "
+#| "displays the <guibutton>Save Details</guibutton> button and the "
+#| "<guibutton>Close</guibutton> button."
+msgid ""
+"When the application finishes performing operations, the application "
+"displays the <guibutton>Save Details</guibutton> button and the "
+"<guibutton>Close</guibutton> button."
+msgstr ""
+"Kada program završi obavljanje radnji, prikazaće dugmad „<guibutton>Sačuvaj "
+"detalje</guibutton>“ i „<guibutton>Zatvori</guibutton>“."
+
+#: C/gparted.xml:2077(para)
+msgid ""
+"Click <guibutton>Apply</guibutton>. The application displays an "
+"<guilabel>Applying pending operations</guilabel> dialog. The application "
+"applies each pending operation in the order you created the operations. The "
+"application displays a status update when each operation is completed. "
+"<placeholder-1/>"
+msgstr ""
+"Kliknite na dugme „<guibutton>Primeni</guibutton>“. Program će prikazati "
+"prozorče „<guilabel>Primenjivanje zakazanih radnji</guilabel>“. Program će "
+"primeniti svaku zakazanu radnju po redosledu njenog stvaranja i prikazaće "
+"osveženje stanja kada svaka radnja bude završena. <placeholder-1/>"
+
+#: C/gparted.xml:2156(para)
+msgid ""
+"If you want to change the default file name, then type a file name in the "
+"<guilabel>Name</guilabel> text box."
+msgstr ""
+"Ako želite da izmenite osnovni naziv datoteke, onda upišite naziv datoteke u "
+"polje „<guilabel>Naziv</guilabel>“."
+
+#: C/gparted.xml:2163(para)
+msgid ""
+"If you want to save the file in a folder different than /root, Click "
+"<guibutton>Browse for other folders</guibutton>. The application displays a "
+"file system navigator."
+msgstr ""
+"Ako ne želite da sačuvate datoteku u fascikli „/root“ već u nekoj drugoj, "
+"kliknite na dugme „<guibutton>Potraži druge fascikle</guibutton>“. Biće "
+"prikazan pretraživač sistema datoteka."
+
+#: C/gparted.xml:2169(para)
+msgid "Use the file system navigator to select a folder."
+msgstr "Koristite pretraživač sistema datoteka da izaberete fasciklu."
+
+#: C/gparted.xml:2174(para)
+msgid ""
+"Click <guibutton>Save</guibutton> to save the file. The application saves "
+"the details file."
+msgstr ""
+"Kliknite na dugme „<guibutton>Sačuvaj</guibutton>“ da sačuvate datoteku. "
+"Program će sačuvati detalje o datoteci."
+
+#: C/gparted.xml:2149(para)
+msgid ""
+"If you want to save the details from applying all operations, then click "
+"<guibutton>Save Details</guibutton>. The application displays a "
+"<guilabel>Save Details</guilabel> dialog. <placeholder-1/>"
+msgstr ""
+"Ako želite da sačuvate detalje svih primenjenih radnji, onda kliknite "
+"„<guibutton>Sačuvaj detalje</guibutton>“. Biće prikazano prozorče "
+"„<guilabel>Sačuvaj detalje</guilabel>“. <placeholder-1/>"
+
+#: C/gparted.xml:2182(para)
+msgid ""
+"If you use <application>gparted</application> from a Live CD, then the root "
+"file system exists in RAM memory. All files saved to the Live CD root file "
+"system will be lost when you shut down the computer."
+msgstr ""
+"Ako koristite <application>gparted</application> sa živog CD-a, onda koreni "
+"sistem datoteka postoji u RAM memoriji. Sve datoteke koje sačuvate u korenom "
+"sistemu datoteka živog CD-a će biti izgubljene kada isključite računar."
+
+#: C/gparted.xml:2188(para)
+msgid ""
+"If you saved the gparted details to the Live CD root file system, then you "
+"need to copy the file to more permanent storage. Examples of more permanent "
+"storage are a hard disk drive or a USB flash memory drive."
+msgstr ""
+"Ako ste sačuvali detalje gparteda u korenom sistemu datoteka živog CD-a, onda "
+"morate da umnožite datoteku na trajniji uređaj. Primeri trajnijih uređaja "
+"su čvrsti disk ili USB fleš memorija."
+
+#: C/gparted.xml:2197(para)
+msgid ""
+"Click <guibutton>Close</guibutton>. The application closes the "
+"<guilabel>Applying pending operations</guilabel> dialog. The application "
+"rescans all the disk devices and refreshes the device partition layout in "
+"the <application>gparted</application> window."
+msgstr ""
+"Kliknite na dugme „<guibutton>Zatvori</guibutton>“. Program će zatvoriti "
+"prozorče „<guilabel>Primenjivanje zakazanih radnji</guilabel>“ i pregledati sve "
+"disk uređaje i osvežiti raspored particija uređaja u prozoru "
+"<application>gparteda</application>."
+
+#: C/gparted.xml:2058(para)
+msgid "To apply all operations: <placeholder-1/>"
+msgstr "Da primenite sve radnje: <placeholder-1/>"
+
+#: C/gparted.xml:2216(title)
+msgid "Acquiring GParted on Live CD"
+msgstr "Nabavljanje Gparteda na živom CD-u"
+
+#: C/gparted.xml:2217(para)
+msgid ""
+"A Live CD is a Compact Disc that contains a bootable operating system. A "
+"Live CD enables you to boot your computer from the CD."
+msgstr ""
+"Živi CD je kompakt disk koji sadrži pokretački operativni sistem. Živi CD "
+"vam omogućava da pokrenete računar sa CD-a."
+
+#: C/gparted.xml:2226(para)
+msgid ""
+"You can edit all of your partitions because the partitions are not mounted."
+msgstr "Možete da uređujete sve vaše particije zato što nisu montirane."
+
+#: C/gparted.xml:2232(para)
+msgid ""
+"You can edit partitions on computers that do not have a bootable operating "
+"system."
+msgstr ""
+"Možete da uređujete particije na računarima koji nemaju pokretački "
+"operativni sistem."
+
+#: C/gparted.xml:2221(para)
+msgid ""
+"Using <application>gparted</application> from a Live CD has the following "
+"advantages: <placeholder-1/>"
+msgstr ""
+"Korišćenje <application>gparteda</application> sa živog CD-a ima sledeće "
+"prednosti: <placeholder-1/>"
+
+#: C/gparted.xml:2239(para)
+msgid ""
+"The <application>gparted</application> application is available on many Live "
+"CD distributions."
+msgstr ""
+"Program <application>gparted</application> je dostupan na mnogim živim CD "
+"diskovima distribucija."
+
+#: C/gparted.xml:2248(para)
+msgid ""
+"GParted Live CD <ulink type=\"http\" url=\"http://gparted.org/livecd.php\"/>"
+msgstr ""
+"Živi CD Gparteda <ulink type=\"http\" url=\"http://gparted.org/livecd.php\"/>"
+
+#: C/gparted.xml:2254(para)
+msgid ""
+"System Rescue CD <ulink type=\"http\" url=\"http://www.sysresccd.org\"/>"
+msgstr ""
+"CD za spašavanje sistema <ulink type=\"http\" url=\"http://www.sysresccd.org\"/>"
+
+#: C/gparted.xml:2243(para)
+msgid ""
+"You can download a Live CD image containing <application>gparted</"
+"application> from the following web sites: <placeholder-1/>"
+msgstr ""
+"Možete preuzeti odraz živog CD-a koji sadrži "
+"<application>gparted</application> sa sledećih veb mesta: <placeholder-1/>"
+
+#: C/gparted.xml:2262(para)
+msgid ""
+"To avoid wasting a blank CD when burning a CD image file, use the following "
+"tips:"
+msgstr ""
+"Da izbegnete gubljenje praznog CD-a prilikom narezivanja datoteke odraza CD-a, "
+"koristite sledeće savete:"
+
+#: C/gparted.xml:2268(para)
+msgid ""
+"Ensure the checksum of the downloaded file matches the checksum posted on "
+"the download page."
+msgstr ""
+"Uverite se da suma za proveru preuzete datoteke odgovara sumi za proveru "
+"objavljenoj na stranici za preuzimanje."
+
+#: C/gparted.xml:2274(para)
+msgid ""
+"Be sure to burn the .iso file as an image to the blank CD. If you burn the ."
+"iso file as data to a blank CD then the CD will not boot in your computer."
+msgstr ""
+"Budite sigurni da narežete „.iso“ datoteku kao odraz na praznom CD-u. Ako "
+"narežete „.iso“ datoteku kao podatke na praznom CD-u, tada se CD neće "
+"pokrenuti na vašem računaru."
+
+#: C/gparted.xml:2286(title)
+msgid "Fixing Operating System Boot Problems"
+msgstr "Otklanjanje problema učitavanja operativnog sistema"
+
+#: C/gparted.xml:2292(para)
+msgid "Delete a partition."
+msgstr "Kada obrišete particiju."
+
+#: C/gparted.xml:2297(para)
+msgid "Move a partition."
+msgstr "Kada premestite particiju."
+
+#: C/gparted.xml:2302(para)
+msgid ""
+"Install another operating system and overwrite the Master Boot Record (MBR)."
+msgstr ""
+"Kada instalirate drugi operativni sistem i prepišete glavni zapis učitavanja "
+"(MBR)."
+
+#: C/gparted.xml:2287(para)
+msgid ""
+"Your computer might fail to boot an operating system when you perform one of "
+"the following actions: <placeholder-1/>"
+msgstr ""
+"Vaš računar možda neće moći da učita operativni sistem kada izvršite jednu "
+"od sledećih radnji: <placeholder-1/>"
+
+#: C/gparted.xml:2309(para)
+msgid ""
+"You are advised to consult documentation for your boot loader to learn how "
+"to fix the problem. You might consult the <ulink type=\"http\" url=\"http://"
+"gparted.org/faq.php\">GParted FAQ</ulink>, or the <ulink type=\"http\" url="
+"\"http://gparted.org/forum.php\">GParted forum</ulink>. You might also use "
+"Internet search engines to learn how other people have solved similar "
+"problems."
+msgstr ""
+"Savetujemo vam da pogledate dokumentaciju vašeg pokretačkog programa da "
+"saznate kako da rešite problem. Možete pogledati <ulink type=\"http\" "
+"url=\"http://gparted.org/faq.php\">Gparted ČPP</ulink> ili <ulink type=\"http\" "
+"url=\"http://gparted.org/forum.php\">Gparted forum</ulink>. Možete takođe da "
+"koristite motore za pretraživanje Interneta da saznate kako su drugi ljudi "
+"rešili slične probleme."
+
+#: C/gparted.xml:2322(title)
+msgid "Fixing GRUB boot problem"
+msgstr "Otklanjanje problema učitavanja GRUB-a"
+
+#: C/gparted.xml:2328(para)
+msgid "Move the partition containing the GRUB stage2 file."
+msgstr "Ako premestite particiju koja sadrži datoteku „GRUB stage2“."
+
+#: C/gparted.xml:2333(para)
+msgid ""
+"Install a new operating system that overwrites the Master Boot Record (MBR)."
+msgstr ""
+"Ako instalirate novi operativni sistem koji će prepisati glavni zapis "
+"učitavanja (MBR)."
+
+#: C/gparted.xml:2323(para)
+msgid ""
+"The Grand Unified Boot loader (GRUB) might fail to boot an operating system "
+"if you do one of the following: <placeholder-1/>"
+msgstr ""
+"GRUB (Grand Unified Boot loader) možda neće uspeti da učita operativni "
+"sistem ako uradite nešto od sledećeg: <placeholder-1/>"
+
+#: C/gparted.xml:2345(para)
+msgid ""
+"Start the <application>grub</application> application from the command line. "
+"<screen><prompt>$ </prompt><command>grub</command></screen>"
+msgstr ""
+"Pokrenite program <application>grub</application> iz linije naredbi. "
+"<screen><prompt>$ </prompt><command>grub</command></screen>"
+
+#: C/gparted.xml:2352(para)
+msgid ""
+"Find where <application>grub</application> stage1 is located by using one of "
+"the following:"
+msgstr ""
+"Pronađite gde se nalazi datoteka „<application>grub</application> stage1“ "
+"koristeći jedan od sledećih načina:"
+
+#: C/gparted.xml:2356(para)
+msgid ""
+"If the /boot folder is stored in the / partition, use the command: "
+"<screen><prompt>grub&gt; </prompt><command>find</command> /boot/grub/stage1</"
+"screen> If the /boot folder is stored in a partition different than the / "
+"partition, use the command: <screen><prompt>grub&gt; </prompt><command>find</"
+"command> /grub/stage1</screen>"
+msgstr ""
+"Ako je „/boot“ fascikla smeštena u „/“ particiji, koristite naredbu: "
+"<screen><prompt>grub&gt; </prompt><command>find</command> "
+"/boot/grub/stage1</screen> Ako je „/boot“ fascikla smeštena u particiji "
+"drugačijoj od „/“ particije, koristite naredbu: <screen><prompt>grub&gt; "
+"</prompt><command>find</command> /grub/stage1</screen>"
+
+#: C/gparted.xml:2364(para)
+msgid ""
+"The output from the <command>find</command> command might look like the "
+"following: <screen><computeroutput> <replaceable>(hd0,0)</replaceable></"
+"computeroutput></screen> If more than one line is listed in the command "
+"output, you will need to decide which device you use for <application>grub</"
+"application>."
+msgstr ""
+"Rezultat naredbe „<command>find</command>“ može da izgleda ovako: "
+"<screen><computeroutput> "
+"<replaceable>(hd0,0)</replaceable></computeroutput></screen> Ako je u "
+"rezultatu naredbe navedeno više od jednog reda, moraćete da odlučite koji "
+"uređaj ćete da koristite za <application>grub</application>."
+
+#: C/gparted.xml:2373(para)
+msgid ""
+"Set the <application>grub</application> root device by specifying the device "
+"returned by the <command>find</command> command. <screen><prompt>grub&gt; </"
+"prompt>root <replaceable>(hd0,0)</replaceable></screen>"
+msgstr ""
+"Postavite <application>grub</application> koreni uređaj navođenjem uređaja "
+"koji je dostavila naredba „<command>find</command>“. "
+"<screen><prompt>grub&gt; </prompt>root "
+"<replaceable>(hd0,0)</replaceable></screen>"
+
+#: C/gparted.xml:2381(para)
+msgid ""
+"Reinstall <application>grub</application> by specifying the device returned "
+"by the <command>find</command> command. <screen><prompt>grub&gt; </"
+"prompt>setup <replaceable>(hd0,0)</replaceable></screen>"
+msgstr ""
+"Ponovo instalirajte <application>grub</application> navođenjem uređaja koji "
+"je dostavila naredba „<command>find</command>“. <screen><prompt>grub&gt; "
+"</prompt>setup <replaceable>(hd0,0)</replaceable></screen>"
+
+#: C/gparted.xml:2389(para)
+msgid ""
+"Exit <application>grub</application>. <screen><prompt>grub&gt; </"
+"prompt>quit</screen>"
+msgstr ""
+"Napustite <application>grub</application>. <screen><prompt>grub&gt; "
+"</prompt>quit</screen>"
+
+#: C/gparted.xml:2395(para)
+msgid "Reboot your computer."
+msgstr "Ponovo pokrenite vaš računar."
+
+#: C/gparted.xml:2340(para)
+msgid ""
+"To fix these problems, you will need to reinstall the GRUB boot record using "
+"the following steps: <placeholder-1/>"
+msgstr ""
+"Da rešite ove probleme, moraćete ponovo da instalirate GRUB zapis učitavanja "
+"koristeći sledeće korake: <placeholder-1/>"
+
+#: C/gparted.xml:2401(para)
+msgid ""
+"The <application>grub</application> application is included on each Live CD "
+"listed in <xref linkend=\"gparted-acquire-livecd\"/>"
+msgstr ""
+"Program <application>grub</application> se nalazi na svakom živom CD-u "
+"navedenom u <xref linkend=\"gparted-acquire-livecd\"/>"
+
+#: C/gparted.xml:2413(title)
+msgid "Recovering Partition Tables"
+msgstr "Oporavljanje particionih tabela"
+
+#: C/gparted.xml:2414(para)
+msgid ""
+"If you accidentally overwrite your partition table, there is a chance that "
+"you might be able to recover it."
+msgstr ""
+"Ako slučajno prepišete vašu particionu tabelu, postoji šansa da ćete biti u "
+"mogućnosti da je oporavite."
+
+#: C/gparted.xml:2418(para)
+msgid ""
+"The <application>testdisk</application> application is designed to help "
+"recover lost partitions. For more information about <application>testdisk</"
+"application>, see <ulink type=\"http\" url=\"http://www.cgsecurity.org/wiki/"
+"TestDisk\"/>."
+msgstr ""
+"Program <emphasis "
+"role=\"strong\"><application>testdisk</application></emphasis> je osmišljen da "
+"pomogne oporavak izgubljenih particija. Za više informacija o "
+"<application>testdisku</application>, pogledajte <ulink type=\"http\" "
+"url=\"http://www.cgsecurity.org/wiki/TestDisk\"/>."
+
+#: C/gparted.xml:2424(para)
+msgid ""
+"The <application>testdisk</application> application is included on each Live "
+"CD listed in <xref linkend=\"gparted-acquire-livecd\"/>"
+msgstr ""
+"Program <application>testdisk</application> se nalazi na svakom živom CD-u "
+"navedenom u <xref linkend=\"gparted-acquire-livecd\"/>"
+
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: C/gparted.xml:0(None)
+msgid "translator-credits"
+msgstr ""
+"Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
+"\n"
+"http://prevod.org — prevod na srpski jezik"
+
+#~ msgid ""
+#~ "Change the UUID of the partition. If the partition label is not blank, "
+#~ "change the label of the partition."
+#~ msgstr ""
+#~ "Promenite UJID particije. Ako oznaka particije nije prazna onda promenite "
+#~ "oznaku particije."
+
+#~ msgid "2009"
+#~ msgstr "2009"
