@@ -1,0 +1,1699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY appversion "0.22.0">
+<!ENTITY manrevision "1.9">
+<!ENTITY date "March 2015">
+<!ENTITY app "gparted">
+<!ENTITY appname "GParted">
+<!-- Information about the entities:
+       Use the appversion entity to specify the version of the application.
+       Use the manrevision entity to specify the revision number of this manual.
+       Use the date entity to specify the release date of this manual.
+       Use the app entity to specify the command name of the application.
+       Use the appname entity to specify the formal name of the application.
+  -->]>
+<!-- Remember to update the revision history -->
+<!--
+      To generate a single html file of this document, use the command:
+        xmlto html-nochunks gparted.xml
+
+      To test this document in a viewer, use the command:
+        gnome-help file:/full-path-to-gparted.xml
+ -->
+<!-- ============= Document Header =================================== -->
+<?db.chunk.max_depth 4?>
+<article id="gparted" lang="sr">
+<!-- Please do not change the id. -->
+<!-- For translations, change lang to appropriate code -->
+  <articleinfo>
+    <title>Упутство Гпартеда</title>
+    <publisher>
+      <publishername>Пројекат Гпартеда</publishername>
+    </publisher>
+
+    <abstract role="description">
+      <para>
+      GParted is the GNOME Partition Editor for creating,
+      reorganizing, and deleting disk partitions.
+      GParted enables you to change the partition organization while preserving
+      the partition contents.
+      </para>
+    </abstract>
+
+    <copyright>
+      <year>2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015</year>
+      <holder>Куртис Гедак</holder>
+    </copyright>
+    <copyright>
+      <year>2014, 2015</year>
+      <holder>Mike Fleetwood</holder>
+    </copyright>
+
+<!-- translators: uncomment this:
+    <copyright>
+      <year>2009</year>
+      <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+    </copyright>
+-->
+
+    <legalnotice>
+      <para>Дозвољено је да умножавате, достављате и/или мењате овај документ под условима Гнуове лиценце слободне документације (GFDL), издања 1.2 или било ког новијег издања које објави Задужбина Слободног Софтвера; без Непромењених одељака, без Текста насловне стране и без Текста задње стране. Можете наћи примерак ГЛСД на овој <ulink type="help" url="ghelp:fdl">вези</ulink> или на <ulink type="http" url="http://www.fsf.org/licensing/licenses/fdl.html"/> веб сајту или у датотеци „COPYING-DOCS“ која је достављена уз овај приручник.</para>
+    </legalnotice>
+
+    <authorgroup>
+      <author role="maintainer">
+        <firstname>Куртис</firstname>
+        <surname>Гедак</surname>
+        <affiliation>
+          <orgname>Пројекат Гпартеда</orgname>
+          <address>
+            <email>gedakc@users.sf.net</email>
+          </address>
+        </affiliation>
+      </author>
+      <author role="developer">
+        <firstname>Mike</firstname>
+        <surname>Fleetwood</surname>
+        <affiliation>
+          <orgname>Пројекат Гпартеда</orgname>
+          <address>
+            <email>mike.fleetwood@googlemail.com</email>
+          </address>
+        </affiliation>
+      </author>
+
+<!-- This is appropriate place for other contributors: translators,
+     maintainers,  etc. Commented out by default.
+      <othercredit role="translator">
+        <firstname>Latin</firstname>
+        <surname>Translator 1</surname>
+        <affiliation>
+          <orgname>Latin Translation Team</orgname>
+          <address> <email>translator@gnome.org</email> </address>
+        </affiliation>
+        <contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+
+<!-- According to GNU FDL, revision history is mandatory if you are -->
+<!-- modifying/reusing someone else's document.  If not, you can omit it. -->
+    <revhistory>
+      <revision>
+        <revnumber>GParted Manual V1.9</revnumber>
+        <date>March 2015</date>
+        <revdescription>
+          <para role="author">Curtis Gedak &amp; Mike Fleetwood</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Describes version 0.22.0 of GParted</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GParted Manual V1.8</revnumber>
+        <date>September 2014</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Describes version 0.20.0 of GParted</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GParted Manual V1.7</revnumber>
+        <date>February 2014</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Describes version 0.18.0 of GParted</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GParted Manual V1.6</revnumber>
+        <date>December 2013</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Describes version 0.17.0 of GParted</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Упутство Гпартедa в.1.5</revnumber>
+        <date>Септембар 2013</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Описује издање 0.16.2 Гпартеда</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Упутство Гпартедa в.1.4</revnumber>
+        <date>Фебруар 2012</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Описује издање 0.12.0 Гпартеда</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Упутство Гпартеда в.1.3</revnumber>
+        <date>Јануар 2011</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Описује издање 0.8.0 Гпартеда</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Упутство Гпартеда в.1.2</revnumber>
+        <date>Јун 2010</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Описује издање 0.6.0 Гпартеда</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Упутство Гпартеда в.1.1</revnumber>
+        <date>Јул 2009</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Описује издање 0.4.6 Гпартеда</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Упутство Гпартеда в.1.0</revnumber>
+        <date>Јануар 2009</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Описује издање 0.4.2 Гпартеда</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Упутство Гпартеда в.0.3.9</revnumber>
+        <date>Септембар 2008</date>
+        <revdescription>
+          <para role="author">Куртис Гедак</para>
+          <para role="publisher">Пројекат Гпартеда</para>
+          <para role="annotations">Описује издање 0.3.9 Гпартеда</para>
+        </revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>
+    This manual describes version 0.22.0 of GParted
+    </releaseinfo>
+
+    <legalnotice>
+      <title>Повратне информације</title>
+      <para>Да пријавите грешку или да дате предлог у вези <application>гпартеда</application> или у вези овог упутства, следите упутства на <ulink type="http" url="http://gparted.org/bugs.php"/>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+
+  </articleinfo>
+
+<!-- ============= Document Body ===================================== -->
+<!-- ============= Introduction ====================================== -->
+  <sect1 id="gparted-introduction">
+    <title>Увод</title>
+    <para>
+    The <application>gparted</application> application is the GNOME Partition
+    Editor for creating, reorganizing, and deleting disk partitions.
+    </para>
+    <para>Диск уређај може бити подељен на једну или више партиција. Програм <application>гпартед</application> вам омогућава да измените организацију партиција на диск уређају уз чување садржаја партиције.</para>
+    <para>Са <application>гпартедом</application> можете да обавите следеће задатке: <itemizedlist>
+        <listitem>
+          <para>Да направите партициону табелу на диск уређају.</para>
+        </listitem>
+        <listitem>
+          <para>Да укључите и искључите опције партиције као што су „учитавање“ и „скривена“.</para>
+        </listitem>
+        <listitem>
+          <para>Да извршите радње над партицијама као што су стварање, брисање, мењање величине, проверавање, означавање, умножавање и убацивање.</para>
+        </listitem>
+      </itemizedlist></para>
+    <caution>
+      <para>Уређивање партиција може проузроковати ГУБИТАК ПОДАТАКА.</para>
+      <para>Програм <application>гпартед</application> је осмишљен да вам омогући да уређујете партиције уз умањени ризик од губљења података. Програм је брижљиво испробан и користи га тим пројекта Гпартедa. Међутим, до губљења података може доћи услед грешке у програму, проблема са хардвером или услед нестанка напајања.</para>
+      <para>Ви можете помоћи у смањивању ризика од губљења података тако што нећете монтирати или демонтирати партиције изван програма <application>гпартеда</application> за време рада <application>гпартеда</application>.</para>
+      <para>Саветује вам се да НАПРАВИТЕ РЕЗЕРВУ ваших ПОДАТАКА пре коришћења програма <application>гпартед</application>.</para>
+    </caution>
+  </sect1>
+  
+<!-- ============= Getting Started =================================== -->
+  <sect1 id="gparted-getting-started">
+    <title>Започети коришћење</title>
+    <para>
+    </para>
+
+<!-- ============= To Start gparted ================================== -->
+    <sect2 id="gparted-to-start">
+      <title>Покретање гпартеда</title>
+      <para>Можете да покренете <application>гпартед</application> на следеће начине:</para>
+      <variablelist>
+        <varlistentry>
+          <term>Изборник <guimenu>„Програми“</guimenu></term>
+          <listitem>
+            <para>Изаберите: <menuchoice><guisubmenu>„Систем</guisubmenu><guimenuitem>Гпартед уређивач партиција“</guimenuitem></menuchoice>.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Линија наредби</term>
+          <listitem>
+            <para>Извршите следећу наредбу: <command>gparted</command></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>Приликом покретања, <application>гпартед</application> ће претражити ваш рачунар за диск уређајима.</para>
+    </sect2>
+
+<!-- ============= When You Start gparted ============================ -->
+    <sect2 id="gparted-when-you-start">
+
+      <title>Прозор гпартеда</title>
+      <para>Када покренете <application>гпартед</application>, биће приказан следећи прозор:</para>
+
+      <!-- ==== Figure ==== -->
+      <!-- The GNOME Documentation Project recommends a maximum image
+           width of 510 pixels.
+           http://library.gnome.org/devel/gdp-style-guide/stable/screenshot-4.html.en
+      -->
+      <figure id="gparted-window">
+        <title>Прозор гпартеда</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gparted_window.png" format="PNG"/>
+              </imageobject>
+            <textobject>
+              <phrase>Приказује главни прозор гпартеда.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Прозор <application>гпартеда</application> садржи следеће елементе:</para>
+      <variablelist>
+        <varlistentry>
+          <term>Трака изборника</term>
+          <listitem>
+            <para>Изборници на траци изборника садрже све наредбе које су вам потребне за рад са диск уређајима и партицијама у <application>гпартеду</application>.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Трака алата</term>
+          <listitem>
+            <para>Трака алата садржи подскуп наредби којима можете да приступите са траке изборника.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Површ за приказ графикона</term>
+          <listitem>
+            <para>Површ за приказивање графикона садржи визуелно представљање партиција на изабраном диск уређају.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Површ за приказивање текста</term>
+          <listitem>
+            <para>Површ за приказивање текста садржи текстуални списак партиција на изабраном диск уређају.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Трака стања</term>
+          <listitem>
+            <para>Трака стања приказује информације о тренутној активности <application>гпартеда</application> или број заказаних радњи.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Окно за информације о уређају</term>
+          <listitem>
+            <para>Окно за информације о уређају приказује детаље о изабраном диск уређају.</para>
+            <para>Окно за информације о уређају се не приказује унапред. Да прикажете окно за информације о уређају, изаберите: <menuchoice><guimenu>„Преглед</guimenu><guimenuitem>Информације о уређају“</guimenuitem></menuchoice>.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Окно заказаних операција</term>
+          <listitem>
+            <para>Окно заказаних операција приказује текући списак операција на чекању.</para>
+            <para>Окно за заказане операције није приказано ако нема заказаних операција. Да прикажете окно за заказане операције, изаберите: <menuchoice><guimenu>„Преглед</guimenu><guimenuitem>Заказане операције“</guimenuitem></menuchoice>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>Када кликнете левим тастером миша на неку приказану површ, ви бирате партицију која ће бити коришћена за радње уређивања партиције.</para>
+      <para>Када кликнете десним тастером миша на неку приказану површ, програм приказује облачић изборника. Облачић изборника садржи најчешће радње уређивања партиције.</para>
+
+      <para>Као и у другим Гномовим програмима, радње у <application>гпартеду</application> могу бити извршене на неколико начина: употребом изборника, траке алата или тастерских пречица.</para>
+    </sect2>
+
+<!-- ============= To Specify Devices on the Command Line ============ -->
+    <sect2 id="gparted-run-from-cmd-line">
+      <title>Покретање гпартеда са линије наредби</title>
+      <para>Можете да покренете <application>гпартед</application> са линије наредби и да одредите један или више диск уређаја.</para>
+      <para>Да радите са више диск уређаја са линије наредби, укуцајте следећу наредбу и затим притисните <keycap>Унеси</keycap>:</para>
+      <para>
+      <screen><prompt>$</prompt><command>gparted <replaceable>/путања-до-вашег-уређаја1 /путања-до-вашег-уређаја2</replaceable></command></screen>
+      </para>
+    </sect2>
+  </sect1>
+
+<!-- ============= Usage ============================================= -->
+<!-- ============= Viewing File System Support ======================= -->
+  <sect1 id="gparted-usage">
+    <title>Прегледање подршке система датотека</title>
+      <para>Да прегледате радње подржане на систему датотека, изаберите: „<menuchoice><guimenu>Преглед</guimenu><guimenuitem>Подршка система датотека</guimenuitem></menuchoice>“. Програм ће приказати прозорче „<guilabel>Подршка система датотека</guilabel>“.</para>
+      <para>Ако сте инсталирали софтвер док је <application>гпартед</application> радио, кликните  „<guibutton>Освежи за подржаним радњама</guibutton>“ да освежите графикон. Програм ће освежити приказ графикона.</para>
+      <para>Да затворите прозорче „<guilabel>Подршка система датотека</guilabel>“, кликните „<guibutton>Затвори</guibutton>“.</para>
+  </sect1>
+
+<!-- ============= Working With Devices ============================== -->
+  <sect1 id="gparted-devices">
+    <title>Рад са уређајима</title>
+
+<!-- ============= To Select a Device ================================ -->
+    <sect2 id="gparted-select-device">
+      <title>Бирање уређаја</title>
+      <para>Да изаберете диск уређај, изаберите: „<menuchoice><guimenu>Гпартед</guimenu><guimenuitem>Уређаји</guimenuitem></menuchoice>“ и изаберите уређај са списка. Програм ће приказати распоред партиција на уређају у прозору <application>гпартеда</application>.</para>
+    </sect2>
+
+<!-- ============= To View Device Information ======================== -->
+    <sect2 id="gparted-view-device-information">
+      <title>Прегледање информација о уређају</title>
+      <para>Да прегледате информације о диск уређају: <orderedlist>
+          <listitem>
+            <para>Изаберите диск уређај. Погледајте <xref linkend="gparted-select-device"/>.</para>
+          </listitem>
+          <listitem>
+            <para>Изаберите: „<menuchoice><guimenu>Преглед</guimenu><guimenuitem>Информације о уређају</guimenuitem></menuchoice>“. Програм ће отворити бочну површ у прозору <application>гпартеда</application> и приказати информације о уређају.</para>
+         </listitem>
+       </orderedlist></para>
+      <para>Да затворите бочну површ „<guilabel>Информације о уређају</guilabel>“, поништите: „<menuchoice><guimenu>Преглед</guimenu><guimenuitem>Информације о уређају</guimenuitem></menuchoice>“.</para>
+    </sect2>
+
+<!-- ============= To Refresh a Device =============================== -->
+    <sect2 id="gparted-refresh-device">
+      <title>Освежавање свих уређаја</title>
+      <para>Да освежите све диск уређаје, изаберите: „<menuchoice><guimenu>Гпартед</guimenu><guimenuitem>Освежи уређаје</guimenuitem></menuchoice>“. Програм ће поново претражити све диск уређаје и освежити распоред партиција уређаја у прозору <application>гпартеда</application>.</para>
+    </sect2>
+
+<!-- ============= To Create a New Partition Table =================== -->
+    <sect2 id="gparted-create-partition-table">
+      <title>Стварање нове партиционе табеле</title>
+      <para>Да направите нову партициону табелу на диск уређају: <orderedlist>
+          <listitem>
+            <para>Изаберите диск уређај. Погледајте <xref linkend="gparted-select-device"/>.</para>
+          </listitem>
+          <listitem>
+            <para>Изаберите: „<menuchoice><guimenu>Уређај</guimenu><guimenuitem>Направи партициону табелу</guimenuitem></menuchoice>“. Програм ће приказати прозорче „<guilabel>Направи партициону табелу на <replaceable>/путања-до-уређаја</replaceable></guilabel>“.</para>
+          </listitem>
+          <listitem>
+            <para>
+            Optionally select a different partition table type from the
+            list.
+            </para>
+            <note>
+              <para>
+              The default partition table type is
+              <guimenuitem>msdos</guimenuitem> for disks smaller than 2
+              Tebibytes in size (assuming a 512 byte sector size) and
+              <guimenuitem>gpt</guimenuitem> for disks 2 Tebibytes and
+              larger.
+              </para>
+              <para>
+              See <xref linkend="gparted-specify-partition-type"/> for
+              <guimenuitem>msdos</guimenuitem> partition table
+              limitations.
+              </para>
+            </note>
+            <note>
+              <para>
+              To use a disk without a partition table, choose
+              <guimenuitem>loop</guimenuitem> to create a virtual
+              partition that spans the disk.  Then format to the
+              desired file system.
+              </para>
+              <para>
+              See <xref linkend="gparted-format-partition"/> to format
+              a virtual partition with a file system.
+              </para>
+            </note>
+            <caution>
+              <para>
+              Many operating systems recognize
+              <guimenuitem>gpt</guimenuitem> and
+              <guimenuitem>msdos</guimenuitem> partition tables, but
+              do not recognize all types of file systems.  This lack
+              of file system recognition means that using a disk
+              without a partition table involves more risk.  For
+              example, some operating systems might prompt to format an
+              unpartitioned disk if the file system is not recognized.
+              </para>
+            </caution>
+          </listitem>
+          <listitem>
+            <para>Кликните на дугме „<guibutton>Примени</guibutton>“ да направите нову партициону табелу. Програм ће записати нову партициону табелу на диск уређају и освежити распоред партиција уређаја у прозору <application>гпартеда</application>.</para>
+          </listitem>
+        </orderedlist></para>
+      <caution>
+        <para>УПОЗОРЕЊЕ: Ово ће ОБРИСАТИ СВЕ ПОДАТКЕ на ЧИТАВОМ ДИСК УРЕЂАЈУ.</para>
+        <para>Ако случајно препишете вашу партициону табелу, погледајте <xref linkend="gparted-recover-partition-table"/>.</para>
+      </caution>
+    </sect2>
+
+<!-- ============= To Attempt Data Rescue =================== -->
+    <sect2 id="gparted-attempt-data-rescue">
+      <title>Покушај спашавања података</title>
+      <para>Да покушате да спасите податке са диск уређаја: <orderedlist>
+          <listitem>
+            <para>Изаберите диск уређај. Погледајте <xref linkend="gparted-select-device"/>.</para>
+          </listitem>
+          <listitem>
+            <para>Изаберите: „<menuchoice><guimenu>Уређај</guimenu><guimenuitem>Покушај спашавање података</guimenuitem></menuchoice>“. Програм ће приказати прозорче „<guilabel>Потражи системе датотека на <replaceable>/путања-до-уређаја</replaceable></guilabel>“.</para>
+          </listitem>
+          <listitem>
+            <para>Кликните на дугме <guibutton>У реду</guibutton> да започнете прегледање читавог диска.</para>
+            <tip>
+              <para>Може бити потребно врло много времена за прегледање великих диск уређаја. Ако немате времена да сачекате прегледање читавог диска онда кликните <guibutton>Откажи</guibutton>.</para>
+            </tip>
+            <note>
+              <para>Може бити отривено највише 4 партиција са системима датотека. Ако желите да откријете више од 4 партиције и да повратите партициону табелу, погледајте <xref linkend="gparted-recover-partition-table"/>.</para>
+            </note>
+          </listitem>
+          <listitem>
+            <para>Када се заврши прегледање читавог диска биће приказан један од два могућа резултата: <itemizedlist>
+                <listitem>
+                  <para>
+                  <guilabel>Нису пронађени системи датотека на <replaceable>/путања-до-уређаја</replaceable></guilabel>
+                  </para>
+                  <para>Ако нису пронађени системи датотека, имате друге могућности да покушате да спасите ваше податке. Програм <application>photorec</application> је осмишљен да помогне опоравак многих различитих врста изгубљених датотека. За више података о <application>фотореку</application>, погледајте <ulink type="http" url="http://www.cgsecurity.org/wiki/PhotoRec"/>.</para>
+                  <para>Кликните на дугме „<guibutton>У реду</guibutton>“ да затворите прозорче, и да завршите овај покушај спашавања података.</para>
+                </listitem>
+                <listitem>
+                  <para>
+                  <guilabel>Пронађени су системи датотека на <replaceable>/путања-до-уређаја</replaceable></guilabel>
+                  </para>
+                  <para>Ако су пронађени системи датотека, сваки систем датотека је приказан на списку поред дугмета <guibutton>Преглед</guibutton>. У прозорчету ће бити назначено да ли постоји несагласност података. Несагласности у подацима могу да вас спрече да видите податке.</para>
+                </listitem>
+              </itemizedlist></para>
+          </listitem>
+          <listitem>
+            <para>Да спасите податке, користите следеће кораке за сваки систем датотека: <orderedlist numeration="upperalpha">
+                <listitem>
+                  <para>Кликните на дугме <guibutton>Преглед</guibutton> да монтирате и прикажете систем датотека. Биће отворен ваш основни управник датотека који ће приказати само-за-читање преглед система датотека.</para>
+                  <note>
+                    <para>Ако буде приказано прозорче <guilabel>Не могу да отворим основног управника датотека</guilabel>, онда ћете морати да отворите управника датотека и да се пребаците до тачке монтирања система датотека.</para>
+                    <para>Тачка монтирања је приказана у прозорчету, на пример „/tmp/gparted-roview-XXXXXX“</para>
+                    <para>Кликните на дугме „<guibutton>У реду</guibutton>“ да затворите прозорче <guilabel>Не могу да отворим основног управника датотека</guilabel>.</para>
+                  </note>
+                </listitem>
+                <listitem>
+                  <para>Користите управника датотека да умножите ваше податке на други складишни медијум.</para>
+                </listitem>
+                <listitem>
+                  <para>Када завршите са умножавањем ваших података, затворите управника датотека.</para>
+                </listitem>
+              </orderedlist></para>
+          </listitem>
+          <listitem>
+            <para>Када завршите са спашавањем података, кликните на дугме „<guibutton>Затвори</guibutton>“ да завршите овај покушај спашавања података. Програм ће демонтирати све системе датотека који су били монтирани за преглед. Након тога програм ће прегледати све диск уређаје и освежити распоред партиција уређаја у прозору <application>гпартеда</application>.</para>
+          </listitem>
+        </orderedlist></para>
+    </sect2>
+
+  </sect1>
+
+<!-- ============= Working with Partitions =========================== -->
+  <sect1 id="gparted-partitions">
+    <title>Рад са партицијама</title>
+
+<!-- ============= Basic Partition Actions =========================== -->
+    <sect2 id="gparted-basic-partition-actions">
+      <title>Основне радње партиција</title>
+      <para>Ове радње неће изменити партиције на вашем диск уређају.</para>
+
+<!-- ============= To Select a Partition ============================= -->
+      <sect3 id="gparted-select-partition">
+        <title>Бирање партиције</title>
+        <para>Да изаберете партицију, урадите једно од следећег: <itemizedlist>
+            <listitem>
+              <para>Кликните на партицију у области за графичко приказивање.</para>
+            </listitem>
+            <listitem>
+              <para>Кликните на партицију у области за текстуално приказивање.</para>
+            </listitem>
+          </itemizedlist></para>
+        <para>Програм ће означити партицију и у области за графичко приказивање и у области за текстуално приказивање у прозору <application>гпартеда</application>.</para>
+        <note>
+          <para>
+          Partition operations such as delete, move, copy, format,
+          check, label, and often resize require the partition to be
+          unmounted.
+          See <xref linkend="gparted-unmount-partition"/>.
+          </para>
+        </note>
+      </sect3>
+
+<!-- ============= To Select Unallocated Space ======================= -->
+      <sect3 id="gparted-select-unallocated">
+        <title>Бирање нераспоређеног простора</title>
+        <para>Да изаберете нераспоређени простор, урадите једно од следећег: <itemizedlist>
+            <listitem>
+              <para>Кликните на „<guilabel>нераспређено</guilabel>“ у области за графичко приказивање.</para>
+            </listitem>
+            <listitem>
+              <para>Кликните на „<guilabel>нераспоређено</guilabel>“ у области за текстуално приказивање.</para>
+            </listitem>
+          </itemizedlist></para>
+        <para>Програм ће означити нераспоређени простор и у области за графичко приказивање и у области за текстуално приказивање у прозору <application>гпартеда</application>.</para>
+        <tip>
+          <para>Ако немате ни један диск са нераспоређеним простором, можете пробати следеће:</para>
+          <itemizedlist>
+            <listitem>
+              <para>Додајте нови диск уређај вашем рачунару.</para>
+            </listitem>
+            <listitem>
+              <para>Скупите партицију која садржи неискоришћени простор. Погледајте <xref linkend="gparted-resize-partition"/>.</para>
+            </listitem>
+          </itemizedlist>
+        </tip>
+      </sect3>
+
+<!-- ============= To View Partition Information ===================== -->
+    <sect3 id="gparted-view-partition-information">
+        <title>Прегледање информација партиције</title>
+        <para>Да прегледате информације о партицији: <orderedlist>
+            <listitem>
+              <para>Изаберите партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Информације</guimenuitem></menuchoice>“. Програм ће отворити прозорче „<guilabel>Информације о <replaceable>/путања-до-партиције</replaceable></guilabel>“.</para>
+            </listitem>
+          </orderedlist></para>
+        <para>Да затворите прозорче „<guilabel>Информације о <replaceable>/путања-до-партиције</replaceable></guilabel>“, кликните „<guibutton>Затвори</guibutton>“.</para>
+      </sect3>
+
+<!-- ============= To Mount a Partition ============================== -->
+      <sect3 id="gparted-mount-partition">
+        <title>Монтирање партиције</title>
+        <para>Да монтирате партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Монтирај</guimenuitem></menuchoice>“ и изаберите тачку монтирања са списка. Програм ће монтирати партицију на тачку монтирања и освежити распоред партиција на уређају у прозору <application>гпартеда</application>.</para>
+            </listitem>
+          </orderedlist></para>
+        <note>
+          <para>Ако није видљиво „<menuchoice><guimenu>Партиција </guimenu><guimenuitem>Монтирај</guimenuitem></menuchoice>“, онда <application>гпартед</application> не зна где партиција треба бити монтирана.</para>
+        </note>
+      </sect3>
+
+<!-- ============= To Unmount a Partition ============================ -->
+      <sect3 id="gparted-unmount-partition">
+        <title>Демонтирање партиције</title>
+        <para>Да демонтирате партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите монтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Демонтирај</guimenuitem></menuchoice>“. Програм ће демонтирати партицију са тачке монтирања и освежити распоред партиција на уређају у прозору <application>гпартеда</application>.</para>
+            </listitem>
+          </orderedlist></para>
+        <tip>
+          <para>Ако радња „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Демонтирај</guimenuitem></menuchoice>“ не уроди плодом, онда је највероватније да је партиција у употреби.</para>
+          <para>Да би све партиције биле демонтиране и доступне за радње уређивања партиције, покрените систем са живог ЦД-а и користите програм <application>гпартед</application>. Погледајте <xref linkend="gparted-acquire-livecd"/></para>
+        </tip>
+      </sect3>
+
+    </sect2>
+<!-- ============= End of Basic Partition Actions ==================== -->
+
+<!-- ============= Intermediate Partition Actions ==================== -->
+    <sect2 id="gparted-intermediate-partition-actions">
+      <title>Непосредне радње партиције</title>
+      <para>Ове радње ће изменити партиције на вашем диск уређају, али неће изменити почетне и крајње границе ваших постојећих партиција.</para>
+
+<!-- ============= Creating a New Partition ========================== -->
+      <sect3 id="gparted-create-new-partition">
+        <title>Стварање нове партиције</title>
+        <para>Да направите нову партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите нераспоређени простор на диск уређају. Погледајте <xref linkend="gparted-select-unallocated"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Нова</guimenuitem></menuchoice>“. Програм ће приказати прозорче „<guilabel>Направите нову партицију</guilabel>“.</para>
+            </listitem>
+            <listitem>
+              <para>Одредите величину и место партиције. Погледајте <xref linkend="gparted-specify-partition-size-and-location"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Одредите поравнање партиције. Погледајте <xref linkend="gparted-specify-partition-alignment"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Одредите врсту партиције. Погледајте <xref linkend="gparted-specify-partition-type"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Одредите врсту система датотека партиције. Погледајте <xref linkend="gparted-specify-partition-file-system"/>.</para>
+            </listitem>
+            <listitem>
+              <para>
+              Specify the label of the file system for the partition.
+              See <xref linkend="gparted-specify-partition-file-system-label"/>.
+              </para>
+            </listitem>
+            <listitem>
+              <para>Кликните „<guibutton>Додај</guibutton>“ да додате операцију стварања партиције у ред заказаних радњи. Програм ће приказати операцију стварања партиције у окну „<guilabel>Заказане операције</guilabel>“ у прозору <application>гпартеда</application>.</para>
+            </listitem>
+          </orderedlist></para> 
+      </sect3>
+
+<!-- ============= To Delete a Partition ============================= -->
+      <sect3 id="gparted-delete-partition">
+        <title>Брисање партиције</title>
+        <para>Да обришете партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Обриши</guimenuitem></menuchoice>“. Програм ће приказати операцију брисања партиције у окну „<guilabel>Заказане операције</guilabel>“.</para>
+            </listitem>
+          </orderedlist></para>
+        <caution>
+          <para>Ако обришете логичку партицију, онда ће све логичке партиције након избрисане логичке партиције претрпети измене у називима уређаја.</para>
+          <para>На пример, једна проширена партиција садржи четири логичке партиције А, Б, В и Г. Оперативни систем приступа овим логичким партицијама на следећи начин:</para>
+          <itemizedlist>
+            <listitem>
+              <para>Партиција А — „/dev/sda5“.</para>
+            </listitem>
+            <listitem>
+              <para>Партиција Б — „/dev/sda6“.</para>
+            </listitem>
+            <listitem>
+              <para>Партиција Г — „/dev/sda7“.</para>
+            </listitem>
+            <listitem>
+              <para>Партиција Д — „/dev/sda8“.</para>
+            </listitem>
+          </itemizedlist>
+          <para>Ако је обрисана партиција Б, онда ће оперативни систем преосталим логичким партицијама приступити на следећи начин:</para>
+          <itemizedlist>
+            <listitem>
+              <para>Партиција А — „/dev/sda5“.</para>
+            </listitem>
+            <listitem>
+              <para>Партиција Г — „/dev/sda6“. Приметите промену у називу уређаја.</para>
+            </listitem>
+            <listitem>
+              <para>Партиција Д — „/dev/sda7“. Приметите промену у називу уређаја.</para>
+            </listitem>
+          </itemizedlist>
+          <para>
+          Changes in a device name can cause problems if a
+          partition is mounted using a device name.
+          You can avoid the problem by using the file system label or
+          Universally Unique Identifier (UUID) of
+          the partition when mounting the partition.
+          </para>
+          <para>Промене у називу уређаја могу негативно утицати на следеће датотеке: <itemizedlist>
+              <listitem>
+                <para>„/etc/fstab“ — Садржи списак система датотека за монтирање.</para>
+              </listitem>
+              <listitem>
+                <para>„/boot/grub/menu.lst“ — Садржи упутство за учитавање оперативног система за покретачки програм <application>груб</application>.</para>
+              </listitem>
+            </itemizedlist></para>
+        </caution>
+        <note>
+          <para>
+          Disks with <guimenuitem>loop</guimenuitem> or
+          <guimenuitem>none</guimenuitem> partition tables do not
+          contain a partition table, and do not contain partitions.  A
+          file system on a disk without a partition table is
+          represented in GParted by a virtual partition.
+          </para>
+          <para>
+          To delete the file system and virtual partition, choose
+          format to <guimenuitem>cleared</guimenuitem>.
+          </para>
+          <para>
+          See <xref linkend="gparted-format-partition"/>.
+          </para>
+        </note>
+      </sect3>
+
+<!-- ============= To Name a Partition =============================== -->
+      <sect3 id="gparted-name-partition">
+        <title>Naming a Partition</title>
+        <note>
+          <para>
+          Naming of partitions is only available with GUID partition
+          tables (GPT).
+          </para>
+          <para>
+          Also see <xref linkend="gparted-create-partition-table"/>.
+          </para>
+        </note>
+        <para>
+        To set a name of a partition:
+        </para>
+          <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>
+              Choose:
+              <menuchoice><guimenu>Partition</guimenu>
+              <guimenuitem>Name Partition</guimenuitem></menuchoice>.
+              The application opens a <guilabel>Set partition name on
+              <replaceable>/path-to-partition</replaceable></guilabel> dialog.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Type a partition name in the <guilabel>Name</guilabel> text box.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Click <guibutton>OK</guibutton>.
+              The application displays the set partition name operation
+              in the <guilabel>Operations Pending</guilabel> pane.
+              </para>
+            </listitem>
+          </orderedlist>
+      </sect3>
+
+<!-- ============= To Format a Partition ============================= -->
+      <sect3 id="gparted-format-partition">
+        <title>Форматирање партиције</title>
+        <para>Да форматирате партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Форматирај</guimenuitem></menuchoice>“ и са списка изаберите врсту система датотека. Програм ће приказати радњу форматирања партиције у окну „<guilabel>Заказане операције</guilabel>“.</para>
+              <para>Погледајте <xref linkend="gparted-specify-partition-file-system"/> за значење „<guimenuitem>очишћеног</guimenuitem>“ система дтотека.</para>
+            </listitem>
+          </orderedlist></para>
+      </sect3>
+
+<!-- ============= To Set a Partition File System Label ============== -->
+      <sect3 id="gparted-setting-partition-file-system-label">
+        <title>Setting a Partition File System Label</title>
+        <para>
+        To set a label or a volume name of a file system in a partition:
+          <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>
+              Choose:
+              <menuchoice><guimenu>Partition</guimenu>
+              <guimenuitem>Label File System</guimenuitem></menuchoice>.
+              The application opens a <guilabel>Set file system label on
+              <replaceable>/path-to-partition</replaceable></guilabel> dialog.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Type a label name in the <guilabel>Label</guilabel> text box.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Click <guibutton>OK</guibutton>.
+              The application displays the set file system label operation
+              in the <guilabel>Operations Pending</guilabel> pane.
+              </para>
+            </listitem>
+          </orderedlist>
+        </para>
+      </sect3>
+
+<!-- ============= To Change a Partition's UUID ========================== -->
+      <sect3 id="gparted-changing-partition-uuid">
+        <title>Мењање УУИД-а партиције</title>
+        <para>Да измените универзални јединствени идентификатор (УУИД) партиције: <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Нови УУИД</guimenuitem></menuchoice>“. Програм ће приказати операцију подешавања новог насумичног УУИД-а партиције у окну „<guilabel>Заказане радње</guilabel>“.</para>
+              <warning>
+                <para>Измена УУИД-а може да поништи кључ за активирање Виндоузових производа (WPA).</para>
+                <para>На ФАТ и НТФС системима датотека, серијски број волумена се користи као УУИД. Измена серијског броја волумена на системској партицији Виндоуза, обично је то „C:“, може да поништи ВПА кључ. Неисправан ВПА кључ ће спречити пријављивање све док поново не активирате Виндоуз.</para>
+                <para>Као покушај спречавања поништавања ВПА кључа, на НТФС системима датотека само половина УУИД-а бива подешена на нову насумичну вредност. На ФАТ системима датотека, оваква предострожност није могућа.</para>
+                <para>Измена УУИД-а партиција са подацима или уклоњивих медијских партиција неће утицати на ВПА кључ. У ретким случајевима, партиција која је присутна за време подизања система може бити изузетак од овог правила.</para>
+              </warning>
+              <warning>
+                <para>Мењање УУИД-а када за то нема потребе може да проузрокује да систем ГНУ/Линукса не успе да се учита, или да не успе да монтира систем датотека.</para>
+                <para>Мењање УУИД-а је неопходно само након умножавања партиције. Промена УУИД-а је потребна за спречавање дуплирања УУИД-а када се обе партиције, и изворна и умножена, користе на истом рачунару.</para>
+                <para>Ако дође до проблема подизања система или монтирања партиција мораћете да измените датотеке подешавања, као што је „/etc/fstab“, и да поново направите изборник груба да бисте били сигурни да је наведен тачан УУИД.</para>
+              </warning>
+            </listitem>
+          </orderedlist></para>
+      </sect3>
+
+<!-- ============= Specifying Partition Details ====================== -->
+      <sect3 id="gparted-specify-partition-details">
+        <title>Одређивање детаља партиције</title>
+        <para>Одређивање детаља партиције је корисно приликом обављања радњи као што су стварање, мењање величине и премештање.</para>
+
+<!-- ============= To Specify a Partition Size and Location ========== -->
+        <sect4 id="gparted-specify-partition-size-and-location">
+          <title>Одређивање величине и места партиције</title>
+          <para>Да одредите величину и место партиције, користите једно или комбинацију следећег: <itemizedlist>
+              <listitem>
+                <para>Кликните и држите стрелицу на било ком крају области графикона. Превуците стрелицу лево или десно унутар приказаног опсега.</para>
+              </listitem>
+              <listitem>
+                <para>Кликните и држите средину партиције у области графикона. Превуците партицију лево или десно унутар приказаног опсега.</para>
+              </listitem>
+              <listitem>
+                <para>Кликните на стерлице дугмета за окретање или упишите бројну вредност да подесите следећа поља: <itemizedlist>
+                    <listitem>
+                      <para>
+                      <guilabel>Слободан простор који претходи</guilabel>
+                      </para>
+                    </listitem>
+                    <listitem>
+                      <para>
+                      <guilabel>Нова величина</guilabel>
+                      </para>
+                    </listitem>
+                    <listitem>
+                      <para>
+                      <guilabel>Слободан простор који следи</guilabel>
+                      </para>
+                    </listitem>
+                  </itemizedlist></para>
+              </listitem>
+            </itemizedlist></para>
+          <para>Програм ће освежити и графичку област и бројеве поред ознака у пољу стабла.</para>
+        </sect4>
+
+<!-- ============= To Specify a Partition Alignment ================== -->
+        <sect4 id="gparted-specify-partition-alignment">
+          <title>Одређивање поравнања партиције</title>
+          <para>Да одредите поравнање партиције, кликинте на стрелицу дугмета „<guilabel>Заокружи на</guilabel>“ и изаберите са списка.</para>
+          <itemizedlist>
+            <listitem>
+              <para>Користите поравнавање на <guilabel>MiB</guilabel> за савремене оперативне системе. Ова поставка поравнава почетне и крајње границе партиција на тачне мебибите (1.048.576 бита). Поравнавање на мебибите (MiB) обезбеђује побољшане перформансе када се користи са РАИД системима и са Уређајима у чврстом стању (SSD), као што је УСБ диск.</para>
+            </listitem>
+            <listitem>
+              <para>Користите поравнавање на „<guilabel>Цилиндар</guilabel>“ да задржите компатибилност са оперативним системима који су издати пре 2000 године, као што је ДОС. Ова поставка поравнава почетак и крај партиција на границе цилиндра диска.</para>
+              <tip>
+                <para>Вредности „Цилиндар/Глава/Сектор“ изнешене савременим диск уређајима више немају непосредан физички однос према подацима ускладиштеним на диск уређају. Стога више није исправно користити ову поставку поравнавања за постизање побољшања перформанси.</para>
+              </tip>
+            </listitem>
+            <listitem>
+              <para>Користите „<guilabel>Ништа</guilabel>“ само ако сте детаљно упознати са структуром диска, партиционим табелама и са записима учитавања. Ова поставка поставља границе партиције одмах на крај било које непосредно претходне партиције на диск уређају. Ова поставка не гарантује резервисање или поштовање простора потребног за запис учитавања.</para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+
+<!-- ============= To Specify a Partition Type ======================= -->
+        <sect4 id="gparted-specify-partition-type">
+          <title>Одређивање врсте партиције</title>
+          <para>Да одредите врсту партиције, кликинте на стрелицу дугмета „<guilabel>Направи као</guilabel>“ и изаберите са списка.</para>
+          <note>
+            <para>Мсдос партициона табела ограничава партиције као што следи: <itemizedlist>
+                <listitem>
+                  <para>Највише 4 примарне партиције.</para>
+                </listitem>
+                <listitem>
+                  <para>Највише 3 примарне партиције и 1 проширена партиција.</para>
+                  <para>Проширена партиција може да садржи више логичких партиција. Неке ГНУ/Линукс дистрибуције подржавају приступање на највише 15 партиција на диск уређају.</para>
+                </listitem>
+                <listitem>
+                  <para>
+                  Maximum size of a partition is 2 Tebibytes using
+                  a sector size of 512 bytes.  The partition must also
+                  start within the first 2 Tebibytes of the disk device.
+                  </para>
+                </listitem>
+              </itemizedlist></para>
+          </note>
+          <tip>
+            <para>Примарне партиције обезбеђују боље опорављање података зато што су границе партиције сачуване на познатим местима на диск уређају.</para>
+          </tip>
+        </sect4>
+
+<!-- ============= To Specify a Partition File System ================ -->
+        <sect4 id="gparted-specify-partition-file-system">
+          <title>Одређивање система датотека партиције</title>
+          <para>Да одредите врсту система датотека партиције, кликинте на стрелицу дугмета „<guilabel>Систем датотека</guilabel>“ и изаберите са списка.</para>
+          <note>
+            <para>Примери коришћења неких система датотека су као што следи: <itemizedlist>
+                <listitem>
+                  <para>
+                  <guimenuitem>ext2</guimenuitem>,
+                  <guimenuitem>ext3</guimenuitem> and
+                  <guimenuitem>ext4</guimenuitem> file systems can be
+                  used for installing GNU/Linux, and for data.
+                  </para>
+                </listitem>
+                <listitem>
+                  <para><guimenuitem>Линукс-своп</guimenuitem> може бити коришћен уз ГНУ/Линукс за повећање виртуелне меморије вашег рачунара.</para>
+                </listitem>
+                <listitem>
+                  <para>Системи датотека <guimenuitem>фат16</guimenuitem> и <guimenuitem>фат32</guimenuitem> могу бити коришћени за размењивање података између слободних и комерцијалних оперативних система.</para>
+                </listitem>
+                <listitem>
+                  <para><guimenuitem>Очишћен</guimenuitem> може бити коришћен за чишћење потписа свих постојећих система датотека и да осигура препознавање партиције као празне.</para>
+                </listitem>
+                <listitem>
+                  <para><guimenuitem>Неформатиран</guimenuitem> систем може бити коришћен ако желите да направите партицију без система датотека.</para>
+                </listitem>
+              </itemizedlist></para>
+          </note>
+        </sect4>
+
+<!-- ============= To Specify a Partition Label ====================== -->
+        <sect4 id="gparted-specify-partition-file-system-label">
+          <title>Specifying Partition File System Label</title>
+          <para>
+          To specify the file system label in the partition, also known
+          as a volume label, type a label name in the
+          <guilabel>Label</guilabel> text box.
+          </para>
+          <tip>
+            <para>
+            File system labels can be used to help you remember what is
+            stored in the partition.
+            </para>
+            <para>Јединствени натписи могу бити коришћени за монтирање система датотека са ГНУ/Линукс оперативним системом.</para>
+          </tip>
+        </sect4>
+
+      </sect3>
+<!-- ============= End of Specifying Partition Details =============== -->
+
+    </sect2>
+<!-- ============= End of Intermediate Partition Actions ============= -->
+
+<!-- ============= Advanced Partition Actions ======================== -->
+    <sect2 id="gparted-advanced-partition-actions">
+      <title>Напредне радње партиција</title>
+      <para>Ове радње ће изменити партиције на вашем диск уређају, а могу да измене почетне и крајње границе ваших постојећих партиција и могу да проузрокују неуспех учитавања оперативног система.</para>
+
+<!-- ============= To Resize a Partition ============================= -->
+      <sect3 id="gparted-resize-partition">
+        <title>Мењање величине партиције</title>
+        <para>Промена величине и премештање партиције може бити обављено једном радњом <application>гпартеда</application>.</para>
+        <para>Да промените величину партиције: <orderedlist>
+            <listitem>
+              <para>Изаберите партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+              <tip>
+                <para>
+                Unmounted or inactive partitions enable the most
+                resize options.
+                </para>
+                <para>
+                Support is available for online resize of some
+                mounted or otherwise active partitions.  However this
+                support is often limited to grow only.
+                </para>
+              </tip>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Промени величину/Премести</guimenuitem></menuchoice>“. Програм ће приказати прозорче „<guilabel>Промени величину/Премести <replaceable>/путања-до-партиције</replaceable></guilabel>“.</para>
+            </listitem>
+            <listitem>
+              <para>Подесите величину партиције. Погледајте <xref linkend="gparted-specify-partition-size-and-location"/>.</para>
+              <tip>
+                <para>
+                If you do not want the start of an existing partition
+                to move, then do not change the <guilabel>free space
+                preceding</guilabel> value.  If the partition is
+                mounted or otherwise active, then you will not be able
+                to change the <guilabel>free space
+                preceding</guilabel> value.
+                </para>
+              </tip>
+            </listitem>
+            <listitem>
+              <para>Одредите поравнање партиције. Погледајте <xref linkend="gparted-specify-partition-alignment"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Кликните „<guibutton>Промени величину/Премести</guibutton>“. Програм ће приказати операцију промене величине/премештања у окну „<guilabel>Заказане радње</guilabel>“.</para>
+            </listitem>
+            <listitem>
+              <para>Проучите радњу која је додата у окно „<guilabel>Заказане радње</guilabel>“.</para>
+              <para>Ако радња обухвата и корак премештања, онда узмите у обзир следеће: <itemizedlist>
+                  <listitem>
+                    <para>Може бити потребно више времена да би корак премештања био обављен.</para>
+                  </listitem>
+                  <listitem>
+                    <para>Ако је партиција у исто време и партиција за учитавање оперативног система, онда корак премештања може да проузрокује неуспех учитавања оперативног система.</para>
+                  </listitem>
+                </itemizedlist></para>
+              <para>Ако нисте спремни да чекате или да оправите потенцијалне проблеме учитавања оперативног система, онда ћете можда желети да поништите операцију. Погледајте <xref linkend="gparted-undo-last-operation"/>.</para>
+            </listitem>
+          </orderedlist></para>
+        <tip>
+          <para>Да повећате или преместите партицију, нераспорређени простор мора бити доступан одмах поред партиције.</para>
+          <para>Ако увећавате логичку партицију, онда нераспоређени простор мора бити унутар проширене партиције.</para>
+          <para>Ако увећавате примарну партицију, онда нераспоређени простор не мора бити унутар проширене партиције.</para>
+          <para>Можете да преместите нераспоређени простор унутар или изван проширене партиције мењајући величину граница проширене партиције.</para>
+        </tip>
+        <tip>
+          <para>Да побољшате способност скупљања НТФС партиција, могли бисте да размотрите нешто од следећег: <itemizedlist>
+              <listitem>
+                <para>Дефрагментирајте систем датотека.</para>
+                <para>Учитавање у безбедном режиму са комерцијалним оперативним системом који користи НТФС може да побољша способност дефрагментирања система датотека. Да приступите „Безбедном режиму“ притисните „<keycap>F8</keycap>“ док ваш рачунар учитава оперативни систем.</para>
+              </listitem>
+              <listitem>
+                <para>Проверите партицију за грешкама следећом наредбом: <screen><prompt>C:&gt; </prompt><command>chkdsk</command> /f /r</screen> Не заборавите да поново учитате комерцијални оперативни систем који користи НТФС како бисте омогућили извршавање наредбе „<command>chkdsk</command>“.</para>
+              </listitem>
+              <listitem>
+                <para>Привремено онемогућите датотеку страничења. Датотека страничења заузима непроменљиво место на партицији које процес дефрагментације није у стању да премести.</para>
+              </listitem>
+              <listitem>
+                <para>Привремено преместите велике датотеке на другу партицију или диск уређај. Велике датотеке су дефинисане као веће од неколико стотина мегабајта (MB).</para>
+              </listitem>
+              <listitem>
+                <para>Осигурајте апсолутно гашење комерцијалног оперативног система који користи НТФС пре него што измените величину НТФС партиције.</para>
+              </listitem>
+              <listitem>
+                <para>Оставите најмање 10 процената неискоришћеног простора на НТФС партицији. Ако превише скупите партицију, онда ће можда комерцијални оперативни систем имати потешкоћа у функционисању.</para>
+              </listitem>
+              <listitem>
+                <para>Два пута извршите учитавање комерцијалног оперативног система који користи НТФС након сужавања НТФС партиције.</para>
+              </listitem>
+            </itemizedlist></para>
+        </tip>
+      </sect3>
+
+<!-- ============= To Move a Partition =============================== -->
+      <sect3 id="gparted-move-partition">
+        <title>Премештање партиције</title>
+        <para>Промена величине и премештање партиције може бити извршено једном радњом <application>гпартеда</application>.</para>
+        <para>Да преместите партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Промени величину/Премести</guimenuitem></menuchoice>“. Програм ће приказати прозорче „<guilabel>Промени величину/Премести <replaceable>/путања-до-партиције</replaceable></guilabel>“.</para>
+            </listitem>
+            <listitem>
+              <para>Подесите место партиције. Погледајте <xref linkend="gparted-specify-partition-size-and-location"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Одредите поравнање партиције. Погледајте <xref linkend="gparted-specify-partition-alignment"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Кликните „<guibutton>Промени величину/Премести</guibutton>“. Програм ће приказати операцију промене величине/премештања у окну „<guilabel>Заказане радње</guilabel>“.</para>
+            </listitem>
+          </orderedlist></para>
+        <tip>
+          <para>Ако је партиција коју премештате партиција учитавања оперативног система, онда оперативни систем можда неће моћи да се учита након примењене радње премештања.</para>
+          <para>Ако оперативни систем не успе да се покрене, погледајте <xref linkend="gparted-fix-operating-system-boot-problems"/>.</para>
+        </tip>
+      </sect3>
+
+<!-- ============= To Copy and Paste a Partition ===================== -->
+      <sect3 id="gparted-copy-and-paste-partition">
+        <title>Умножавање и убацивање партиције</title>
+        <para>Да умножите партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Умножи</guimenuitem></menuchoice>“. Програм ће обележити партицију као изворну.</para>
+            </listitem>
+          </orderedlist></para>
+        <para>Да убаците партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите нераспоређени простор на диск уређају. Погледајте <xref linkend="gparted-select-unallocated"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Убаци</guimenuitem></menuchoice>“. Програм ће приказати прозорче „<guilabel>Убаци <replaceable>/путања-до-партиције</replaceable></guilabel>“.</para>
+            </listitem>
+            <listitem>
+              <para>Ако желите можете да подесите величину и место партиције. Погледајте <xref linkend="gparted-specify-partition-size-and-location"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Ако желите можете да одредите поравнање партиције. Погледајте <xref linkend="gparted-specify-partition-alignment"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Кликните „<guibutton>Убаци</guibutton>“. Програм ће приказати радњу умножавања у окну „<guilabel>Заказане радње</guilabel>“.</para>
+            </listitem>
+          </orderedlist></para>
+        <caution>
+          <para>
+          The copy of the partition has the same file system label
+          and Universally Unique Identifier (UUID) as the source
+          partition.
+          This can cause a problem when booting, or when mount actions
+          use the file system label or UUID to identify the partition.
+          </para>
+          <para>Проблем је у томе што ће оперативни систем насумично изабрати да монтира било изворну било умножену партицију. На пример, приликом прве радње монтирања може бити монтирана изворна партиција. Приликом следеће радње монтирања може бити монтирана умножена партиција. С временом ова природа насумичног монтирања партиција може да доведе до тога да се датотеке тајанствено појављују или нестају у зависности од тога која партиција је монтирана. Насумично монтирање изворне или умножене партиције може такође да проузрокује озбиљна оштећења података или губљење истих.</para>
+          <para>Да избегнете проблеме саветује вам се да урадите нешто од следећег: <itemizedlist>
+              <listitem>
+                <para>
+                After you have queued or applied the copy operation:
+                  <orderedlist>
+                    <listitem>
+                      <para>Измените УУИД било изворне било умножене партиције. Погледајте <xref linkend="gparted-changing-partition-uuid"/>.</para>
+                    </listitem>
+                    <listitem>
+                      <para>
+                      If the file system label is not blank then change
+                      the file system label of either the source, or the
+                      copy of the partition.
+                      See <xref linkend="gparted-setting-partition-file-system-label"/>.
+                      </para>
+                    </listitem>
+                  </orderedlist>
+                </para>
+              </listitem>
+              <listitem>
+                <para>Након што сте применили радњу умножавања, обришите или поново форматирајте изворну партицију.</para>
+              </listitem>
+              <listitem>
+                <para>Користите неки други начин да се уверите да изворна партиција и умножена партиција нису коришћене на истом рачунару у исто време. На пример, ако се умножена партиција налази на засебном уређају онда уклоните уређај са рачунара.</para>
+              </listitem>
+            </itemizedlist></para>
+        </caution>
+      </sect3>
+
+<!-- ============= To Manage Partition Flags ========================= -->
+      <sect3 id="gparted-manage-partition-flags">
+        <title>Управљање опцијама партиције</title>
+        <para>Да управљате опцијама партиције: <orderedlist>
+            <listitem>
+              <para>Изаберите партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Управљај опцијама</guimenuitem></menuchoice>“. Програм ће отворити прозорче „<guilabel>Управљајте опцијама на <replaceable>/путања-до-партиције</replaceable></guilabel>“.</para>
+              <para>
+                <itemizedlist>
+                  <listitem>
+                    <para>Да укључите опцију, потврдите квадратић за избор поред опције. Програм ће записати укључену опцију на партицији и освежити прозорче „<guilabel>Управљајте опцијама на <replaceable>/путања-до-партиције</replaceable></guilabel>“.</para>
+                  </listitem>
+                  <listitem>
+                    <para>Да искључите опцију, поништите квадратић за избор поред опције. Програм ће записати искључену опцију на партицији и освежити прозорче „<guilabel>Управљајте опцијама на <replaceable>/путања-до-партиције</replaceable></guilabel>“.</para>
+                  </listitem>
+                </itemizedlist>
+              </para>
+              <note>
+                <para>
+                <guimenuitem>Manage Flags</guimenuitem> is only
+                available for disks with partition tables.  Disks with
+                <guimenuitem>loop</guimenuitem> or
+                <guimenuitem>none</guimenuitem> partition tables do
+                not contain a partition table, and do not have
+                partition flags.
+                </para>
+                <para>
+                See <xref linkend="gparted-view-device-information"/>
+                to view the type of partition table.
+                </para>
+              </note>
+            </listitem>
+          </orderedlist></para>
+        <para>Да затворите прозорче „<guilabel>Управљајте опцијама на <replaceable>/путања-до-партиције</replaceable></guilabel>“, кликните „<guibutton>Затвори</guibutton>“.</para>
+        <note>
+          <para>У наставку је дат опис опција у мсдос партиционој табели: <itemizedlist>
+              <listitem>
+                <para>„Boot“ користе неки покретачи комерцијалних оперативних система. Опција учитавања указује да је партиција активна или покретачка. Само једна партиција на диск уређају може бити активна.</para>
+              </listitem>
+              <listitem>
+                <para>„Diag“ се користи да укаже да се партиција користи за дијагнозу / опоравак.</para>
+              </listitem>
+              <listitem>
+                <para>„Hidden“ користе неки комерцијални оперативни системи. Ова опција чини партицију невидљивом за оперативни систем.</para>
+              </listitem>
+              <listitem>
+                <para>„LBA“ користе неки покретачи комерцијалних оперативних система. ЛБА указује да партицији треба приступити коришћењем адресирања логичких блокова (LBA), уместо адресирања цилиндар-глава-сектор (CHS).</para>
+              </listitem>
+              <listitem>
+                <para>„LVM“ се користи да укаже да партицију користи управник логичких волумена (LVM).</para>
+              </listitem>
+              <listitem>
+                <para>„Palo“ користи покретач учитавања прецизне архитектуре — умањеног скупа инструкција рачунара (PA-RISC), пало.</para>
+              </listitem>
+              <listitem>
+                <para>„Prep“ се користи да укаже на партицију за учитавање на ПауерПЦ хардверу.</para>
+              </listitem>
+              <listitem>
+                <para>„RAID“ се користи да укаже да је партиција коришћена у појачаном низу јефтиних дискова (РАИД).</para>
+              </listitem>
+            </itemizedlist></para>
+        </note>
+        <note>
+          <para>У наставку је дат опис опција у партиционој табели гпартеда: <itemizedlist>
+              <listitem>
+                <para>„Atvrecv“ се користи да укаже на Еплову ТВ партицију опоравка.</para>
+              </listitem>
+              <listitem>
+                <para>„BIOS_GRUB“ указује на партицију учитавања БИОС-а коју често користи учитавач система ГРУБ 2.</para>
+              </listitem>
+              <listitem>
+                <para>„Boot“ користе неки покретачи комерцијалних оперативних система. Опција учитавања указује да је партиција активна или покретачка. Само једна партиција на диск уређају може бити активна.</para>
+              </listitem>
+              <listitem>
+                <para>„Diag“ указује да се партиција користи за дијагнозу или опоравак.</para>
+              </listitem>
+              <listitem>
+                <para>„Hidden“ користе неки комерцијални оперативни системи. Ова опција чини партицију невидљивом за оперативни систем.</para>
+              </listitem>
+              <listitem>
+                <para>„HP-service“ се користи да укаже на партицију услуге Хевлет Пакарда.</para>
+              </listitem>
+              <listitem>
+                <para>„Legacy_boot“ користе неки програми посебне намене да укажу да партиција може бити учитавачка.</para>
+              </listitem>
+              <listitem>
+                <para>„LVM“ указује да партицију користи управник логичких волумена (УЛВ).</para>
+              </listitem>
+              <listitem>
+                <para>„Msftres“ се користи да укаже на Мајкрософтову резервисану партицију.</para>
+              </listitem>
+              <listitem>
+                <para>„RAID“ указује да се партиција користи у појачаном низу јефтиних дискова (РАИД).</para>
+              </listitem>
+            </itemizedlist></para>
+        </note>
+      </sect3>
+
+<!-- ============= To Check a Partition ============================== -->
+      <sect3 id="gparted-Check-partition">
+        <title>Проверавање партиције</title>
+        <para>Проверавање партиције ће покушати да пронађе и поправи проблеме у систему датотека. Провервање партиције ће покушати да увећа систем датотека како би попунио партицију.</para>
+        <para>Да проверите партицију: <orderedlist>
+            <listitem>
+              <para>Изаберите демонтирану партицију. Погледајте <xref linkend="gparted-select-partition"/>.</para>
+            </listitem>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Партиција</guimenu><guimenuitem>Провери</guimenuitem></menuchoice>“. Програм ће приказати радњу проверавања партиције у окну „<guilabel>Заказане радње</guilabel>“.</para>
+            </listitem>
+          </orderedlist></para>
+      </sect3>
+
+<!-- ============= End of Advanced Partition Actions ================= -->
+    </sect2>
+
+<!-- ============= Working with the Operation Queue ================== -->
+    <sect2 id="gparted-operation-queue">
+      <title>Рад са заказаним радњама</title>
+
+<!-- ============= To Undo Last Operation ============================ -->
+      <sect3 id="gparted-undo-last-operation">
+        <title>Поништавање последње радње</title>
+        <para>Да опозовете последњу радњу у реду радњи, изаберите: „<menuchoice><guimenu>Уреди</guimenu><guimenuitem>Опозови последњу радњу</guimenuitem></menuchoice>“. Програм ће уклонити последњу радњу из реда приказаног у окну „<guilabel>Заказане радње</guilabel>“. Уколико нема преосталих радњи у реду, програм ће затворити окно „<guilabel>Заказане радње</guilabel>“.</para>
+      </sect3>
+
+<!-- ============= To Clear All Operations =========================== -->
+      <sect3 id="gparted-clear-all-operations">
+        <title>Брисање свих радњи</title>
+        <para>Да обришете све радње у реду радњи, изаберите: „<menuchoice><guimenu>Уреди</guimenu><guimenuitem>Обриши све радње</guimenuitem></menuchoice>“. Програм ће уклонити све радње из реда и затвориће окно „<guilabel>Заказане радње</guilabel>“.</para>
+      </sect3>
+
+<!-- ============= To Apply All Operations =========================== -->
+      <sect3 id="gparted-apply-all-operations">
+        <title>Примењивање свих радњи</title>
+        <para>Да примените све радње: <orderedlist>
+            <listitem>
+              <para>Изаберите: „<menuchoice><guimenu>Уређивање</guimenu><guimenuitem>Примени све радње</guimenuitem></menuchoice>“. Програм ће приказати прозорче „<guilabel>Примени радње на уређају</guilabel>“.</para>
+              <caution>
+                <para>Уређивање партиција има потенцијал да изазове ГУБИТАК ПОДАТАКА. Саветује вам се да направите резерву ваших података пре него што примените радње уређивања партиције.</para>
+              </caution>
+            </listitem>
+            <listitem>
+              <para>Кликните на дугме „<guibutton>Примени</guibutton>“. Програм ће приказати прозорче „<guilabel>Примењивање заказаних радњи</guilabel>“. Програм ће применити сваку заказану радњу по редоследу њеног стварања и приказаће освежење стања када свака радња буде завршена. <itemizedlist>
+                  <listitem>
+                    <para>Да видите више информација, кликните на дугме „<guibutton>Детаљи</guibutton>“. Програм ће приказати више појединости о радњама.</para>
+                    <para>Да видите више информација о корацима сваке радње, кликните на дугме стрелице поред сваког корака.</para>
+                  </listitem>
+                  <listitem>
+                    <para>Да зауставите радње за време њиховог извршавања, кликните на дугме „<guibutton>Откажи</guibutton>“. Програм ће приказати искључено дугме <guibutton>Приморај отказивање (5)</guibutton> и одбројаваће 5 секунде.</para>
+                    <note>
+                      <para>Дугме <guibutton>Откажи</guibutton> наређује програму да заустави или поврати радње када је неопходно да би осигурао целовитост података.</para>
+                    </note>
+                    <para>Ако радње нису заустављене након 5 секунде програм укључује дугме <guibutton>Приморај отказивање</guibutton>.</para>
+                    <para>Да приморате заустављање радњи, кликните на дугме „<guibutton>Приморај отказивање</guibutton>“. Програм ће приказати прозорче упозорења.</para>
+                    <para>Кликните „<guibutton>Настави радњу</guibutton>“ да омогућите повраћеним радњама да заврше, или кликните „<guibutton>Откажи радњу</guibutton>“ да откажете повраћене радње.</para>
+                    <warning>
+                      <para>Дугме „<guibutton>Откажи радњу</guibutton>“ окончава безбедно враћање радњи и може да изазове ОЗБИЉНА оштећења система датотека губитак података. Саветује вам се да кликнете „<guibutton>Настави радњу</guibutton>“ да омогућите повраћају да заврши.</para>
+                    </warning>
+                    <para>Када програм заврши обављање радњи, приказаће дугмад „<guibutton>Сачувај детаље</guibutton>“ и „<guibutton>Затвори</guibutton>“.</para>
+                  </listitem>
+                </itemizedlist></para>
+            </listitem>
+            <listitem>
+              <para>Ако желите да сачувате детаље свих примењених радњи, онда кликните „<guibutton>Сачувај детаље</guibutton>“. Биће приказано прозорче „<guilabel>Сачувај детаље</guilabel>“. <orderedlist numeration="loweralpha">
+                  <listitem>
+                    <para>Ако желите да измените основни назив датотеке, онда упишите назив датотеке у поље „<guilabel>Назив</guilabel>“.</para>
+                  </listitem>
+                  <listitem>
+                    <para>Ако не желите да сачувате датотеку у фасцикли „/root“ већ у некој другој, кликните на дугме „<guibutton>Потражи друге фасцикле</guibutton>“. Биће приказан претраживач система датотека.</para>
+                    <para>Користите претраживач система датотека да изаберете фасциклу.</para>
+                  </listitem>
+                  <listitem>
+                    <para>Кликните на дугме „<guibutton>Сачувај</guibutton>“ да сачувате датотеку. Програм ће сачувати детаље о датотеци.</para>
+                  </listitem>
+                </orderedlist></para>
+              <caution>
+                <para>Ако користите <application>гпартед</application> са живог ЦД-а, онда корени систем датотека постоји у РАМ меморији. Све датотеке које сачувате у кореном систему датотека живог ЦД-а ће бити изгубљене када искључите рачунар.</para>
+                <para>Ако сте сачували детаље гпартеда у кореном систему датотека живог ЦД-а, онда морате да умножите датотеку на трајнији уређај. Примери трајнијих уређаја су чврсти диск или УСБ флеш меморија.</para>
+              </caution>
+            </listitem>
+            <listitem>
+              <para>Кликните на дугме „<guibutton>Затвори</guibutton>“. Програм ће затворити прозорче „<guilabel>Примењивање заказаних радњи</guilabel>“ и прегледати све диск уређаје и освежити распоред партиција уређаја у прозору <application>гпартеда</application>.</para>
+            </listitem>
+          </orderedlist></para>
+      </sect3>
+
+<!-- ============= End of Working with the Operation Queue =========== -->
+    </sect2>
+
+  </sect1>
+
+<!-- ============= Acquiring GParted on Live CD ====================== -->
+  <sect1 id="gparted-acquire-livecd">
+    <title>Набављање Гпартеда на живом ЦД-у</title>
+    <para>Живи ЦД је компакт диск који садржи покретачки оперативни систем. Живи ЦД вам омогућава да покренете рачунар са ЦД-а.</para>
+    <para>Коришћење <application>гпартеда</application> са живог ЦД-а има следеће предности: <itemizedlist>
+        <listitem>
+          <para>Можете да уређујете све ваше партиције зато што нису монтиране.</para>
+        </listitem>
+        <listitem>
+          <para>Можете да уређујете партиције на рачунарима који немају покретачки оперативни систем.</para>
+        </listitem>
+      </itemizedlist></para>
+    <para>Програм <application>гпартед</application> је доступан на многим живим ЦД дисковима дистрибуција.</para>
+    <para>Можете преузети одраз живог ЦД-а који садржи <application>гпартед</application> са следећих веб места: <itemizedlist>
+        <listitem>
+          <para>Живи ЦД Гпартеда <ulink type="http" url="http://gparted.org/livecd.php"/></para>
+        </listitem>
+        <listitem>
+          <para>ЦД за спашавање система <ulink type="http" url="http://www.sysresccd.org"/></para>
+        </listitem>
+      </itemizedlist></para>
+    <tip>
+      <para>
+      The GParted Live CD image can be written to a USB flash drive.
+      </para>
+      <para>
+      If your computer can boot from Universal Serial Bus (USB) then
+      you might prefer to boot and use
+      <application>gparted</application> from a USB flash drive.
+      </para>
+    </tip>
+    <tip>
+      <para>Да избегнете губљење празног ЦД-а приликом нарезивања датотеке одраза ЦД-а, користите следеће савете:</para>
+      <itemizedlist>
+        <listitem>
+          <para>Уверите се да сума за проверу преузете датотеке одговара суми за проверу објављеној на страници за преузимање.</para>
+        </listitem>
+        <listitem>
+          <para>Будите сигурни да нарежете „.iso“ датотеку као одраз на празном ЦД-у. Ако нарежете „.iso“ датотеку као податке на празном ЦД-у, тада се ЦД неће покренути на вашем рачунару.</para>
+        </listitem>
+      </itemizedlist>
+    </tip>
+  </sect1>
+
+<!-- ============= Fixing Operating System Boot Problems ============= -->
+  <sect1 id="gparted-fix-operating-system-boot-problems">
+    <title>Отклањање проблема учитавања оперативног система</title>
+    <para>Ваш рачунар можда неће моћи да учита оперативни систем када извршите једну од следећих радњи: <itemizedlist>
+        <listitem>
+          <para>Када обришете партицију.</para>
+        </listitem>
+        <listitem>
+          <para>Када преместите партицију.</para>
+        </listitem>
+        <listitem>
+          <para>Када инсталирате други оперативни систем и препишете главни запис учитавања (MBR).</para>
+        </listitem>
+      </itemizedlist></para>
+    <para>
+    Fortunately the failure to boot can be often be fixed.
+    </para>
+    <para>
+    If your computer uses the GRUB boot loader,
+    see <xref linkend="gparted-fix-grub-boot-problem"/>
+    to restore the ability to boot.
+    </para>
+    <para>
+    If your computer does not use GRUB then you are advised to consult
+    documentation for your boot loader to learn how to fix the
+    problem.
+    You might consult the
+    <ulink type="http" url="http://gparted.org/faq.php">GParted FAQ</ulink>,
+    or the
+    <ulink type="http" url="http://gparted.org/forum.php">GParted forum</ulink>.
+    You might also search the Internet to learn how other people have
+    solved similar problems.
+    </para>
+
+<!-- ============= Fixing GRUB Boot Problem ========================== -->
+    <sect2 id="gparted-fix-grub-boot-problem">
+      <title>Отклањање проблема учитавања ГРУБ-а</title>
+      <para>
+      The Grand Unified Boot loader (GRUB) is used by many GNU/Linux
+      distributions.  To fix GRUB boot problems you start by
+      determining which major version of GRUB was used.
+      </para>
+      <para>
+      There are two major versions of GRUB:
+        <itemizedlist>
+          <listitem>
+            <para>
+            GRUB, also known as GRUB 2, covers versions 1.98 and
+            higher.  GRUB 2 works with both GUID partition tables
+            (GPT) and msdos partition tables.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            GRUB Legacy, traditionally known as GRUB, covers versions
+            0.9x and earlier.  GRUB Legacy works with msdos partition
+            tables only.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>
+      GRUB 2 is used as the default boot loader in the following
+      GNU/Linux distributions:
+        <itemizedlist>
+          <listitem>
+            <para>
+            CentOS 7 and higher
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            Debian 6 (Squeeze) and higher
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            Fedora 16 (Verne) and higher
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            openSUSE 12.2 and higher
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            Ubuntu 9.10 (Karmic Koala) and higher
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>
+      If you are unsure whether your computer uses GRUB 2 or GRUB
+      Legacy, you might try searching for the answer on the Internet.
+      </para>
+
+<!-- ============= To Restore GRUB 2 ================================= -->
+      <sect3 id="gparted-restore-grub-2">
+        <title>Restoring GRUB 2 Boot Loader</title>
+        <para>
+        Use the following steps to restore the GRUB 2 boot loader:
+          <orderedlist>
+            <listitem>
+              <para>
+              Boot from Live media such as GParted Live or your
+              GNU/Linux distribution image.  Open a terminal window.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Determine which partition contains the / file system for
+              your GNU/Linux distribution.
+              </para>
+              <para>
+              Use GParted to list the partitions on your disk device.
+              Look for a partition that contains your GNU/Linux / file
+              system.  This Linux partition will likely use a file
+              system such as ext2, ext3, ext4, or btrfs.
+              </para>
+              <note>
+                <para>
+                If the / partition is on LVM then the Logical Volume
+                Manager must be active.  LVM can be started with the
+                command:
+                <screen><prompt># </prompt><command>vgchange</command> -a y</screen>
+                </para>
+                <para>
+                With LVM, the equivalent of a disk partition is a
+                Logical Volume.  Logical Volumes can be listed with
+                the command:
+                <screen><prompt># </prompt><command>lvscan</command></screen>
+                </para>
+              </note>
+              <note>
+                <para>
+                If the / partition is on RAID, then the RAID must be
+                active.  Linux Software RAID can be started with the
+                command:
+                <screen><prompt># </prompt><command>mdadm</command> --assemble --scan</screen>
+                </para>
+              </note>
+            </listitem>
+            <listitem>
+              <para>
+              Create a mount point directory by entering (as root):
+              <screen><prompt># </prompt><command>mkdir</command> /tmp/mydir</screen>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Mount the / partition on the mount point directory.  For
+              example assume the / file system is contained in the
+              /dev/sda5 partition.  Enter (as root):
+              <screen><prompt># </prompt><command>mount</command> <replaceable>/dev/sda5</replaceable> /tmp/mydir</screen>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              If you have a separate /boot partition, for example at
+              /dev/sda3, then an extra step is required.  Mount the
+              /boot partition at /tmp/mydir/boot by entering (as
+              root):
+              <screen><prompt># </prompt><command>mount</command> <replaceable>/dev/sda3</replaceable> /tmp/mydir/boot</screen>
+              </para>
+              <note>
+                <para>
+                If you do not know whether you have a separate boot
+                partition then you probably do not and can ignore this
+                step.
+                </para>
+              </note>
+            </listitem>
+            <listitem>
+              <para>
+              Prepare to change the root environment by entering (as
+              root):
+              <screen><prompt># </prompt><command>mount</command> --bind /dev /tmp/mydir/dev</screen>
+              <screen><prompt># </prompt><command>mount</command> --bind /proc /tmp/mydir/proc</screen>
+              <screen><prompt># </prompt><command>mount</command> --bind /sys /tmp/mydir/sys</screen>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Change the root environment by entering (as root):
+              <screen><prompt># </prompt><command>chroot</command> /tmp/mydir</screen>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Reinstall GRUB 2 on the boot device.  Note that the
+              device name is used and not the partition name.  For
+              example, if the / partition is /dev/sda5 then the device
+              is /dev/sda.
+              </para>
+              <para>
+              For Debian, Ubuntu, and other offshoot GNU/Linux
+              distributions, enter the command (as root):
+              <screen><prompt># </prompt><command>grub-install</command> <replaceable>/dev/sda</replaceable></screen>
+              </para>
+              <para>
+              For CentOS, Fedora, openSUSE and other offshoot
+              GNU/Linux distributions, enter the command (as root):
+              <screen><prompt># </prompt><command>grub2-install</command> <replaceable>/dev/sda</replaceable></screen>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Exit the chroot environment by entering (as root):
+              <screen><prompt># </prompt><command>exit</command></screen>
+              </para>
+            </listitem>
+            <listitem>
+              <para>Поново покрените ваш рачунар.</para>
+            </listitem>
+          </orderedlist>
+        </para>
+      </sect3>
+
+<!-- ============= To Restore GRUB Legacy ============================ -->
+      <sect3 id="gparted-restore-grub-legacy">
+        <title>Restoring GRUB Legacy Boot Loader</title>
+        <para>
+        Use the following steps to restore the GRUB Legacy boot
+        loader:
+          <orderedlist>
+            <listitem>
+              <para>
+              Boot from Live media such as your GNU/Linux distribution
+              image.  Open a terminal window.
+              </para>
+              <note>
+                <para>
+                The Live media must contain the GRUB Legacy boot
+                loader.  If your GNU/Linux distribution uses GRUB
+                Legacy, then the distribution Live media will also
+                contain GRUB Legacy.
+                </para>
+              </note>
+            </listitem>
+            <listitem>
+              <para>
+              Start the <application>grub</application> application
+              from the command line (as root).
+              <screen><prompt># </prompt><command>grub</command></screen>
+              </para>
+            </listitem>
+            <listitem>
+              <para>Пронађите где се налази датотека „<application>grub</application> stage1“ користећи један од следећих начина:</para>
+              <para>Ако је „/boot“ фасцикла смештена у „/“ партицији, користите наредбу: <screen><prompt>grub&gt; </prompt><command>find</command> /boot/grub/stage1</screen> Ако је „/boot“ фасцикла смештена у партицији другачијој од „/“ партиције, користите наредбу: <screen><prompt>grub&gt; </prompt><command>find</command> /grub/stage1</screen></para>
+              <para>Резултат наредбе „<command>find</command>“ може да изгледа овако: <screen><computeroutput> <replaceable>(hd0,0)</replaceable></computeroutput></screen> Ако је у резултату наредбе наведено више од једног реда, мораћете да одлучите који уређај ћете да користите за <application>груб</application>.</para>
+            </listitem>
+            <listitem>
+              <para>Поставите <application>груб</application> корени уређај навођењем уређаја који је доставила наредба „<command>find</command>“. <screen><prompt>grub&gt; </prompt>root <replaceable>(hd0,0)</replaceable></screen></para>
+            </listitem>
+            <listitem>
+              <para>Поново инсталирајте <application>груб</application> навођењем уређаја који је доставила наредба „<command>find</command>“. <screen><prompt>grub&gt; </prompt>setup <replaceable>(hd0,0)</replaceable></screen></para>
+            </listitem>
+            <listitem>
+              <para>Напустите <application>груб</application>. <screen><prompt>grub&gt; </prompt>quit</screen></para>
+            </listitem>
+            <listitem>
+              <para>Поново покрените ваш рачунар.</para>
+            </listitem>
+          </orderedlist>
+        </para>
+      </sect3>
+    </sect2>
+
+<!-- ============= End of Fixing Operating System Boot Problems ====== -->
+  </sect1>
+
+<!-- ============= Recovering Partition Tables ======================= -->
+  <sect1 id="gparted-recover-partition-table">
+    <title>Опорављање партиционих табела</title>
+    <para>Ако случајно препишете вашу партициону табелу, постоји шанса да ћете бити у могућности да је опоравите.</para>
+    <para>Програм <emphasis role="strong"><application>тестдиск</application></emphasis> је осмишљен да помогне опоравак изгубљених партиција. За више информација о <application>тестдиску</application>, погледајте <ulink type="http" url="http://www.cgsecurity.org/wiki/TestDisk"/>.</para>
+    <para>Програм <application>тестдиск</application> се налази на сваком живом ЦД-у наведеном у <xref linkend="gparted-acquire-livecd"/></para>
+  </sect1>
+
+</article>
