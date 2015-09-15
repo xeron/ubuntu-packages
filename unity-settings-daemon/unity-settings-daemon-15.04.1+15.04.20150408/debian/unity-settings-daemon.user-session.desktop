@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Unity Settings Daemon
+Exec=/usr/lib/unity-settings-daemon/unity-settings-daemon
+Hidden=true

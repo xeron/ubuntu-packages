@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/rules/utils.mk
+include /usr/share/cdbs/1/class/gnome.mk
+
+LDFLAGS += -Wl,-O1 -Wl,-z,defs -Wl,--warn-unresolved-symbols -Wl,--as-needed
+
+DEB_DH_MAKESHLIBS_ARGS_ALL += -X/usr/lib/unity-settings-daemon-1.0
+DEB_CONFIGURE_SCRIPT := ./autogen.sh
+DEB_CONFIGURE_EXTRA_FLAGS = --enable-systemd --disable-packagekit --enable-ibus --enable-fcitx
+
+build/unity-settings-daemon::
+	gcc -o gnome-settings-daemon/gnome-update-wallpaper-cache debian/gnome-update-wallpaper-cache.c `pkg-config --cflags --libs glib-2.0 gdk-3.0 gdk-x11-3.0 gio-2.0 gnome-desktop-3.0`
+
+install/unity-settings-daemon::
+	/usr/bin/install -c gnome-settings-daemon/gnome-update-wallpaper-cache 'debian/tmp/usr/lib/unity-settings-daemon'
+	install -m 644 -D debian/unity-settings-daemon.user-session.upstart debian/unity-settings-daemon/usr/share/upstart/sessions/unity-settings-daemon.conf
+	install -m 644 -D debian/unity-settings-daemon.user-session.desktop debian/unity-settings-daemon/usr/share/upstart/xdg/autostart/unity-settings-daemon.desktop
+
+binary-install/unity-settings-daemon::
+	find debian -name '*.a' -delete
+	find debian -name '*.la' -delete
+
+common-binary-post-install-arch:: list-missing
+
+clean::
+	rm -f gnome-settings-daemon/gnome-update-wallpaper-cache
+

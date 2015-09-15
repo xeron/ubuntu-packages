@@ -1,0 +1,12 @@
+# Files with translatable strings to skip.
+# Please keep this file in alphabetical order.
+#
+# The following three desktop.in files are generated files, so
+# it is not necessary to check them for translatable strings.
+# Without these files, "make distcheck" fails.  Please do not
+# remove these unless you fix "make distcheck" a different way.
+#
+data/unity-settings-daemon.desktop.in
+plugins/automount/unity-fallback-mount-helper.desktop.in
+plugins/power/com.ubuntu.unity-settings-daemon.plugins.power.policy.in
+plugins/wacom/com.ubuntu.unity-settings-daemon.plugins.wacom.policy.in
