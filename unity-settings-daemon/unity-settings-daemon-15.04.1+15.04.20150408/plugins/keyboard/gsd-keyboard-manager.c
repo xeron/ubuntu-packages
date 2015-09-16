@@ -135,6 +135,7 @@ struct GsdKeyboardManagerPrivate
         GdkDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
+        guint n_xkb_layouts;
 
         GDBusConnection *dbus_connection;
         GDBusNodeInfo *dbus_introspection;
@@ -177,8 +178,6 @@ static const gchar introspection_xml[] =
         "</node>";
 
 static gpointer manager_object = NULL;
-
-static guint group_position = 0;
 
 static void
 init_builder_with_sources (GVariantBuilder *builder,
@@ -613,8 +612,8 @@ xkb_init (GsdKeyboardManager *manager)
         XkbSelectEventDetails (dpy,
                                XkbUseCoreKbd,
                                XkbStateNotify,
-                               XkbModifierLockMask,
-                               XkbModifierLockMask);
+                               XkbModifierLockMask | XkbGroupLockMask,
+                               XkbModifierLockMask | XkbGroupLockMask);
 }
 
 static unsigned
@@ -681,6 +680,15 @@ xkb_events_filter (GdkXEvent *xev_,
 		}
 	}
 
+	if (xkbev->state.changed & XkbGroupLockMask) {
+		/* Fix the locked group to the last group if it was changed by a grp: option. */
+		Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+		gint n_xkb_layouts = manager->priv->n_xkb_layouts;
+
+		if (n_xkb_layouts > 0)
+			XkbLockGroup (display, XkbUseCoreKbd, n_xkb_layouts - 1);
+	}
+
         return GDK_FILTER_CONTINUE;
 }
 
@@ -718,15 +726,12 @@ free_xkb_component_names (XkbComponentNamesRec *p)
 static void
 upload_xkb_description (const gchar          *rules_file_path,
                         XkbRF_VarDefsRec     *var_defs,
-                        XkbComponentNamesRec *comp_names)
+                        XkbComponentNamesRec *comp_names,
+                        gint                  n_xkb_layouts)
 {
         Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
         XkbDescRec *xkb_desc;
         gchar *rules_file;
-
-        /* The index of layout we want is saved in the group_position
-         * variable. */
-        XkbLockGroup (display, XkbUseCoreKbd, group_position);
 
         /* Upload it to the X server using the same method as setxkbmap */
         xkb_desc = XkbGetKeyboardByName (display,
@@ -747,6 +752,12 @@ upload_xkb_description (const gchar          *rules_file_path,
         if (!XkbRF_SetNamesProp (display, rules_file, var_defs))
                 g_warning ("Couldn't update the XKB root window property");
 
+        /* The layout we want is always in the last XKB group index
+         * so we should enforce it to make sure we never end up with
+         * the wrong one. */
+        if (n_xkb_layouts > 0)
+                XkbLockGroup (display, XkbUseCoreKbd, n_xkb_layouts - 1);
+
         g_free (rules_file);
 }
 
@@ -759,13 +770,10 @@ build_xkb_group_string (const gchar *user,
         gsize length = 0;
         guint commas = 2;
 
-        if (latin) {
+        if (latin)
                 length += strlen (latin);
-                group_position = 1;
-        } else {
+        else
                 commas -= 1;
-                group_position = 0;
-        }
 
         if (locale)
                 length += strlen (locale);
@@ -777,9 +785,9 @@ build_xkb_group_string (const gchar *user,
         string = malloc (length);
 
         if (locale && latin)
-                sprintf (string, "%s,%s,%s", latin, user, locale);
+                sprintf (string, "%s,%s,%s", latin, locale, user);
         else if (locale)
-                sprintf (string, "%s,%s", user, locale);
+                sprintf (string, "%s,%s", locale, user);
         else if (latin)
                 sprintf (string, "%s,%s", latin, user);
         else
@@ -831,12 +839,14 @@ get_locale_layout (GsdKeyboardManager  *manager,
                                         variant);
 }
 
-static void
+static gint
 replace_layout_and_variant (GsdKeyboardManager *manager,
                             XkbRF_VarDefsRec   *xkb_var_defs,
                             const gchar        *layout,
                             const gchar        *variant)
 {
+        gint n_xkb_layouts = 0;
+
         /* Toolkits need to know about both a latin layout to handle
          * accelerators which are usually defined like Ctrl+C and a
          * layout with the symbols for the language used in UI strings
@@ -849,7 +859,7 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
         const gchar *locale_variant = NULL;
 
         if (!layout)
-                return;
+                return n_xkb_layouts;
 
         if (!variant)
                 variant = "";
@@ -883,6 +893,15 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
 
         free (xkb_var_defs->variant);
         xkb_var_defs->variant = build_xkb_group_string (variant, locale_variant, latin_variant);
+
+        n_xkb_layouts = 1;
+
+        if (latin_layout)
+                n_xkb_layouts++;
+        if (locale_layout)
+                n_xkb_layouts++;
+
+        return n_xkb_layouts;
 }
 
 static gchar *
@@ -1010,13 +1029,14 @@ apply_xkb_settings (GsdKeyboardManager *manager,
         XkbRF_RulesRec *xkb_rules;
         XkbRF_VarDefsRec *xkb_var_defs;
         gchar *rules_file_path;
+        gint n_xkb_layouts;
 
         gsd_xkb_get_var_defs (&rules_file_path, &xkb_var_defs);
 
         free (xkb_var_defs->options);
         xkb_var_defs->options = options;
 
-        replace_layout_and_variant (manager, xkb_var_defs, layout, variant);
+        n_xkb_layouts = replace_layout_and_variant (manager, xkb_var_defs, layout, variant);
 
         gdk_error_trap_push ();
 
@@ -1026,10 +1046,12 @@ apply_xkb_settings (GsdKeyboardManager *manager,
                 xkb_comp_names = g_new0 (XkbComponentNamesRec, 1);
 
                 XkbRF_GetComponents (xkb_rules, xkb_var_defs, xkb_comp_names);
-                upload_xkb_description (rules_file_path, xkb_var_defs, xkb_comp_names);
+                upload_xkb_description (rules_file_path, xkb_var_defs, xkb_comp_names, n_xkb_layouts);
 
                 free_xkb_component_names (xkb_comp_names);
                 XkbRF_Free (xkb_rules, True);
+
+                manager->priv->n_xkb_layouts = n_xkb_layouts;
         } else {
                 g_warning ("Couldn't load XKB rules");
         }
@@ -2556,6 +2578,7 @@ gsd_keyboard_manager_init (GsdKeyboardManager *manager)
 {
         manager->priv = GSD_KEYBOARD_MANAGER_GET_PRIVATE (manager);
         manager->priv->active_input_source = -1;
+        manager->priv->n_xkb_layouts = -1;
 }
 
 static void

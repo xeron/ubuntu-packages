@@ -1,6 +1,16 @@
+unity-settings-daemon (15.04.1+15.04.20150408-1ubuntu2) vivid; urgency=medium
+
+  * Drop patch: unity-settings-daemon-non-eng-hotkeys.patch
+    Doesn't fix Super+A/F/M/C/V hotkeys.
+  * Add patch: non-latin-shortcuts.patch
+    Fixes bug: https://bugs.launchpad.net/unity/+bug/1226962
+    Suggested by comment: https://bugs.launchpad.net/unity/+bug/1226962/comments/261
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Mon, 15 Sep 2015 20:43:54 -0700
+
 unity-settings-daemon (15.04.1+15.04.20150408-1ubuntu1) vivid; urgency=medium
 
-  * Add patch: unity-settings-daemon-non-eng-hotkeys.patch.
+  * Add patch: unity-settings-daemon-non-eng-hotkeys.patch
     Source: http://www.sisyphus.ru/ru/srpm/Sisyphus/gnome-settings-daemon/patches/0
     Fixes bug: https://bugs.launchpad.net/unity/+bug/1226962
     Suggested by comment: https://bugs.launchpad.net/unity/+bug/1226962/comments/258
