@@ -1,3 +1,9 @@
+sonata (1.7.git.20150604.4e34e07-1wily1) wily; urgency=low
+
+  * Import new upstream.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Thu, 22 Oct 2015 21:34:26 -0700
+
 sonata (1.7.git.20150305.dec4cde-1vivid1) vivid; urgency=low
 
   * Update upstream.
