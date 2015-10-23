@@ -68,7 +68,7 @@ binary-arch: build install
 	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
-	dh_builddeb -- -Zbzip2 -z9
+	dh_builddeb
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install

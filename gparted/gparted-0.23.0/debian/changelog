@@ -1,14 +1,31 @@
-gparted (0.23.0-1vivid1) vivid; urgency=medium
+gparted (0.23.0-1wily1) wily; urgency=medium
 
   * Import new upstream.
 
- -- Ivan Larionov <xeron.oskom@gmail.com>  Mon, 14 Sep 2015 10:44:32 -0700
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Thu, 22 Oct 2015 19:37:24 -0700
 
-gparted (0.22.0-1vivid1) vivid; urgency=medium
+gparted (0.19.0-3build1) wily; urgency=medium
 
-  * Import new upstream.
+  * No-change rebuild against libatkmm-1.6-1v5
 
- -- Ivan Larionov <xeron.oskom@gmail.com>  Sat, 18 Apr 2015 01:16:17 -0700
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 07 Aug 2015 18:18:39 +0000
+
+gparted (0.19.0-3) unstable; urgency=high
+
+  * Standards Version is 3.9.6
+  * Add "Breaks: udisks2 (<< 2.1.5)" (Closes: #783374)
+  * Don't use bzip2 to compress data tarball
+  * Remove debian/source/options
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 26 May 2015 10:38:34 +0100
+
+gparted (0.19.0-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Apply upstream fix to prevent automounting during partitioning on systems
+    using udisks2 (closes: #781716).
+
+ -- Michael Gilbert <mgilbert@debian.org>  Sun, 12 Apr 2015 18:31:55 +0000
 
 gparted (0.19.0-2) unstable; urgency=medium
 
