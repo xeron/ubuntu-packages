@@ -1,0 +1,18 @@
+Source: mpdas
+Maintainer: Jordon Smith <jrd@mockra.net>
+Section: misc
+Priority: optional
+Standards-Version: 3.9.4
+Build-Depends: debhelper (>= 9), pkg-config, libmpdclient-dev, libcurl4-gnutls-dev | libcurl4-dev
+Homepage: http://50hz.ws/mpdas/
+Vcs-Git: git://github.com/hrkfdn/mpdas.git
+Vcs-Browser: https://github.com/hrkfdn/mpdas
+
+Package: mpdas
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: mpd
+Description: Music Player Daemon AudioScrobbler
+ mpdas is a MPD AudioScrobbler client supporting the 2.0 protocol
+ specs, using libmpd to retrieve the song data from MPD and libcurl
+ to post it to Last.fm
