@@ -18,7 +18,7 @@ Architecture: all
 Provides: ${python3:Provides}, mpd-client
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends},
     python3-mpd2,
-    python3-gobject,
+    python3-gi,
     python3-dbus
 Recommends: python3-taglib
 Description: GTK+ client for the Music Player Daemon (MPD)
