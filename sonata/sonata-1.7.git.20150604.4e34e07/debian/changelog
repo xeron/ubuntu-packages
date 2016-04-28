@@ -1,3 +1,9 @@
+sonata (1.7.git.20150604.4e34e07-2xenial2) xenial; urgency=low
+
+  * Fix dependencies.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Thu, 28 Apr 2016 00:11:12 -0700
+
 sonata (1.7.git.20150604.4e34e07-2xenial1) xenial; urgency=low
 
   * Fix dependencies.

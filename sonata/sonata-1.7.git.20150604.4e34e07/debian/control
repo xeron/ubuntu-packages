@@ -19,7 +19,8 @@ Provides: ${python3:Provides}, mpd-client
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends},
     python3-mpd2,
     python3-gi,
-    python3-dbus
+    python3-dbus,
+    gir1.2-gtk-3.0
 Recommends: python3-taglib
 Description: GTK+ client for the Music Player Daemon (MPD)
  Sonata is a lightweight GTK+ music client for the Music Player Daemon (MPD).
