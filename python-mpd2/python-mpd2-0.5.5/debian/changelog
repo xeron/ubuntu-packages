@@ -1,3 +1,10 @@
+python-mpd2 (0.5.5-1xenial1) xenial; urgency=low
+
+  * Import new upstream.
+  * Build for xenial.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Wed, 27 Apr 2015 22:55:02 -0700
+
 python-mpd2 (0.5.4-1wily1) wily; urgency=low
 
   * Build for wily.

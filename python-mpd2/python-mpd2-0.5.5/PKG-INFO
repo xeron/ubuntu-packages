@@ -1,12 +1,12 @@
 Metadata-Version: 1.1
 Name: python-mpd2
-Version: 0.5.4
+Version: 0.5.5
 Summary: A Python MPD client library
 Home-page: https://github.com/Mic92/python-mpd2
 Author: J. Thalheim
 Author-email: jthalheim@gmail.com
 License: UNKNOWN
-Download-URL: https://github.com/Mic92/python-mpd2/archive/v0.5.4.zip
+Download-URL: https://github.com/Mic92/python-mpd2/archive/v0.5.5.zip
 Description: python-mpd2
         ===========
         

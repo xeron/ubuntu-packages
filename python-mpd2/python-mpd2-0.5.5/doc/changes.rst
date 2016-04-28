@@ -1,6 +1,11 @@
 python-mpd2 Changes List
 ========================
 
+Changes in v0.5.5
+-----------------
+* fix sended newlines on windows systems
+* include tests in source distribution
+
 Changes in v0.5.4
 -----------------
 * support for listfiles, rangeid, addtagid, cleartagid, mount, umount, listmounts, listneighbors
