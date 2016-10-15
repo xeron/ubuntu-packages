@@ -41,6 +41,8 @@ mpdpassword:		MPD Password
 port:			MPD Port
 runas:			Change the user mpdas runs as
 debug:			Print debug information
+service:        Will scrobble to Libre.fm if set
+                to "librefm"
 
 ================================================
 
@@ -51,7 +53,8 @@ Features:
 - Config files
 - User switching
 - "Love" tracks on Last.fm
-    (e.g. with 'mpc sendmessage mpdas love')
+    (e.g. with 'mpc sendmessage mpdas love' and
+     'mpc sendmessage mpdas unlove' to revert)
 
 ================================================
 
