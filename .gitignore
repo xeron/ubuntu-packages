@@ -1,5 +1,7 @@
 *.dsc
 *.debian.tar.gz
+*.debian.tar.xz
+*.debian.tar.bz2
 
 *_source.build
 *_source.changes
