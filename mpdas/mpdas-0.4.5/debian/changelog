@@ -1,3 +1,10 @@
+mpdas (0.4.5-1bionic1) bionic; urgency=medium
+
+  * Import new upstream.
+  * Build for bionic.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Fri, 24 Aug 2018 18:18:00 -0700
+
 mpdas (0.4.2-1zesty1) zesty; urgency=medium
 
   * Build for zesty.
