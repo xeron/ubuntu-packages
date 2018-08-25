@@ -8,32 +8,26 @@ enum ScrobblingService {
 
 class CConfig
 {
-	public:
-		CConfig(char* cfg);
+public:
+	CConfig(char* cfg);
 
-		std::string getLUsername() { return _lusername; }
-		std::string getLPassword() { return _lpassword; }
-		std::string getMHost() { return _mhost; }
-		std::string getMPassword() { return _mpassword; }
-		std::string getRUser() { return _runninguser; }
-		ScrobblingService getService() { return _service; }
-		bool getDebug() { return (_debug == true); }
-		int getMPort() { return _mport; }
+	ScrobblingService getService();
 
-		bool gotNecessaryData() { 
-			if(!_lusername.size() || !_lpassword.size())
-				return false;
-			return true;
-		}
-		void LoadConfig(std::string path);
-	private:
-		void ParseLine(std::string line);
-		std::string _lusername, _lpassword;
-		std::string _mhost, _mpassword;
-		std::string _runninguser;
-		ScrobblingService _service;
-		int _mport;
-		bool _debug;
+	std::string Get(std::string name);
+	bool GetBool(std::string name);
+	int GetInt(std::string name);
+	void Set(std::string name, std::string value) { _configuration[name] = value; };
+
+	bool gotNecessaryData() {
+		if(!Get("username").size() || !Get("password").size())
+			return false;
+		return true;
+	}
+
+	void LoadConfig(std::string path);
+private:
+	void ParseLine(std::string line);
+	std::map<std::string, std::string> _configuration;
 };
 
 extern CConfig* Config;

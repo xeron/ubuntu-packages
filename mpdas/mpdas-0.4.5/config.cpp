@@ -1,80 +1,70 @@
 #include "mpdas.h"
 
-CConfig* Config = 0;
-
-void CConfig::ParseLine(std::string line)
+int IniHandler(void* param, const char* section, const char* name, const char* value)
 {
-	std::vector<std::string> tokens;
-	char* pstr = 0;
-	char* szline = new char[line.size()+1];
+    CConfig* config = (CConfig*)param;
+    std::string val = std::string(value);
 
-	strncpy(szline, line.c_str(), line.size()+1);
+    // strip quotes if they exist to allow passwords to begin with a whitespace
+    if(val.length() >= 2 && val[0] == '\"' && val[val.length()-1] == '\"') {
+		val.erase(0, 1);
+		val.erase(val.length() - 1);
+    }
 
-	pstr = strtok(szline, " :=\t");
-	while(pstr) {
-		tokens.push_back(pstr);
-		pstr = strtok(NULL, " :=\t");
-	}
-	delete[] szline;
+    config->Set(name, val);
 
-	if(tokens.size() > 1) {
-		if(tokens[0] == "username")
-			_lusername = tokens[1];
-		else if(tokens[0] == "password")
-			_lpassword = tokens[1];
-		else if(tokens[0] == "host")
-			_mhost = tokens[1];
-		else if(tokens[0] == "mpdpassword")
-			_mpassword = tokens[1];
-		else if(tokens[0] == "service" && tokens[1] == "librefm")
-			_service = LibreFm;
-		else if(tokens[0] == "port")
-			_mport = atoi(tokens[1].c_str());
-		else if(tokens[0] == "runas")
-			_runninguser = tokens[1];
-		else if(tokens[0] == "debug") {
-			if(tokens[1] == "1" || tokens[1] == "true")
-				_debug = true;
-		}
-
-	}
+    return 1;
 }
 
 void CConfig::LoadConfig(std::string path)
 {
-	std::string line = "";
-
-	std::ifstream ifs(path.c_str(), std::ios::in);
-
-	if(!ifs.good()) {
-		iprintf("Config file (%s) does not exist or is not readable.", path.c_str());
+    if(ini_parse(path.c_str(), &IniHandler, this) < 0) {
+		iprintf("Cannot parse config file (%s).", path.c_str());
 		return;
-	}
+    }
+}
+std::string CConfig::Get(std::string name)
+{
+    if(_configuration.find(name) == _configuration.end()) {
+		return "";
+    }
 
-	while(ifs.good()) {
-		getline(ifs, line);
-		ParseLine(line);
-	}
+    return _configuration.find(name)->second;
+}
 
+bool CConfig::GetBool(std::string name)
+{
+    std::string value = Get(name);
+    return value == "1" || value == "true";
+}
+
+int CConfig::GetInt(std::string name)
+{
+    return atoi(Get(name).c_str());
+}
+
+ScrobblingService CConfig::getService()
+{
+    return Get("service") == "librefm" ? LibreFm : LastFm;
 }
 
 CConfig::CConfig(char* cfg)
 {
-	/* Set optional settings to default */
-	_mhost = "localhost";
-	_service = LastFm;
-	_mport = 6600;
-	_debug = false;
+    /* Set optional settings to default */
+    Set("host", "localhost");
+    Set("port", "6600");
+    Set("debug", "false");
+    Set("service", "lastfm");
 
-	std::string path = "";
+    std::string path = "";
 
-	if(!cfg) {
+    if(!cfg) {
 		path = CONFDIR;
 		path.append("/mpdasrc");
-	}
-	else {
+    }
+    else {
 		path = cfg;
-	}
+    }
 
-	LoadConfig(path);
+    LoadConfig(path);
 }
