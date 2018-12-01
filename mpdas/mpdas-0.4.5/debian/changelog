@@ -1,3 +1,9 @@
+mpdas (0.4.5-1cosmic1) cosmic; urgency=medium
+
+  * Build for cosmic.
+
+ -- Ivan Larionov <xeron.oskom@gmail.com>  Sat, 01 Dec 2018 01:46:40 -0800
+
 mpdas (0.4.5-1bionic1) bionic; urgency=medium
 
   * Import new upstream.
