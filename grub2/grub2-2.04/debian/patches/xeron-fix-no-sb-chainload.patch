@@ -1,0 +1,45 @@
+--- a/grub-core/loader/efi/chainloader.c	2019-10-29 02:15:05.000000000 +0000
++++ b/grub-core/loader/efi/chainloader.c	2019-10-29 02:25:31.000000000 +0000
+@@ -892,6 +892,7 @@
+   grub_efi_device_path_t *dp = 0;
+   char *filename;
+   void *boot_image = 0;
++  int sb_rc;
+   int rc;
+ 
+   if (argc == 0)
+@@ -1009,6 +1010,8 @@
+       goto fail;
+     }
+ 
++    sb_rc = grub_efi_secure_boot();
++
+ #if defined (__i386__) || defined (__x86_64__)
+   if (fsize >= (grub_ssize_t) sizeof (struct grub_macho_fat_header))
+     {
+@@ -1020,7 +1023,7 @@
+ 	  struct grub_macho_fat_arch *archs
+ 	    = (struct grub_macho_fat_arch *) (head + 1);
+ 
+-	  if (grub_efi_secure_boot())
++	  if (sb_rc)
+ 	    {
+ 	      grub_error (GRUB_ERR_BAD_OS,
+ 			  "MACHO binaries are forbidden with Secure Boot");
+@@ -1055,14 +1058,14 @@
+ 
+   rc = grub_linuxefi_secure_validate((void *)((grub_addr_t) address), fsize);
+   grub_dprintf ("chain", "linuxefi_secure_validate: %d\n", rc);
+-  if (rc > 0)
++  if (sb_rc && rc > 0)
+     {
+       grub_file_close (file);
+       grub_loader_set (grub_secureboot_chainloader_boot,
+ 		       grub_secureboot_chainloader_unload, 0);
+       return 0;
+     }
+-  else if (rc == 0)
++  else if (!sb_rc || rc == 0)
+     {
+       grub_load_and_start_image(boot_image);
+       grub_file_close (file);

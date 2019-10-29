@@ -67,3 +67,4 @@ ubuntu-temp-keep-auto-nvram.patch
 ubuntu-add-devicetree-command-support.patch
 ubuntu-boot-from-multipath-dependent-symlink.patch
 ubuntu-skip-disk-by-id-lvm-pvm-uuid-entries.patch
+xeron-fix-no-sb-chainload.patch
