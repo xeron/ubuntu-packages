@@ -1,0 +1,27 @@
+From 5dce5708e4eecd9b3e2df79dbf001a66aef5b758 Mon Sep 17 00:00:00 2001
+From: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
+Date: Thu, 11 Jul 2019 09:07:47 -0400
+Subject: UBUNTU: Clear up incorrect spacing when not using early initrds
+
+Signed-off-by: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
+Patch-Name: ubuntu-clear-invalid-initrd-spacing.patch
+---
+ util/grub.d/10_linux.in | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
+index 13f39b9f6..a95992a77 100644
+--- a/util/grub.d/10_linux.in
++++ b/util/grub.d/10_linux.in
+@@ -366,7 +366,10 @@ while [ "x$list" != "x" ] ; do
+ 
+   initrd=
+   if test -n "${initrd_early}" || test -n "${initrd_real}"; then
+-    initrd="${initrd_early} ${initrd_real}"
++    initrd="${initrd_real}"
++    if test -n "${initrd_early}"; then
++        initrd="${initrd_early} ${initrd}"
++    fi
+ 
+     initrd_display=
+     for i in ${initrd}; do
