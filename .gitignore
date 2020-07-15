@@ -1,9 +1,10 @@
-*.dsc
+*.debian.tar.bz2
 *.debian.tar.gz
 *.debian.tar.xz
-*.debian.tar.bz2
+*.dsc
 
 *_source.build
+*_source.buildinfo
 *_source.changes
 *_source.ppa.upload
 
